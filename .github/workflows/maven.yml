@@ -15,24 +15,4 @@ jobs:
 
       - name: Run tests with Maven
         run: mvn -B test --file pom.xml
-
-      - name: Upload test results
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results
-          path: ${{ github.workspace }}/target
-
-      # Temp fix for Test Reporter
-      # https://github.com/dorny/test-reporter/issues/226
-      - name: Set safe directory for git
-        run: git config --global --add safe.directory /__w/DevManager/DevManager
-
-      - name: Report Test Reports
-        uses: dorny/test-reporter@v1
-        if: always()
-        with:
-          name: Test Reports
-          path: ${{ github.workspace }}/target/surefire-reports/*.xml
-          reporter: java-junit
-          fail-on-error: true
 ...
