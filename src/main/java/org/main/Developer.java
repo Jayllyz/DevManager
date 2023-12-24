@@ -1,4 +1,4 @@
-package org.example;
+package org.main;
 
 public class Developer {
     private String name;

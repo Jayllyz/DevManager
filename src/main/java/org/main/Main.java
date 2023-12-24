@@ -1,4 +1,4 @@
-package org.example;
+package org.main;
 
 import java.io.FileReader;
 
@@ -10,7 +10,7 @@ public class Main {
     public static void main(String[] args) {
         JSONParser parser = new JSONParser();
         try {
-            String dataPath = "src/main/java/org/example/data/data.json";
+            String dataPath = "src/main/java/org/main/data/data.json";
             Object obj = parser.parse(new FileReader(dataPath));
             JSONObject jsonObject = (JSONObject) obj;
 
@@ -27,7 +27,7 @@ public class Main {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
     }
 }
