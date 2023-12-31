@@ -1,6 +1,7 @@
 package domain.developers;
 
 import infrastructure.developer.DeveloperFakeRepositoryAdapter;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -14,6 +15,7 @@ class DeveloperTest {
     DeveloperRepository repository = new DeveloperFakeRepositoryAdapter();
 
     @Test
+    @DisplayName("should create a developer")
     void shouldCreateADeveloper() {
 
         HashMap<Skill, Integer> skills = new HashMap<>();
@@ -24,7 +26,8 @@ class DeveloperTest {
     }
 
     @Test
-    void shouldGetDeveloperMail() {
+    @DisplayName("should get developer by mail")
+    void shouldGetDeveloperByMail() {
         ManageDeveloper manager = new DeveloperManager(repository);
         Developer john = manager.getDeveloperByMail("johndoe@gmail.com");
         assertNotNull(john);
@@ -32,13 +35,15 @@ class DeveloperTest {
     }
 
     @Test
-    void shouldThrowIllegalArgumentExceptionWhenEmailIsNull() {
+    @DisplayName("should fail when email is null")
+    void shouldFailWhenNullEmail() {
         ManageDeveloper manager = new DeveloperManager(repository);
         assertThrows(IllegalArgumentException.class, () -> manager.getDeveloperByMail(null));
     }
 
     @Test
-    void shouldFailWhenEmailIsNotInDatabase() {
+    @DisplayName("should fail when email does not exist")
+    void shouldFailBadEmail() {
         ManageDeveloper manager = new DeveloperManager(repository);
         Developer john = manager.getDeveloperByMail("test@gmail.com");
         assertNull(john);
