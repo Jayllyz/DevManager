@@ -3,6 +3,7 @@ package domain.developers;
 import infrastructure.developer.DeveloperFakeRepositoryAdapter;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * The type Developer manager.
@@ -33,6 +34,11 @@ public class DeveloperManager implements ManageDeveloper{
         }
 
         return repository.getDeveloperByMail(email);
+    }
+
+    @Override
+    public List<Developer> getAllDevelopers() {
+        return repository.getAllDevelopers();
     }
 
 

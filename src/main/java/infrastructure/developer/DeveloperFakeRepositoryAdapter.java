@@ -57,4 +57,9 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
 
         return developers.stream().filter(developer -> developer.getEmailAddress().equals(email)).findFirst().orElse(null);
     }
+
+    @Override
+    public List<Developer> getAllDevelopers() {
+        return developers;
+    }
 }

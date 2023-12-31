@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -47,5 +48,14 @@ class DeveloperTest {
         ManageDeveloper manager = new DeveloperManager(repository);
         Developer john = manager.getDeveloperByMail("test@gmail.com");
         assertNull(john);
+    }
+
+    @Test
+    @DisplayName("should get all developers")
+    void shouldGetAllDevelopers() {
+        ManageDeveloper manager = new DeveloperManager(repository);
+        List<Developer> developers = manager.getAllDevelopers();
+        assertNotNull(developers);
+        assertEquals(3, developers.size());
     }
 }
