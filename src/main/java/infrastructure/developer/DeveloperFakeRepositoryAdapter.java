@@ -41,4 +41,20 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
     public Developer createDeveloper(Developer developer) {
         return null;
     }
+
+    /**
+     * Gets developer by mail.
+     *
+     * @param email the email
+     * @return the developer by mail
+     * @throws IllegalArgumentException the illegal argument exception
+     */
+    @Override
+    public Developer getDeveloperByMail(String email) {
+        if (email == null) {
+            throw new IllegalArgumentException("email can't be null");
+        }
+
+        return developers.stream().filter(developer -> developer.getEmailAddress().equals(email)).findFirst().orElse(null);
+    }
 }
