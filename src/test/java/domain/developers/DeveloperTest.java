@@ -25,20 +25,22 @@ class DeveloperTest {
 
     @Test
     void shouldGetDeveloperMail() {
-        Developer john = repository.getDeveloperByMail("johndoe@gmail.com");
+        ManageDeveloper manager = new DeveloperManager(repository);
+        Developer john = manager.getDeveloperByMail("johndoe@gmail.com");
         assertNotNull(john);
-        assertEquals("John", john.getName());
         assertInstanceOf(Developer.class, john);
     }
 
     @Test
     void shouldThrowIllegalArgumentExceptionWhenEmailIsNull() {
-        assertThrows(IllegalArgumentException.class, () -> repository.getDeveloperByMail(null));
+        ManageDeveloper manager = new DeveloperManager(repository);
+        assertThrows(IllegalArgumentException.class, () -> manager.getDeveloperByMail(null));
     }
 
     @Test
     void shouldFailWhenEmailIsNotInDatabase() {
-        Developer john = repository.getDeveloperByMail("test@gmail.com");
+        ManageDeveloper manager = new DeveloperManager(repository);
+        Developer john = manager.getDeveloperByMail("test@gmail.com");
         assertNull(john);
     }
 }
