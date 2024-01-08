@@ -1,5 +1,7 @@
 package domain.developers;
 
+import domain.Skill;
+
 import java.time.LocalDate;
 import java.util.HashMap;
 
