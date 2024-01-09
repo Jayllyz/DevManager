@@ -2,7 +2,7 @@ package infrastructure.developer;
 
 import domain.developers.Developer;
 import domain.developers.DeveloperRepository;
-import domain.developers.Skill;
+import domain.Skill;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -31,10 +31,10 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
         skillSet2.put(Skill.CSS,1);
         skillSet2.put(Skill.SCRATCH,23);
 
-        skillSet1.put(Skill.PHP,2);
-        skillSet1.put(Skill.COBOL,4);
-        skillSet1.put(Skill.COFFEE,1);
-        skillSet1.put(Skill.HTML,2);
+        skillSet3.put(Skill.PHP,2);
+        skillSet3.put(Skill.COBOL,4);
+        skillSet3.put(Skill.COFFEE,1);
+        skillSet3.put(Skill.HTML,2);
     }
 
     @Override

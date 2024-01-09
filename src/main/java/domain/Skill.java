@@ -1,4 +1,4 @@
-package domain.developers;
+package domain;
 
 public enum Skill {
     PHP,
@@ -7,5 +7,5 @@ public enum Skill {
     HTML,
     CSS,
     COFFEE,
-
+    C,
 }

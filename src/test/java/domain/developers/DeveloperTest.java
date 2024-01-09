@@ -1,5 +1,6 @@
 package domain.developers;
 
+import domain.Skill;
 import infrastructure.developer.DeveloperFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

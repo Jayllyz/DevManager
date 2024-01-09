@@ -1,6 +1,6 @@
 package domain.developers;
 
-import infrastructure.developer.DeveloperFakeRepositoryAdapter;
+import domain.Skill;
 
 import java.util.HashMap;
 import java.util.List;
@@ -10,6 +10,7 @@ import java.util.List;
  */
 // HEXAGON
 public class DeveloperManager implements ManageDeveloper{
+    DeveloperRepository repository;
 
     public DeveloperManager(DeveloperRepository repository) {
 
@@ -20,7 +21,6 @@ public class DeveloperManager implements ManageDeveloper{
         this.repository = repository;
     }
 
-    DeveloperRepository repository;
 
     @Override
     public Developer createDeveloper(String name, String email, HashMap<Skill, Integer> skills) {
