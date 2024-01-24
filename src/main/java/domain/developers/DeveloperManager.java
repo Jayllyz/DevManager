@@ -23,8 +23,9 @@ public class DeveloperManager implements ManageDeveloper{
 
 
     @Override
-    public Developer createDeveloper(String name, String email, HashMap<Skill, Integer> skills) {
-        return null;
+    public Developer createDeveloper(Developer developer) {
+        this.repository.createDeveloper(developer);
+        return developer;
     }
 
     @Override
