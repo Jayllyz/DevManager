@@ -32,11 +32,11 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
     /**
      * The Projects.
      */
-    List<Project> projects = List.of(
+    List<Project> projects = new ArrayList<>(List.of(
             new Project("Calculator", 1, "Une calculatrice en C", LocalDate.of(2024, 2, 6), LocalDate.of(2024, 4, 1), stack1),
             new Project("Project Network", 2, "Faire un double proxy en TLS avec Scratch", LocalDate.of(2024, 2, 2), LocalDate.of(2024, 4, 1), stack2),
             new Project("Annual Project", 3, "Refaire le projet annuel de 2022", LocalDate.of(2024, 2, 3), LocalDate.of(2024, 4, 1), stack3)
-    );
+    ));
 
     /**
      * Instantiates a new Project fake repository adapter.
@@ -67,6 +67,15 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
         return returnList;
     }
 
+    @Override
+    public Boolean deleteProject(Project project) {
+        if(projects.contains(project)) {
+            projects.remove(project);
+            return true;
+        }
+        return false;
+    }
+  
     @Override
     public Project postponeProject(Project project, LocalDate startDate) {
         if(startDate != null && startDate.isBefore(project.getStart())) {

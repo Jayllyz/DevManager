@@ -31,6 +31,13 @@ public class ProjectTest {
     }
 
     @Test
+    @DisplayName("Should delete a waiting project")
+    void shouldDeleteAProject() {
+        Project project = projectRepository.listProjectByStatus(Status.WAITING).get(0);
+        assertTrue(projectRepository.deleteProject(project));
+    }
+  
+    @Test
     @DisplayName("Postpone project should throw IllegalArgumentException if startDate is before project start")
     void postponeProjectShouldFail() {
         HashMap<Skill, Integer> stack = new HashMap<>();

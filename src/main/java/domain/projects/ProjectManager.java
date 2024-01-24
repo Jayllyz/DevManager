@@ -31,6 +31,15 @@ public class ProjectManager implements ManageProject {
     }
 
     @Override
+    public Boolean deleteProject(Project project) {
+        if(project.getStatus() != Status.WAITING) {
+            throw new IllegalArgumentException("Project is not in waiting status");
+        }
+        repository.deleteProject(project);
+        return true;
+    }
+  
+    @Override
     public Project postponeProject(Project project, LocalDate startDate) {
         return repository.postponeProject(project, startDate);
     }
