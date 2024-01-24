@@ -3,8 +3,10 @@ package infrastructure.project;
 import domain.Skill;
 import domain.projects.Project;
 import domain.projects.ProjectRepository;
+import domain.projects.Status;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,5 +35,16 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
     public Project createProject(Project project) {
         projects.add(project);
         return project;
+    }
+
+    @Override
+    public List<Project> listProjectByStatus(Status status) {
+        List<Project> returnList = new ArrayList<>();
+        for(Project project : projects) {
+            if(project.getStatus() == status) {
+                returnList.add(project);
+            }
+        }
+        return returnList;
     }
 }
