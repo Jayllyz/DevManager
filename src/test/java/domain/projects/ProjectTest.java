@@ -29,4 +29,11 @@ public class ProjectTest {
         assertNotNull(projectRepository.listProjectByStatus(Status.WAITING));
         assertInstanceOf(List.class, projectRepository.listProjectByStatus(Status.WAITING));
     }
+
+    @Test
+    @DisplayName("Should delete a waiting project")
+    void shouldDeleteAProject() {
+        Project project = projectRepository.listProjectByStatus(Status.WAITING).get(0);
+        assertTrue(projectRepository.deleteProject(project));
+    }
 }

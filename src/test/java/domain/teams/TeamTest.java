@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertInstanceOf;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-public class TeamTeast {
+public class TeamTest {
     TeamRepository teamRepository = new TeamFakeRepositoryAdapter();
 
     @Test
