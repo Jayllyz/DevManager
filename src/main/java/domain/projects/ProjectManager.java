@@ -38,4 +38,14 @@ public class ProjectManager implements ManageProject {
         repository.deleteProject(project);
         return true;
     }
+  
+    @Override
+    public Project postponeProject(Project project, LocalDate startDate) {
+        return repository.postponeProject(project, startDate);
+    }
+
+    @Override
+    public Project getNextStartingProject() {
+        return repository.getNextStartingProject();
+    }
 }
