@@ -29,4 +29,14 @@ public class ProjectManager implements ManageProject {
     public List<Project> listProjectByStatus(Status status) {
         return repository.listProjectByStatus(status);
     }
+
+    @Override
+    public Project postponeProject(Project project, LocalDate startDate) {
+        return repository.postponeProject(project, startDate);
+    }
+
+    @Override
+    public Project getNextStartingProject() {
+        return repository.getNextStartingProject();
+    }
 }
