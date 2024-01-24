@@ -7,8 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertInstanceOf;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ProjectTest {
     ProjectRepository projectRepository = new ProjectFakeRepositoryAdapter();
@@ -20,5 +21,12 @@ public class ProjectTest {
         stack.put(Skill.COBOL, 1);
         Project project = new Project("Project 1", 1, "Description", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 5, 1), stack);
         assertInstanceOf(Project.class, project);
+    }
+
+    @Test
+    @DisplayName("Should return list of WAITING projects")
+    void shouldReturnListOfWaitingProjects() {
+        assertNotNull(projectRepository.listProjectByStatus(Status.WAITING));
+        assertInstanceOf(List.class, projectRepository.listProjectByStatus(Status.WAITING));
     }
 }
