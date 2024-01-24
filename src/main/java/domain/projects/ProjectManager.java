@@ -4,9 +4,11 @@ import domain.Skill;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 
 public class ProjectManager implements ManageProject {
     ProjectRepository repository;
+
     public ProjectManager(ProjectRepository repository) {
 
         if(repository == null) {
@@ -21,5 +23,10 @@ public class ProjectManager implements ManageProject {
         Project project = new Project(name, priority, description, start, deadline, stack);
         repository.createProject(project);
         return project;
+    }
+
+    @Override
+    public List<Project> listProjectByStatus(Status status) {
+        return repository.listProjectByStatus(status);
     }
 }
