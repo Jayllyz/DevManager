@@ -35,7 +35,7 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
     List<Project> projects = new ArrayList<>(List.of(
             new Project("Calculator", 1, "Une calculatrice en C", LocalDate.of(2024, 2, 6), LocalDate.of(2024, 4, 1), stack1),
             new Project("Project Network", 2, "Faire un double proxy en TLS avec Scratch", LocalDate.of(2024, 2, 2), LocalDate.of(2024, 4, 1), stack2),
-            new Project("Annual Project", 3, "Refaire le projet annuel de 2022", LocalDate.of2024, 2, 3), LocalDate.of(2024, 4, 1), stack3)
+            new Project("Annual Project", 3, "Refaire le projet annuel de 2022", LocalDate.of(2024, 2, 3), LocalDate.of(2024, 4, 1), stack3)
     ));
 
     /**
