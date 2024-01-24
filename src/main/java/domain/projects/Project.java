@@ -12,6 +12,7 @@ public class Project {
     private LocalDate start;
     private LocalDate deadline;
     private HashMap<Skill, Integer> stack;
+    private int status;
 
     public Project(String name, int priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
         this.name = name;
@@ -20,5 +21,6 @@ public class Project {
         this.start = start;
         this.deadline = deadline;
         this.stack = stack;
+        this.status = 0;
     }
 }
