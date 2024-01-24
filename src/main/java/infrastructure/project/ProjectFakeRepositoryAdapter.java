@@ -7,6 +7,7 @@ import domain.projects.Status;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 
@@ -32,9 +33,9 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
      * The Projects.
      */
     List<Project> projects = List.of(
-            new Project("Calculator", 1, "Une calculatrice en C", LocalDate.of(2024, 2, 1), LocalDate.of(2024, 4, 1), stack1),
-            new Project("Project Network", 2, "Faire un double proxy en TLS avec Scratch", LocalDate.of(2024, 2, 1), LocalDate.of(2024, 4, 1), stack2),
-            new Project("Annual Project", 3, "Refaire le projet annuel de 2022", LocalDate.of(2024, 2, 1), LocalDate.of(2024, 4, 1), stack3)
+            new Project("Calculator", 1, "Une calculatrice en C", LocalDate.of(2024, 2, 6), LocalDate.of(2024, 4, 1), stack1),
+            new Project("Project Network", 2, "Faire un double proxy en TLS avec Scratch", LocalDate.of(2024, 2, 2), LocalDate.of(2024, 4, 1), stack2),
+            new Project("Annual Project", 3, "Refaire le projet annuel de 2022", LocalDate.of(2024, 2, 3), LocalDate.of(2024, 4, 1), stack3)
     );
 
     /**
@@ -65,4 +66,27 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
         }
         return returnList;
     }
+
+    @Override
+    public Project postponeProject(Project project, LocalDate startDate) {
+        if(startDate != null && startDate.isBefore(project.getStart())) {
+            throw new IllegalArgumentException("startDate can't be before project start");
+        }
+        project.setStart(startDate);
+        return project;
+    }
+
+    @Override
+    public Project getNextStartingProject() {
+        List<Project> projects = new ArrayList<>(this.projects);
+        projects.sort(Comparator.comparing(Project::getStart));
+        for(Project project : projects) {
+            if(project.getStatus() == Status.WAITING) {
+                return project;
+            }
+        }
+        return null;
+    }
+
+
 }
