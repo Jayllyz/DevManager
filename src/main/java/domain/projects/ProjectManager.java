@@ -1,6 +1,8 @@
 package domain.projects;
 
 import domain.Skill;
+import domain.projects.attributes.Priority;
+import domain.projects.attributes.Status;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -19,8 +21,11 @@ public class ProjectManager implements ManageProject {
     }
 
     @Override
-    public Project createProject(String name, int priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
+    public Project createProject(String name, Priority priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
         Project project = new Project(name, priority, description, start, deadline, stack);
+        if(project.getDeadline().isBefore(project.getStart())) {
+            throw new IllegalArgumentException("Deadline cannot be before start date");
+        }
         repository.createProject(project);
         return project;
     }

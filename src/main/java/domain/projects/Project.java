@@ -1,83 +1,55 @@
 package domain.projects;
 
 import domain.Skill;
+import domain.projects.attributes.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 
 public class Project {
-    private String name;
-    private int priority;
-    private String description;
-    private LocalDate start;
-    private LocalDate deadline;
-    private HashMap<Skill, Integer> stack;
+    private Name name;
+    private Priority priority;
+    private Description description;
+    private Start start;
+    private Deadline deadline;
+    private SkillStack stack;
     private Status status;
 
-    public Project(String name, int priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
-        this.name = name;
+    public Project(String name, Priority priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
+        this.name = new Name(name);
         this.priority = priority;
-        this.description = description;
-        this.start = start;
-        this.deadline = deadline;
-        this.stack = stack;
+        this.description = new Description(description);
+        this.start = new Start(start);
+        this.deadline = new Deadline(deadline);
+        this.stack = new SkillStack(stack);
         this.status = Status.WAITING;
     }
 
     public String getName() {
-        return name;
+        return name.toString();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
     public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+        return description.toString();
     }
 
     public LocalDate getStart() {
-        return start;
-    }
-
-    public void setStart(LocalDate start) {
-        this.start = start;
+        return start.getStart();
     }
 
     public LocalDate getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(LocalDate deadline) {
-        this.deadline = deadline;
+        return deadline.getDeadline();
     }
 
     public HashMap<Skill, Integer> getStack() {
-        return stack;
-    }
-
-    public void setStack(HashMap<Skill, Integer> stack) {
-        this.stack = stack;
+        return stack.getStack();
     }
 
     public Status getStatus() {
         return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
     }
 }

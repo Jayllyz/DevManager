@@ -1,4 +1,4 @@
-package domain.projects;
+package domain.projects.attributes;
 
 public enum Status {
     WAITING,

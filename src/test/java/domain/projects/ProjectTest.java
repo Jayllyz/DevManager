@@ -1,6 +1,7 @@
 package domain.projects;
 
 import domain.Skill;
+import domain.projects.attributes.Status;
 import infrastructure.project.ProjectFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
