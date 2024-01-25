@@ -3,6 +3,7 @@ package infrastructure.project;
 import domain.Skill;
 import domain.projects.Project;
 import domain.projects.ProjectRepository;
+import domain.projects.attributes.Priority;
 import domain.projects.attributes.Status;
 
 import java.time.LocalDate;
@@ -33,9 +34,9 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
      * The Projects.
      */
     List<Project> projects = new ArrayList<>(List.of(
-            new Project("Calculator", 1, "Une calculatrice en C", LocalDate.of(2024, 2, 6), LocalDate.of(2024, 4, 1), stack1),
-            new Project("Project Network", 2, "Faire un double proxy en TLS avec Scratch", LocalDate.of(2024, 2, 2), LocalDate.of(2024, 4, 1), stack2),
-            new Project("Annual Project", 3, "Refaire le projet annuel de 2022", LocalDate.of(2024, 2, 3), LocalDate.of(2024, 4, 1), stack3)
+            new Project("Calculator", Priority.NORMAL, "Une calculatrice en C", LocalDate.of(2024, 2, 6), LocalDate.of(2024, 4, 1), stack1),
+            new Project("Project Network", Priority.NORMAL, "Faire un double proxy en TLS avec Scratch", LocalDate.of(2024, 2, 2), LocalDate.of(2024, 4, 1), stack2),
+            new Project("Annual Project", Priority.NORMAL, "Refaire le projet annuel de 2022", LocalDate.of(2024, 2, 3), LocalDate.of(2024, 4, 1), stack3)
     ));
 
     /**
@@ -75,13 +76,13 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
         }
         return false;
     }
-  
+
     @Override
     public Project postponeProject(Project project, LocalDate startDate) {
         if(startDate != null && startDate.isBefore(project.getStart())) {
             throw new IllegalArgumentException("startDate can't be before project start");
         }
-        project.setStart(startDate);
+//        project.setStart(startDate);
         return project;
     }
 

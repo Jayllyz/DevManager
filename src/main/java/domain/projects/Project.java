@@ -52,4 +52,8 @@ public class Project {
     public Status getStatus() {
         return status;
     }
+
+    public void postponeProject(LocalDate newDate){
+        this.start = new Start(newDate);
+    }
 }
