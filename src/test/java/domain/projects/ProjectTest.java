@@ -1,6 +1,7 @@
 package domain.projects;
 
 import domain.Skill;
+import domain.projects.attributes.Priority;
 import domain.projects.attributes.Status;
 import infrastructure.project.ProjectFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
@@ -20,7 +21,7 @@ public class ProjectTest {
     void shouldCreateAProject() {
         HashMap<Skill, Integer> stack = new HashMap<>();
         stack.put(Skill.COBOL, 1);
-        Project project = new Project("Project 1", 1, "Description", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 5, 1), stack);
+        Project project = new Project("Project 1", Priority.NORMAL, "Description", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 5, 1), stack);
         assertInstanceOf(Project.class, project);
     }
 
@@ -43,7 +44,7 @@ public class ProjectTest {
     void postponeProjectShouldFail() {
         HashMap<Skill, Integer> stack = new HashMap<>();
         stack.put(Skill.COBOL, 1);
-        Project project = new Project("Project 1", 1, "Description", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 5, 1), stack);
+        Project project = new Project("Project 1", Priority.NORMAL, "Description", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 5, 1), stack);
         assertThrows(IllegalArgumentException.class, () -> projectRepository.postponeProject(project, LocalDate.of(2024, 2, 1)));
     }
 
@@ -52,7 +53,7 @@ public class ProjectTest {
     void postponeProjectShouldReturnAProject() {
         HashMap<Skill, Integer> stack = new HashMap<>();
         stack.put(Skill.COBOL, 1);
-        Project project = new Project("Project 1", 1, "Description", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 5, 1), stack);
+        Project project = new Project("Project 1", Priority.NORMAL, "Description", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 5, 1), stack);
         assertInstanceOf(Project.class, projectRepository.postponeProject(project, LocalDate.of(2024, 4, 1)));
     }
 
