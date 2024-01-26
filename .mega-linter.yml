@@ -21,11 +21,10 @@ DISABLE_LINTERS:
 DISABLE:
   - COPYPASTE # Comment to enable checks of excessive copy-pastes
   - SPELL # Comment to enable checks of spelling mistakes
-
+  - YAML # Comment to enable checks of YAML files
 SHOW_ELAPSED_TIME: true
 FILEIO_REPORTER: false
 DISABLE_ERRORS: true
-YAML_FILTER_REGEX_EXCLUDE: ".github/workflows/mega-linter.yml"
 
 # Uncomment if you want MegaLinter to detect errors but not block CI to pass
 # DISABLE_ERRORS: true
