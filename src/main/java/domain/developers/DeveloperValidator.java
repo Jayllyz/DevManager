@@ -19,7 +19,7 @@ public class DeveloperValidator {
         Matcher matcher = pattern.matcher(firstName);
 
         if(matcher.matches()) {
-            throw new IllegalArgumentException("first name can't contain special characters");
+            throw new IllegalArgumentException("Developer name can't contain special characters");
         }
 
         return true;
