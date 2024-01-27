@@ -1,6 +1,6 @@
 package domain.projects;
 
-import domain.Skill;
+import shared.Skill;
 import infrastructure.project.ProjectFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

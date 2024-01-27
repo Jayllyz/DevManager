@@ -1,10 +1,10 @@
 package domain.projects;
 
-import domain.Skill;
+
+import shared.Skill;
 
 import java.time.LocalDate;
 import java.util.HashMap;
-import java.util.List;
 
 public class Project {
     private String name;

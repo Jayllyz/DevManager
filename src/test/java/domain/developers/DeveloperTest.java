@@ -1,9 +1,12 @@
 package domain.developers;
 
-import domain.Skill;
+import shared.Skill;
 import infrastructure.developer.DeveloperFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import shared.developers.Email;
+import shared.developers.Name;
+import shared.exceptions.InvalidAttributeException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -23,7 +26,12 @@ class DeveloperTest {
         HashMap<Skill, Integer> skills = new HashMap<>();
         skills.put(Skill.COBOL,15);
 
-        Developer john = new Developer("John", "johnnyjones@john.john", skills, LocalDate.of(2002,1,1));
+        Developer john = null;
+        try {
+            john = new Developer(new Name("john"),new Name("doe"), new Email("johnnyjones@john.john"), skills);
+        } catch (InvalidAttributeException e) {
+            throw new RuntimeException(e);
+        }
         assertInstanceOf(Developer.class, john);
     }
 

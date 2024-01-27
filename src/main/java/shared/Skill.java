@@ -1,4 +1,4 @@
-package domain;
+package shared;
 
 public enum Skill {
     PHP,

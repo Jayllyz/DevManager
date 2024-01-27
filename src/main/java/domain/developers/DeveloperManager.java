@@ -1,8 +1,5 @@
 package domain.developers;
 
-import domain.Skill;
-
-import java.util.HashMap;
 import java.util.List;
 
 /**

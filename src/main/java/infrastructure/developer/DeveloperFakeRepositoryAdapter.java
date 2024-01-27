@@ -2,7 +2,10 @@ package infrastructure.developer;
 
 import domain.developers.Developer;
 import domain.developers.DeveloperRepository;
-import domain.Skill;
+import shared.Skill;
+import shared.developers.Email;
+import shared.developers.Name;
+import shared.exceptions.InvalidAttributeException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -14,11 +17,19 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
     HashMap<Skill,Integer> skillSet2 = new HashMap<>();
     HashMap<Skill,Integer> skillSet3 = new HashMap<>();
 
-    List<Developer> developers = List.of(
-            new Developer("John","johndoe@gmail.com",skillSet1, LocalDate.of(2021,1,12)),
-            new Developer("Marc","marc@gmail.com",skillSet2, LocalDate.of(2020,3,22)),
-            new Developer("Jeanne","jeanne@gmail.com",skillSet3, LocalDate.of(2023,5,24))
-    );
+    List<Developer> developers;
+
+    {
+        try {
+            developers = List.of(
+                    new Developer(new Name("john"),new Name("Doe"),new Email("johndoe@gmail.com"),skillSet1),
+                    new Developer(new Name("Marc"),new Name("Robel"),new Email("marc@gmail.com"),skillSet2),
+                    new Developer(new Name("Jeanne"),new Name("Darc"),new Email("jeanne@gmail.com"),skillSet3)
+            );
+        } catch (InvalidAttributeException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     public DeveloperFakeRepositoryAdapter() {
         skillSet1.put(Skill.PHP,3);

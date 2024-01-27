@@ -1,9 +1,9 @@
 package infrastructure.project;
 
-import domain.Skill;
 import domain.projects.Project;
 import domain.projects.ProjectRepository;
 import domain.projects.Status;
+import shared.Skill;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

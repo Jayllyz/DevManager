@@ -1,6 +1,7 @@
 package domain.projects;
 
-import domain.Skill;
+
+import shared.Skill;
 
 import java.time.LocalDate;
 import java.util.HashMap;
