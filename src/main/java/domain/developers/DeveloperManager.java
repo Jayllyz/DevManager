@@ -1,5 +1,7 @@
 package domain.developers;
 
+import shared.Skill;
+
 import java.util.List;
 
 /**
@@ -37,6 +39,11 @@ public class DeveloperManager implements ManageDeveloper{
     @Override
     public List<Developer> getAllDevelopers() {
         return repository.getAllDevelopers();
+    }
+
+    @Override
+    public Developer getAllDevelopersBySkill(Skill skill) {
+        return null;
     }
 
 
