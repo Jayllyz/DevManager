@@ -1,17 +1,32 @@
 package shared;
 
+import shared.exceptions.InvalidAttributeException;
+
 public enum Experience {
     JUNIOR,
     SKILLED,
     EXPERT;
 
-    Experience() {
+    private int yearsOfExperience;
+
+    public static Experience fromYearsOfExperience(int yearsOfExperience) throws InvalidAttributeException {
+        if(yearsOfExperience < 0) throw new InvalidAttributeException("years of experience can't have a negative value");
+        Experience experience;
+
+        if(yearsOfExperience <= 3) {
+            experience = Experience.JUNIOR;
+        } else if(yearsOfExperience <= 5) {
+            experience = Experience.SKILLED;
+        } else {
+            experience = Experience.EXPERT;
+        }
+
+        experience.yearsOfExperience = yearsOfExperience;
+        return experience;
     }
 
-    Experience fromYearsOfExperience(int yearsOfExperience) {
-        if(yearsOfExperience <= 3) return JUNIOR;
-        if(yearsOfExperience <= 5) return SKILLED;
-        return EXPERT;
+    public int getYearsOfExperience() {
+        return yearsOfExperience;
     }
 
     private static class Constants {

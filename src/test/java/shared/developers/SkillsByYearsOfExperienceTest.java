@@ -1,6 +1,7 @@
 package shared.developers;
 
 import org.junit.jupiter.api.Test;
+import shared.Experience;
 import shared.Skill;
 import shared.exceptions.InvalidAttributeException;
 
@@ -22,21 +23,20 @@ class SkillsByYearsOfExperienceTest {
     }
     @Test
     void shouldThrowExceptionWhenExperienceIsNegative() {
-        HashMap<Skill, Integer> skillByYearsOfExperience = new HashMap<>();
-        skillByYearsOfExperience.put(Skill.PHP, -1);
+        HashMap<Skill, Experience> skillByYearsOfExperience = new HashMap<>();
 
         InvalidAttributeException exception =  assertThrows(InvalidAttributeException.class,() -> {
-            SkillsByYearsOfExperience skills = new SkillsByYearsOfExperience(skillByYearsOfExperience);
+            skillByYearsOfExperience.put(Skill.PHP, Experience.fromYearsOfExperience(-1));
         });
 
-        String expectedMessage = "The skill experience of the developer cannot have negative values";
+        String expectedMessage = "years of experience can't have a negative value";
         assertEquals(expectedMessage,exception.getMessage());
     }
 
     @Test
-    void shouldReturn5YearsForPHP() {
-        HashMap<Skill, Integer> skillByYearsOfExperience = new HashMap<>();
-        skillByYearsOfExperience.put(Skill.PHP, 5);
+    void shouldReturn5YearsForPHP() throws InvalidAttributeException {
+        HashMap<Skill, Experience> skillByYearsOfExperience = new HashMap<>();
+        skillByYearsOfExperience.put(Skill.PHP, Experience.fromYearsOfExperience(5));
 
         try {
             SkillsByYearsOfExperience skills = new SkillsByYearsOfExperience(skillByYearsOfExperience);
@@ -47,9 +47,9 @@ class SkillsByYearsOfExperienceTest {
     }
 
     @Test
-    void shouldReturnNegativeOneWhenExperienceDoesntExist() {
-        HashMap<Skill, Integer> skillByYearsOfExperience = new HashMap<>();
-        skillByYearsOfExperience.put(Skill.PHP, 5);
+    void shouldReturnNegativeOneWhenExperienceDoesntExist() throws InvalidAttributeException {
+        HashMap<Skill, Experience> skillByYearsOfExperience = new HashMap<>();
+        skillByYearsOfExperience.put(Skill.PHP, Experience.fromYearsOfExperience(5));
 
         try {
             SkillsByYearsOfExperience skills = new SkillsByYearsOfExperience(skillByYearsOfExperience);

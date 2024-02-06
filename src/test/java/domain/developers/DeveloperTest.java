@@ -1,11 +1,13 @@
 package domain.developers;
 
+import shared.Experience;
 import shared.Skill;
 import infrastructure.developer.DeveloperFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shared.developers.Email;
 import shared.developers.Name;
+import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
 
 import java.time.LocalDate;
@@ -17,14 +19,24 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DeveloperTest {
 
-    DeveloperRepository repository = new DeveloperFakeRepositoryAdapter();
+    DeveloperRepository repository;
+
+    {
+        try {
+            repository = new DeveloperFakeRepositoryAdapter();
+        } catch (InvalidAttributeException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Test
     @DisplayName("should create a developer")
-    void shouldCreateADeveloper() {
+    void shouldCreateADeveloper() throws InvalidAttributeException {
 
-        HashMap<Skill, Integer> skills = new HashMap<>();
-        skills.put(Skill.COBOL,15);
+        HashMap<Skill, Experience> hashMap = new HashMap<>();
+        hashMap.put(Skill.COBOL,Experience.fromYearsOfExperience(14));
+        SkillsByYearsOfExperience skills = new SkillsByYearsOfExperience(hashMap);
 
         Developer john = null;
         try {
