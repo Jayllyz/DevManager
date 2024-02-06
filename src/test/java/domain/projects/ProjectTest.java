@@ -1,11 +1,11 @@
 package domain.projects;
 
+import domain.projects.attributes.*;
 import shared.Skill;
-import domain.projects.attributes.Priority;
-import domain.projects.attributes.Status;
 import infrastructure.project.ProjectFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import shared.projects.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -21,7 +21,12 @@ public class ProjectTest {
     void shouldCreateAProject() {
         HashMap<Skill, Integer> stack = new HashMap<>();
         stack.put(Skill.COBOL, 1);
-        Project project = new Project("Project 1", Priority.NORMAL, "Description", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 5, 1), stack);
+        Project project;
+        try {
+            project = new Project(new Name("Test"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         assertInstanceOf(Project.class, project);
     }
 
@@ -44,7 +49,12 @@ public class ProjectTest {
     void postponeProjectShouldFail() {
         HashMap<Skill, Integer> stack = new HashMap<>();
         stack.put(Skill.COBOL, 1);
-        Project project = new Project("Project 1", Priority.NORMAL, "Description", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 5, 1), stack);
+        Project project;
+        try{
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         assertThrows(IllegalArgumentException.class, () -> projectRepository.postponeProject(project, LocalDate.of(2024, 2, 1)));
     }
 
@@ -53,8 +63,41 @@ public class ProjectTest {
     void postponeProjectShouldReturnAProject() {
         HashMap<Skill, Integer> stack = new HashMap<>();
         stack.put(Skill.COBOL, 1);
-        Project project = new Project("Project 1", Priority.NORMAL, "Description", LocalDate.of(2024, 3, 1), LocalDate.of(2024, 5, 1), stack);
+        Project project;
+        try{
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         assertInstanceOf(Project.class, projectRepository.postponeProject(project, LocalDate.of(2024, 4, 1)));
+    }
+
+    @Test
+    @DisplayName("Postpone project should throw IllegalArgumentException if startDate is before initial project start")
+    void postponeProjectShouldFailIfStartDateIsBeforeInitialProjectStart() {
+        HashMap<Skill, Integer> stack = new HashMap<>();
+        stack.put(Skill.COBOL, 1);
+        Project project;
+        try{
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        assertThrows(IllegalArgumentException.class, () -> projectRepository.postponeProject(project, LocalDate.of(2024, 2, 1)));
+    }
+
+    @Test
+    @DisplayName("Postpone project should throw IllegalArgumentException if startDate is after the deadline")
+    void postponeProjectShouldFailIfStartDateIsAfterInitialProjectDeadline() {
+        HashMap<Skill, Integer> stack = new HashMap<>();
+        stack.put(Skill.COBOL, 1);
+        Project project;
+        try{
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        assertThrows(IllegalArgumentException.class, () -> projectRepository.postponeProject(project, LocalDate.of(2024, 6, 1)));
     }
 
     @Test
@@ -64,5 +107,4 @@ public class ProjectTest {
         assertInstanceOf(Project.class, projectRepository.getNextStartingProject());
         assertEquals("Project Network", projectRepository.getNextStartingProject().getName());
     }
-
 }

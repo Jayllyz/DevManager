@@ -25,7 +25,7 @@ public class Developers {
 //            TODO: verifier que dans une equipe n'a pas plus de 3 juniors
 //            TODO: en fonction des criteres pour savoir comment definir un junior
 
-            
+
         }
 
         this.developers = developers;
