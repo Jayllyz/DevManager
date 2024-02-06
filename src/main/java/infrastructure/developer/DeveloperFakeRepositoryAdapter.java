@@ -8,12 +8,10 @@ import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
-import shared.exceptions.NoEntityFoundException;
+import shared.exceptions.EntityNotFoundException;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
 
@@ -65,12 +63,24 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
      * @throws IllegalArgumentException the illegal argument exception
      */
     @Override
-    public Developer getDeveloperByMail(String email) throws NoEntityFoundException {
+    public Developer getDeveloperByMail(Email email) throws EntityNotFoundException {
         for(Developer developer : this.developers) {
-            if(developer.getEmailAddress().equals(email)) return developer;
+            String developerEmail = developer.getEmailAddress();
+            if(developerEmail.equals(email.toString())) return developer;
         }
 
-        throw new NoEntityFoundException("No developer was found with this email");
+        throw new EntityNotFoundException("No developer was found with this email");
+    }
+
+    @Override
+    public void removeDeveloper(Email email) {
+        for(Developer developer : developers) {
+            String developerEmail = developer.getEmailAddress();
+            if(developerEmail.equals(email.toString())) {
+                developers.remove(developer);
+                return;
+            }
+        }
     }
 
     @Override

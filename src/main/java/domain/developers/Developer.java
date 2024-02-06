@@ -30,6 +30,8 @@ public class Developer {
         return lastName.toString();
     }
 
+    public Email getEmail(){ return this.emailAddress; }
+
     public String getEmailAddress() {
         return emailAddress.toString();
     }
