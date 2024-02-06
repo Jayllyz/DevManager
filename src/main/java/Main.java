@@ -3,6 +3,7 @@ import domain.developers.DeveloperRepository;
 import domain.developers.ManageDeveloper;
 import infrastructure.developer.DeveloperFakeRepositoryAdapter;
 import infrastructure.developer.TestControllerAdapter;
+import shared.exceptions.InvalidAttributeException;
 
 public class Main {
 
@@ -16,5 +17,6 @@ public class Main {
     TestControllerAdapter devAdapter = new TestControllerAdapter(manageDeveloper);
 
 
-
+    public Main() throws InvalidAttributeException {
+    }
 }
