@@ -1,10 +1,12 @@
 package domain.projects;
 
 import domain.projects.attributes.*;
+import shared.Priority;
 import shared.Skill;
 import infrastructure.project.ProjectFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import shared.Status;
 import shared.projects.*;
 
 import java.time.LocalDate;

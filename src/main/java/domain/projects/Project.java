@@ -1,7 +1,9 @@
 package domain.projects;
 
+import shared.Priority;
 import shared.Skill;
 import domain.projects.attributes.*;
+import shared.Status;
 import shared.projects.*;
 import shared.exceptions.InvalidAttributeException;
 

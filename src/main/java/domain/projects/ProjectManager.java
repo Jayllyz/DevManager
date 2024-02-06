@@ -1,7 +1,9 @@
 package domain.projects;
 
+import shared.Priority;
 import shared.Skill;
 import domain.projects.attributes.*;
+import shared.Status;
 import shared.exceptions.InvalidAttributeException;
 import shared.projects.*;
 
@@ -22,10 +24,10 @@ public class ProjectManager implements ManageProject {
     }
 
     @Override
-    public Project createProject(String name, Priority priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
+    public Project createProject(String name, int priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
         Project project;
         try {
-            project = new Project(new Name(name), priority, new Description(description), new Start(start), new Deadline(deadline), new SkillStack(stack));
+            project = new Project(new Name(name), Priority.intToPriority(priority), new Description(description), new Start(start), new Deadline(deadline), new SkillStack(stack));
         } catch (InvalidAttributeException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
@@ -35,7 +37,6 @@ public class ProjectManager implements ManageProject {
         }
 
         repository.createProject(project);
-
         return project;
     }
 

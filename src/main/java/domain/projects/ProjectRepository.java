@@ -1,7 +1,6 @@
 package domain.projects;
 
-import domain.projects.attributes.Status;
-
+import shared.Status;
 import java.time.LocalDate;
 import java.util.List;
 

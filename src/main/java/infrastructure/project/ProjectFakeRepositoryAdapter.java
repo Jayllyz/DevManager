@@ -3,6 +3,8 @@ package infrastructure.project;
 import domain.projects.Project;
 import domain.projects.ProjectRepository;
 import domain.projects.attributes.*;
+import shared.Priority;
+import shared.Status;
 import shared.Skill;
 import shared.projects.Name;
 import shared.exceptions.InvalidAttributeException;
