@@ -1,8 +1,9 @@
 package domain.projects;
 
 import shared.Skill;
-import domain.projects.attributes.Priority;
-import domain.projects.attributes.Status;
+import domain.projects.attributes.*;
+import shared.exceptions.InvalidAttributeException;
+import shared.projects.*;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -22,11 +23,19 @@ public class ProjectManager implements ManageProject {
 
     @Override
     public Project createProject(String name, Priority priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
-        Project project = new Project(name, priority, description, start, deadline, stack);
+        Project project;
+        try {
+            project = new Project(new Name(name), priority, new Description(description), new Start(start), new Deadline(deadline), new SkillStack(stack));
+        } catch (InvalidAttributeException e) {
+            throw new IllegalArgumentException(e.getMessage());
+        }
+
         if(project.getDeadline().isBefore(project.getStart())) {
             throw new IllegalArgumentException("Deadline cannot be before start date");
         }
+
         repository.createProject(project);
+
         return project;
     }
 

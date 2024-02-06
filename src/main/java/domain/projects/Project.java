@@ -2,6 +2,8 @@ package domain.projects;
 
 import shared.Skill;
 import domain.projects.attributes.*;
+import shared.projects.*;
+import shared.exceptions.InvalidAttributeException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -15,13 +17,13 @@ public class Project {
     private SkillStack stack;
     private Status status;
 
-    public Project(String name, Priority priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
-        this.name = new Name(name);
+    public Project(Name name, Priority priority, Description description, Start start, Deadline deadline, SkillStack stack) {
+        this.name = name;
         this.priority = priority;
-        this.description = new Description(description);
-        this.start = new Start(start);
-        this.deadline = new Deadline(deadline);
-        this.stack = new SkillStack(stack);
+        this.description = description;
+        this.start = start;
+        this.deadline = deadline;
+        this.stack = stack;
         this.status = Status.WAITING;
     }
 
@@ -54,6 +56,10 @@ public class Project {
     }
 
     public void postponeProject(LocalDate newDate){
-        this.start = new Start(newDate);
+        try {
+            this.deadline = new Deadline(newDate);
+        } catch (InvalidAttributeException e) {
+            e.printStackTrace();
+        }
     }
 }
