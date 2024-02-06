@@ -2,6 +2,7 @@ package domain.developers;
 
 import shared.Experience;
 import shared.Skill;
+import shared.developers.Email;
 import shared.exceptions.NoEntityFoundException;
 
 import java.util.List;
@@ -25,17 +26,16 @@ public class DeveloperManager implements ManageDeveloper{
 
     @Override
     public Developer createDeveloper(Developer developer) {
-        this.repository.createDeveloper(developer);
-        return developer;
+        return this.repository.createDeveloper(developer);
     }
 
     @Override
-    public Developer getDeveloperByMail(String email) throws NoEntityFoundException {
-        return repository.getDeveloperByMail(email);
+    public Developer getDeveloperByMail(Email email) throws NoEntityFoundException {
+        return repository.getDeveloperByMail(email.toString());
     }
 
     @Override
-    public boolean removeDeveloper(String email) {
+    public boolean removeDeveloper(Email email) {
         return false;
     }
 

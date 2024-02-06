@@ -9,6 +9,7 @@ import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
+import shared.exceptions.NoEntityFoundException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -51,24 +52,28 @@ class DeveloperTest {
     @DisplayName("should get developer by mail")
     void shouldGetDeveloperByMail() {
         ManageDeveloper manager = new DeveloperManager(repository);
-        Developer john = manager.getDeveloperByMail("johndoe@gmail.com");
+        Developer john = null;
+        try {
+            john = manager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(john);
         assertInstanceOf(Developer.class, john);
-    }
-
-    @Test
-    @DisplayName("should fail when email is null")
-    void shouldFailWhenNullEmail() {
-        ManageDeveloper manager = new DeveloperManager(repository);
-        assertThrows(IllegalArgumentException.class, () -> manager.getDeveloperByMail(null));
     }
 
     @Test
     @DisplayName("should fail when email does not exist")
     void shouldFailBadEmail() {
         ManageDeveloper manager = new DeveloperManager(repository);
-        Developer john = manager.getDeveloperByMail("test@gmail.com");
-        assertNull(john);
+        NoEntityFoundException e = assertThrows(NoEntityFoundException.class,() -> {
+            Developer john = manager.getDeveloperByMail(new Email("test@gmail.com"));
+        });
+
+        String expectedMessage = "No developer was found with this email";
+        assertEquals(expectedMessage,e.getMessage());
+
+
     }
 
     @Test
