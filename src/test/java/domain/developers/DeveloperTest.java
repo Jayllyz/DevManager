@@ -1,9 +1,15 @@
 package domain.developers;
 
-import domain.Skill;
+import shared.Experience;
+import shared.Skill;
 import infrastructure.developer.DeveloperFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import shared.developers.Email;
+import shared.developers.Name;
+import shared.developers.SkillsByYearsOfExperience;
+import shared.exceptions.InvalidAttributeException;
+import shared.exceptions.NoEntityFoundException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -14,16 +20,31 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DeveloperTest {
 
-    DeveloperRepository repository = new DeveloperFakeRepositoryAdapter();
+    DeveloperRepository repository;
+
+    {
+        try {
+            repository = new DeveloperFakeRepositoryAdapter();
+        } catch (InvalidAttributeException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Test
     @DisplayName("should create a developer")
-    void shouldCreateADeveloper() {
+    void shouldCreateADeveloper() throws InvalidAttributeException {
 
-        HashMap<Skill, Integer> skills = new HashMap<>();
-        skills.put(Skill.COBOL,15);
+        HashMap<Skill, Experience> hashMap = new HashMap<>();
+        hashMap.put(Skill.COBOL,Experience.fromYearsOfExperience(14));
+        SkillsByYearsOfExperience skills = new SkillsByYearsOfExperience(hashMap);
 
-        Developer john = new Developer("John", "johnnyjones@john.john", skills, LocalDate.of(2002,1,1));
+        Developer john = null;
+        try {
+            john = new Developer(new Name("john"),new Name("doe"), new Email("johnnyjones@john.john"), skills);
+        } catch (InvalidAttributeException e) {
+            throw new RuntimeException(e);
+        }
         assertInstanceOf(Developer.class, john);
     }
 
@@ -31,24 +52,28 @@ class DeveloperTest {
     @DisplayName("should get developer by mail")
     void shouldGetDeveloperByMail() {
         ManageDeveloper manager = new DeveloperManager(repository);
-        Developer john = manager.getDeveloperByMail("johndoe@gmail.com");
+        Developer john = null;
+        try {
+            john = manager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         assertNotNull(john);
         assertInstanceOf(Developer.class, john);
-    }
-
-    @Test
-    @DisplayName("should fail when email is null")
-    void shouldFailWhenNullEmail() {
-        ManageDeveloper manager = new DeveloperManager(repository);
-        assertThrows(IllegalArgumentException.class, () -> manager.getDeveloperByMail(null));
     }
 
     @Test
     @DisplayName("should fail when email does not exist")
     void shouldFailBadEmail() {
         ManageDeveloper manager = new DeveloperManager(repository);
-        Developer john = manager.getDeveloperByMail("test@gmail.com");
-        assertNull(john);
+        NoEntityFoundException e = assertThrows(NoEntityFoundException.class,() -> {
+            Developer john = manager.getDeveloperByMail(new Email("test@gmail.com"));
+        });
+
+        String expectedMessage = "No developer was found with this email";
+        assertEquals(expectedMessage,e.getMessage());
+
+
     }
 
     @Test

@@ -2,39 +2,54 @@ package infrastructure.developer;
 
 import domain.developers.Developer;
 import domain.developers.DeveloperRepository;
-import domain.Skill;
+import shared.Experience;
+import shared.Skill;
+import shared.developers.Email;
+import shared.developers.Name;
+import shared.developers.SkillsByYearsOfExperience;
+import shared.exceptions.InvalidAttributeException;
+import shared.exceptions.NoEntityFoundException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
 
-    HashMap<Skill,Integer> skillSet1 = new HashMap<>();
-    HashMap<Skill,Integer> skillSet2 = new HashMap<>();
-    HashMap<Skill,Integer> skillSet3 = new HashMap<>();
+    HashMap<Skill,Experience> skillSet1 = new HashMap<>();
+    HashMap<Skill,Experience> skillSet2 = new HashMap<>();
+    HashMap<Skill,Experience> skillSet3 = new HashMap<>();
 
-    List<Developer> developers = List.of(
-            new Developer("John","johndoe@gmail.com",skillSet1, LocalDate.of(2021,1,12)),
-            new Developer("Marc","marc@gmail.com",skillSet2, LocalDate.of(2020,3,22)),
-            new Developer("Jeanne","jeanne@gmail.com",skillSet3, LocalDate.of(2023,5,24))
-    );
+    List<Developer> developers;
 
-    public DeveloperFakeRepositoryAdapter() {
-        skillSet1.put(Skill.PHP,3);
-        skillSet1.put(Skill.COBOL,1);
-        skillSet1.put(Skill.COFFEE,6);
-        skillSet1.put(Skill.HTML,14);
+    {
+        try {
+            developers = List.of(
+                    new Developer(new Name("john"),new Name("Doe"),new Email("johndoe@gmail.com"),new SkillsByYearsOfExperience(skillSet1)),
+                    new Developer(new Name("Marc"),new Name("Robel"),new Email("marc@gmail.com"),new SkillsByYearsOfExperience(skillSet2)),
+                    new Developer(new Name("Jeanne"),new Name("Darc"),new Email("jeanne@gmail.com"),new SkillsByYearsOfExperience(skillSet3))
+            );
+        } catch (InvalidAttributeException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
-        skillSet2.put(Skill.PHP,1);
-        skillSet2.put(Skill.COBOL,4);
-        skillSet2.put(Skill.CSS,1);
-        skillSet2.put(Skill.SCRATCH,23);
+    public DeveloperFakeRepositoryAdapter() throws InvalidAttributeException {
+        skillSet1.put(Skill.PHP, Experience.fromYearsOfExperience(2));
+        skillSet1.put(Skill.COBOL,Experience.fromYearsOfExperience(1));
+        skillSet1.put(Skill.COFFEE,Experience.fromYearsOfExperience(6));
+        skillSet1.put(Skill.HTML,Experience.fromYearsOfExperience(14));
 
-        skillSet3.put(Skill.PHP,2);
-        skillSet3.put(Skill.COBOL,4);
-        skillSet3.put(Skill.COFFEE,1);
-        skillSet3.put(Skill.HTML,2);
+        skillSet2.put(Skill.PHP,Experience.fromYearsOfExperience(1));
+        skillSet2.put(Skill.COBOL,Experience.fromYearsOfExperience(4));
+        skillSet2.put(Skill.CSS,Experience.fromYearsOfExperience(1));
+        skillSet2.put(Skill.SCRATCH,Experience.fromYearsOfExperience(23));
+
+        skillSet3.put(Skill.PHP,Experience.fromYearsOfExperience(2));
+        skillSet3.put(Skill.COBOL,Experience.fromYearsOfExperience(4));
+        skillSet3.put(Skill.COFFEE,Experience.fromYearsOfExperience(1));
+        skillSet3.put(Skill.HTML,Experience.fromYearsOfExperience(2));
     }
 
     @Override
@@ -50,12 +65,12 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
      * @throws IllegalArgumentException the illegal argument exception
      */
     @Override
-    public Developer getDeveloperByMail(String email) {
-        if (email == null) {
-            throw new IllegalArgumentException("email can't be null");
+    public Developer getDeveloperByMail(String email) throws NoEntityFoundException {
+        for(Developer developer : this.developers) {
+            if(developer.getEmailAddress().equals(email)) return developer;
         }
 
-        return developers.stream().filter(developer -> developer.getEmailAddress().equals(email)).findFirst().orElse(null);
+        throw new NoEntityFoundException("No developer was found with this email");
     }
 
     @Override

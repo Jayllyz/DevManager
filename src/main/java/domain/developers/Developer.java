@@ -1,27 +1,37 @@
 package domain.developers;
 
-import domain.Skill;
+import shared.Experience;
+import shared.Skill;
+import shared.developers.Email;
+import shared.developers.Name;
+import shared.developers.SkillsByYearsOfExperience;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Developer {
-    private final String name;
-    private final String emailAddress;
-    private HashMap<Skill, Integer> skills;
-    private LocalDate lastTransfer;
-    public Developer(String name, String emailAdress, HashMap<Skill, Integer> skills, LocalDate lastTransfer) {
-        this.name = name;
-        this.emailAddress = emailAdress;
-        this.skills = skills;
-        this.lastTransfer = lastTransfer;
+    private final Name firstName;
+    private final Name lastName;
+    private final Email emailAddress;
+    private final SkillsByYearsOfExperience skills;
+
+    public Developer(Name firstName, Name lastName, Email emailAddress, SkillsByYearsOfExperience skillsByYearsOfExperience) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.emailAddress = emailAddress;
+        this.skills = skillsByYearsOfExperience;
+    }
+
+    public String getFirstName() {
+        return firstName.toString();
+    }
+
+    public String getLastName() {
+        return lastName.toString();
     }
 
     public String getEmailAddress() {
-        return emailAddress;
+        return emailAddress.toString();
     }
 
-    public String getName() {
-        return name;
-    }
 }

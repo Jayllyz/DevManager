@@ -1,6 +1,6 @@
 package domain.projects;
 
-import domain.Skill;
+import shared.Skill;
 import domain.projects.attributes.Priority;
 import domain.projects.attributes.Status;
 import infrastructure.project.ProjectFakeRepositoryAdapter;

@@ -1,6 +1,6 @@
 package domain.projects;
 
-import domain.Skill;
+import shared.Skill;
 import domain.projects.attributes.*;
 
 import java.time.LocalDate;

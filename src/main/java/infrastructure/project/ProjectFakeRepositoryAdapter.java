@@ -1,10 +1,10 @@
 package infrastructure.project;
 
-import domain.Skill;
 import domain.projects.Project;
 import domain.projects.ProjectRepository;
 import domain.projects.attributes.Priority;
 import domain.projects.attributes.Status;
+import shared.Skill;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
