@@ -1,6 +1,8 @@
 package domain.developers;
 
+import shared.Experience;
 import shared.Skill;
+import shared.exceptions.NoEntityFoundException;
 
 import java.util.List;
 
@@ -28,12 +30,18 @@ public class DeveloperManager implements ManageDeveloper{
     }
 
     @Override
-    public Developer getDeveloperByMail(String email) {
-        if (email == null) {
-            throw new IllegalArgumentException("email can't be null");
-        }
-
+    public Developer getDeveloperByMail(String email) throws NoEntityFoundException {
         return repository.getDeveloperByMail(email);
+    }
+
+    @Override
+    public boolean removeDeveloper(String email) {
+        return false;
+    }
+
+    @Override
+    public Developer updateDeveloper(Developer developer) {
+        return null;
     }
 
     @Override
@@ -42,7 +50,12 @@ public class DeveloperManager implements ManageDeveloper{
     }
 
     @Override
-    public Developer getAllDevelopersBySkill(Skill skill) {
+    public List<Developer> getAllDevelopersBySkill(Skill skill) {
+        return null;
+    }
+
+    @Override
+    public List<Developer> getAllDevelopersBySkillAndExperience(Skill skill, Experience experience) {
         return null;
     }
 

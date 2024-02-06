@@ -8,10 +8,12 @@ import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
+import shared.exceptions.NoEntityFoundException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
 
@@ -63,12 +65,12 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
      * @throws IllegalArgumentException the illegal argument exception
      */
     @Override
-    public Developer getDeveloperByMail(String email) {
-        if (email == null) {
-            throw new IllegalArgumentException("email can't be null");
+    public Developer getDeveloperByMail(String email) throws NoEntityFoundException {
+        for(Developer developer : this.developers) {
+            if(developer.getEmailAddress().equals(email)) return developer;
         }
 
-        return developers.stream().filter(developer -> developer.getEmailAddress().equals(email)).findFirst().orElse(null);
+        throw new NoEntityFoundException("No developer was found with this email");
     }
 
     @Override
