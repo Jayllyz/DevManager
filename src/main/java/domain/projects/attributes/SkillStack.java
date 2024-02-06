@@ -1,6 +1,6 @@
 package domain.projects.attributes;
 
-import domain.Skill;
+import shared.Skill;
 
 import java.util.HashMap;
 
