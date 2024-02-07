@@ -7,5 +7,5 @@ public enum Skill {
     HTML,
     CSS,
     COFFEE,
-    C,
+    C, JAVA,
 }

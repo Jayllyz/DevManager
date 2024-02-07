@@ -119,4 +119,29 @@ class DeveloperTest {
         assertNotNull(developers);
         assertEquals(3, developers.size());
     }
+
+    @Test
+    @DisplayName("should get 2 developers when asking for developers with skill SCRATCH")
+    void shouldGet2DevelopersWhenAskingForSKilLScratch() {
+        List<Developer> developers = this.devManager.getAllDevelopersBySkill(Skill.SCRATCH);
+
+        assertEquals(2,developers.size());
+    }
+
+    @Test
+    @DisplayName("should get 0 developers when asking for developers with skill JAVA")
+    void shouldGetNoDevelopersWhenAskingForSKilLScratch() {
+        List<Developer> developers = this.devManager.getAllDevelopersBySkill(Skill.JAVA);
+
+        assertEquals(0,developers.size());
+    }
+
+    @Test
+    @DisplayName("should get 1 developer when asking for experts in php")
+    void shouldGetOneDeveloperWhenAskingForExpertsInPhp() {
+        List<Developer> developers = this.devManager.getAllDevelopersBySkillAndExperience(Skill.PHP, Experience.EXPERT);
+        assertEquals(1,developers.size());
+    }
+
+
 }

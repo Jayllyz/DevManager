@@ -31,11 +31,12 @@ public class SkillsByYearsOfExperience {
         this.skillByExperience.put(skill,experience);
     }
 
-    public int getSkillExperience(Skill skill) {
-        if(!this.skillByExperience.containsKey(skill)) return -1;
-
-        Experience experience = skillByExperience.get(skill);
-        return experience.getYearsOfExperience();
+    public Experience getSkillExperience(Skill skill) {
+        if(!hasSkill(skill)) return Experience.JUNIOR;
+        return skillByExperience.get(skill);
+    }
+    public boolean hasSkill(Skill skill) {
+        return this.skillByExperience.containsKey(skill);
     }
 
 }

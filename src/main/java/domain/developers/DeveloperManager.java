@@ -67,12 +67,12 @@ public class DeveloperManager implements ManageDeveloper{
 
     @Override
     public List<Developer> getAllDevelopersBySkill(Skill skill) {
-        return null;
+        return this.repository.getAllDevelopersBySkill(skill);
     }
 
     @Override
     public List<Developer> getAllDevelopersBySkillAndExperience(Skill skill, Experience experience) {
-        return null;
+        return this.repository.getAllDevelopersBySkillAndExperience(skill, experience);
     }
 
 

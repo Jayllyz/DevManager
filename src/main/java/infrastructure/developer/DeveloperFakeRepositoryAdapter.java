@@ -28,7 +28,7 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
         skillSet1.put(Skill.COFFEE,Experience.fromYearsOfExperience(6));
         skillSet1.put(Skill.HTML,Experience.fromYearsOfExperience(14));
 
-        skillSet2.put(Skill.PHP,Experience.fromYearsOfExperience(1));
+        skillSet2.put(Skill.PHP,Experience.fromYearsOfExperience(14));
         skillSet2.put(Skill.COBOL,Experience.fromYearsOfExperience(4));
         skillSet2.put(Skill.CSS,Experience.fromYearsOfExperience(1));
         skillSet2.put(Skill.SCRATCH,Experience.fromYearsOfExperience(23));
@@ -36,7 +36,7 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
         skillSet3.put(Skill.PHP,Experience.fromYearsOfExperience(2));
         skillSet3.put(Skill.COBOL,Experience.fromYearsOfExperience(4));
         skillSet3.put(Skill.COFFEE,Experience.fromYearsOfExperience(1));
-        skillSet3.put(Skill.HTML,Experience.fromYearsOfExperience(2));
+        skillSet3.put(Skill.SCRATCH,Experience.fromYearsOfExperience(2));
 
         this.developers.add(new Developer(new Name("john"),new Name("Doe"),new Email("johndoe@gmail.com"),new SkillsByYearsOfExperience(skillSet1)));
         this.developers.add(new Developer(new Name("Marc"),new Name("Robel"),new Email("marc@gmail.com"),new SkillsByYearsOfExperience(skillSet2)));
@@ -73,5 +73,31 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
     @Override
     public List<Developer> getAllDevelopers() {
         return developers;
+    }
+
+    @Override
+    public List<Developer> getAllDevelopersBySkill(Skill skill) {
+        List<Developer> developersBySkill = new ArrayList<>();
+
+        for (Developer developer : developers) {
+            if(developer.hasSkill(skill)) {
+                developersBySkill.add(developer);
+            }
+        }
+
+        return developersBySkill;
+    }
+
+    @Override
+    public List<Developer> getAllDevelopersBySkillAndExperience(Skill skill, Experience experience) {
+        List<Developer> developersBySkill = new ArrayList<>();
+
+        for (Developer developer : developers) {
+            if(developer.hasSkill(skill) && developer.getSkillExperience(skill) == experience) {
+                developersBySkill.add(developer);
+            }
+        }
+
+        return developersBySkill;
     }
 }
