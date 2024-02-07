@@ -66,7 +66,7 @@ class DeveloperTest {
         }
 
         EntityAlreadyExistsException e = assertThrows(EntityAlreadyExistsException.class,() -> {
-            this.devManager.createDeveloper(john);
+            Developer test = this.devManager.createDeveloper(john);
         });
 
         assertEquals("The email provided is already used by a developer",e.getMessage());
@@ -88,7 +88,7 @@ class DeveloperTest {
     }
 
     @Test
-    @DisplayName("should throw NoEntityFoundException when developer is not found")
+    @DisplayName("should throw NoEntityFoundException when developer is not found by mail")
     void shouldFailBadEmail() {
         EntityNotFoundException e = assertThrows(EntityNotFoundException.class,() -> {
             Developer john = this.devManager.getDeveloperByMail(new Email("test@gmail.com"));
@@ -96,8 +96,20 @@ class DeveloperTest {
 
         String expectedMessage = "No developer was found with this email";
         assertEquals(expectedMessage,e.getMessage());
+    }
 
-
+    @Test
+    @DisplayName("should remove a developer")
+    void shouldRemoveDeveloper() {
+        try {
+            Email devEmail = new Email("marc@gmail.com");
+            assertEquals(devEmail,this.devManager.removeDeveloper(devEmail));
+            assertThrows(EntityNotFoundException.class,() -> {
+                this.devManager.getDeveloperByMail(devEmail);
+            });
+        } catch (InvalidAttributeException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test

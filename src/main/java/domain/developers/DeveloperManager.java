@@ -50,8 +50,9 @@ public class DeveloperManager implements ManageDeveloper{
     }
 
     @Override
-    public void removeDeveloper(Email email) {
+    public Email removeDeveloper(Email email) {
         this.repository.removeDeveloper(email);
+        return email;
     }
 
     @Override
