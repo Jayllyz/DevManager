@@ -1,15 +1,16 @@
-package domain.teams.attributes;
+package shared.teams;
 
 import domain.developers.Developer;
+import shared.Skill;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
 
-import java.util.List;
+import java.util.HashMap;
 
 public class Developers {
-    private List<Developer> developers;
+    private HashMap<Skill, Developer> developers;
 
-    public Developers(List<Developer> developers) throws InvalidAttributeException {
+    public Developers(HashMap<Skill, Developer> developers) throws InvalidAttributeException {
         if(developers == null) {
             throw new InvalidAttributeException("Team developers are not defined");
         }
@@ -19,12 +20,8 @@ public class Developers {
         if(developers.size() > 8){
             throw new InvalidAttributeException("Team can't have more than 8 developers");
         }
-        for(Developer developer : developers){
-            int juniorCount = 0;
 
-//            TODO: verifier que dans une equipe n'a pas plus de 3 juniors
-//            TODO: en fonction des criteres pour savoir comment definir un junior
-
+        for (Developer developer : developers.values()) {
 
         }
 

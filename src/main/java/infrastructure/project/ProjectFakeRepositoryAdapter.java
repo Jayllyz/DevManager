@@ -23,15 +23,23 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
     /**
      * The Stack 1.
      */
-    HashMap<Skill, Integer> stack1 = new HashMap<>();
+    HashMap<Skill, Integer> stack1 = new HashMap<>(){{
+        put(Skill.C, 4);
+    }};
     /**
      * The Stack 2.
      */
-    HashMap<Skill, Integer> stack2 = new HashMap<>();
+    HashMap<Skill, Integer> stack2 = new HashMap<>(){{
+        put(Skill.SCRATCH, 5);
+    }};
     /**
      * The Stack 3.
      */
-    HashMap<Skill, Integer> stack3 = new HashMap<>();
+    HashMap<Skill, Integer> stack3 = new HashMap<>(){{
+        put(Skill.PHP, 2);
+        put(Skill.COBOL, 4);
+        put(Skill.COFFEE, 1);
+    }};
 
     /**
      * The Projects.
@@ -49,18 +57,6 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
         }
     }
 
-    /**
-     * Instantiates a new Project fake repository adapter.
-     */
-    public ProjectFakeRepositoryAdapter() {
-        stack1.put(Skill.C, 3);
-
-        stack2.put(Skill.SCRATCH, 5);
-
-        stack3.put(Skill.PHP, 2);
-        stack3.put(Skill.COBOL, 4);
-        stack3.put(Skill.COFFEE, 1);
-    }
     @Override
     public Project createProject(Project project) {
         projects.add(project);
@@ -112,6 +108,4 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
         }
         return null;
     }
-
-
 }

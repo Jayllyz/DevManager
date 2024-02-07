@@ -23,6 +23,7 @@ public class SkillStack {
         for (Skill skill : stack.keySet()) {
             requiredDevelopers += stack.get(skill);
         }
+
         if(requiredDevelopers < 4) {
             throw new InvalidAttributeException("The skill stack required developer cannot have less than 4 developers");
         }

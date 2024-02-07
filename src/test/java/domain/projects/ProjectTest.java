@@ -22,7 +22,7 @@ public class ProjectTest {
     @DisplayName("Should create a project")
     void shouldCreateAProject() {
         HashMap<Skill, Integer> stack = new HashMap<>();
-        stack.put(Skill.COBOL, 1);
+        stack.put(Skill.COBOL, 4);
         Project project;
         try {
             project = new Project(new Name("Test"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
@@ -50,7 +50,7 @@ public class ProjectTest {
     @DisplayName("Postpone project should throw IllegalArgumentException if startDate is before project start")
     void postponeProjectShouldFail() {
         HashMap<Skill, Integer> stack = new HashMap<>();
-        stack.put(Skill.COBOL, 1);
+        stack.put(Skill.COBOL, 4);
         Project project;
         try{
             project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
@@ -64,7 +64,7 @@ public class ProjectTest {
     @DisplayName("Postpone project should return a project")
     void postponeProjectShouldReturnAProject() {
         HashMap<Skill, Integer> stack = new HashMap<>();
-        stack.put(Skill.COBOL, 1);
+        stack.put(Skill.COBOL, 4);
         Project project;
         try{
             project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
@@ -78,7 +78,7 @@ public class ProjectTest {
     @DisplayName("Postpone project should throw IllegalArgumentException if startDate is before initial project start")
     void postponeProjectShouldFailIfStartDateIsBeforeInitialProjectStart() {
         HashMap<Skill, Integer> stack = new HashMap<>();
-        stack.put(Skill.COBOL, 1);
+        stack.put(Skill.COBOL, 4);
         Project project;
         try{
             project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
@@ -92,7 +92,7 @@ public class ProjectTest {
     @DisplayName("Postpone project should throw IllegalArgumentException if startDate is after the deadline")
     void postponeProjectShouldFailIfStartDateIsAfterInitialProjectDeadline() {
         HashMap<Skill, Integer> stack = new HashMap<>();
-        stack.put(Skill.COBOL, 1);
+        stack.put(Skill.COBOL, 4);
         Project project;
         try{
             project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));

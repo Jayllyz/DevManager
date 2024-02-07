@@ -1,4 +1,4 @@
-package domain.teams.attributes;
+package shared.teams;
 
 public class Name {
     private String name;
