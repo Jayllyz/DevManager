@@ -13,5 +13,5 @@ public interface DeveloperRepository {
     void removeDeveloper(Email email);
     List<Developer> getAllDevelopers();
     List<Developer> getAllDevelopersBySkill(Skill skill);
-    List<Developer> getAllDevelopersBySkillAndExperience(Skill skill, Experience experience);
+    List<Developer> getAllDevelopersBySkillAndExperience(Skill skill, Experiencgie experience);
 }

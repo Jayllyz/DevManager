@@ -55,10 +55,6 @@ public class DeveloperManager implements ManageDeveloper{
         return email;
     }
 
-    @Override
-    public Developer updateDeveloper(Developer developer) {
-        return null;
-    }
 
     @Override
     public List<Developer> getAllDevelopers() {

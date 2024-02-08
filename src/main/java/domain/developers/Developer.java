@@ -22,6 +22,14 @@ public class Developer {
         this.skills = skillsByYearsOfExperience;
     }
 
+    public Name getFirstName() {
+        return firstName;
+    }
+
+    public Name getLastName() {
+        return lastName;
+    }
+
     public Email getEmail(){ return this.emailAddress; }
 
     public String getEmailAddress() {
