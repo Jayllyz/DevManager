@@ -8,6 +8,10 @@ import java.util.HashMap;
 public class SkillsByYearsOfExperience {
     HashMap<Skill, Experience> skillByExperience;
 
+    public SkillsByYearsOfExperience() {
+        this.skillByExperience = new HashMap<>();
+    }
+
     public SkillsByYearsOfExperience(HashMap<Skill, Experience> stack) throws InvalidAttributeException {
         if(stack == null) {
             throw new InvalidAttributeException("The skill set of the developer cannot be null");
@@ -23,11 +27,16 @@ public class SkillsByYearsOfExperience {
        this.skillByExperience = stack;
     }
 
-    public int getSkillExperience(Skill skill) {
-        if(!this.skillByExperience.containsKey(skill)) return -1;
+    public void addNewSkill(Skill skill, Experience experience) {
+        this.skillByExperience.put(skill,experience);
+    }
 
-        Experience experience = skillByExperience.get(skill);
-        return experience.getYearsOfExperience();
+    public Experience getSkillExperience(Skill skill) {
+        if(!hasSkill(skill)) return Experience.JUNIOR;
+        return skillByExperience.get(skill);
+    }
+    public boolean hasSkill(Skill skill) {
+        return this.skillByExperience.containsKey(skill);
     }
 
 }

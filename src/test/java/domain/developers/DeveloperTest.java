@@ -8,10 +8,10 @@ import org.junit.jupiter.api.Test;
 import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
+import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.InvalidAttributeException;
-import shared.exceptions.NoEntityFoundException;
+import shared.exceptions.EntityNotFoundException;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,14 +20,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DeveloperTest {
 
-    DeveloperRepository repository;
 
-    {
+
+    DeveloperRepository repository;
+    private final ManageDeveloper devManager;
+
+    DeveloperTest() {
         try {
-            repository = new DeveloperFakeRepositoryAdapter();
+            this.repository = new DeveloperFakeRepositoryAdapter();
         } catch (InvalidAttributeException e) {
             throw new RuntimeException(e);
         }
+
+        this.devManager = new DeveloperManager(repository);
     }
 
 
@@ -49,12 +54,32 @@ class DeveloperTest {
     }
 
     @Test
-    @DisplayName("should get developer by mail")
+    @DisplayName("should throw EntityAlreadyExistsException when developer already exist")
+    void shouldThrowExceptionWhenDeveloperAlreadyExists() {
+        SkillsByYearsOfExperience skills = new SkillsByYearsOfExperience();
+        skills.addNewSkill(Skill.CSS,Experience.SKILLED);
+        Developer john;
+        try {
+            john = new Developer(new Name("john"),new Name("doe"), new Email("johndoe@gmail.com"), skills);
+        } catch (InvalidAttributeException e) {
+            throw new RuntimeException(e);
+        }
+
+        EntityAlreadyExistsException e = assertThrows(EntityAlreadyExistsException.class,() -> {
+            Developer test = this.devManager.createDeveloper(john);
+        });
+
+        assertEquals("The email provided is already used by a developer",e.getMessage());
+
+    }
+
+    @Test
+    @DisplayName("should get developer by mail when email is correct")
     void shouldGetDeveloperByMail() {
-        ManageDeveloper manager = new DeveloperManager(repository);
+
         Developer john = null;
         try {
-            john = manager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+            john = this.devManager.getDeveloperByMail(new Email("johndoe@gmail.com"));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -63,25 +88,60 @@ class DeveloperTest {
     }
 
     @Test
-    @DisplayName("should fail when email does not exist")
+    @DisplayName("should throw NoEntityFoundException when developer is not found by mail")
     void shouldFailBadEmail() {
-        ManageDeveloper manager = new DeveloperManager(repository);
-        NoEntityFoundException e = assertThrows(NoEntityFoundException.class,() -> {
-            Developer john = manager.getDeveloperByMail(new Email("test@gmail.com"));
+        EntityNotFoundException e = assertThrows(EntityNotFoundException.class,() -> {
+            Developer john = this.devManager.getDeveloperByMail(new Email("test@gmail.com"));
         });
 
         String expectedMessage = "No developer was found with this email";
         assertEquals(expectedMessage,e.getMessage());
+    }
 
-
+    @Test
+    @DisplayName("should remove a developer")
+    void shouldRemoveDeveloper() {
+        try {
+            Email devEmail = new Email("marc@gmail.com");
+            assertEquals(devEmail,this.devManager.removeDeveloper(devEmail));
+            assertThrows(EntityNotFoundException.class,() -> {
+                this.devManager.getDeveloperByMail(devEmail);
+            });
+        } catch (InvalidAttributeException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Test
     @DisplayName("should get all developers")
     void shouldGetAllDevelopers() {
-        ManageDeveloper manager = new DeveloperManager(repository);
-        List<Developer> developers = manager.getAllDevelopers();
+        List<Developer> developers = this.devManager.getAllDevelopers();
         assertNotNull(developers);
         assertEquals(3, developers.size());
     }
+
+    @Test
+    @DisplayName("should get 2 developers when asking for developers with skill SCRATCH")
+    void shouldGet2DevelopersWhenAskingForSKilLScratch() {
+        List<Developer> developers = this.devManager.getAllDevelopersBySkill(Skill.SCRATCH);
+
+        assertEquals(2,developers.size());
+    }
+
+    @Test
+    @DisplayName("should get 0 developers when asking for developers with skill JAVA")
+    void shouldGetNoDevelopersWhenAskingForSKilLScratch() {
+        List<Developer> developers = this.devManager.getAllDevelopersBySkill(Skill.JAVA);
+
+        assertEquals(0,developers.size());
+    }
+
+    @Test
+    @DisplayName("should get 1 developer when asking for experts in php")
+    void shouldGetOneDeveloperWhenAskingForExpertsInPhp() {
+        List<Developer> developers = this.devManager.getAllDevelopersBySkillAndExperience(Skill.PHP, Experience.EXPERT);
+        assertEquals(1,developers.size());
+    }
+
+
 }

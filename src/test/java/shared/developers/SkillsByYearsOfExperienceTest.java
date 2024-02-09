@@ -34,13 +34,13 @@ class SkillsByYearsOfExperienceTest {
     }
 
     @Test
-    void shouldReturn5YearsForPHP() throws InvalidAttributeException {
+    void shouldReturnExpertExperienceWhenSKillIsPhp() throws InvalidAttributeException {
         HashMap<Skill, Experience> skillByYearsOfExperience = new HashMap<>();
         skillByYearsOfExperience.put(Skill.PHP, Experience.fromYearsOfExperience(5));
 
         try {
             SkillsByYearsOfExperience skills = new SkillsByYearsOfExperience(skillByYearsOfExperience);
-            assertEquals(5,skills.getSkillExperience(Skill.PHP));
+            assertEquals(Experience.SKILLED,skills.getSkillExperience(Skill.PHP));
         } catch (InvalidAttributeException ignored) {}
 
 
@@ -53,7 +53,7 @@ class SkillsByYearsOfExperienceTest {
 
         try {
             SkillsByYearsOfExperience skills = new SkillsByYearsOfExperience(skillByYearsOfExperience);
-            assertEquals(-1,skills.getSkillExperience(Skill.HTML));
+            assertEquals(Experience.JUNIOR,skills.getSkillExperience(Skill.HTML));
         } catch (InvalidAttributeException ignored) {}
 
 

@@ -3,7 +3,8 @@ package domain.developers;
 import shared.Experience;
 import shared.Skill;
 import shared.developers.Email;
-import shared.exceptions.NoEntityFoundException;
+import shared.exceptions.EntityAlreadyExistsException;
+import shared.exceptions.EntityNotFoundException;
 
 import java.util.List;
 
@@ -25,24 +26,35 @@ public class DeveloperManager implements ManageDeveloper{
 
 
     @Override
-    public Developer createDeveloper(Developer developer) {
+    public Developer createDeveloper(Developer developer) throws EntityAlreadyExistsException {
+        if(developerExist(developer.getEmail())) {
+            throw new EntityAlreadyExistsException("The email provided is already used by a developer");
+        }
+
         return this.repository.createDeveloper(developer);
     }
 
-    @Override
-    public Developer getDeveloperByMail(Email email) throws NoEntityFoundException {
-        return repository.getDeveloperByMail(email.toString());
+    private boolean developerExist(Email email) {
+        try {
+            Developer developer = this.repository.getDeveloperByMail(email);
+        } catch (EntityNotFoundException e) {
+            return false;
+        }
+
+        return true;
     }
 
     @Override
-    public boolean removeDeveloper(Email email) {
-        return false;
+    public Developer getDeveloperByMail(Email email) throws EntityNotFoundException {
+        return repository.getDeveloperByMail(email);
     }
 
     @Override
-    public Developer updateDeveloper(Developer developer) {
-        return null;
+    public Email removeDeveloper(Email email) {
+        this.repository.removeDeveloper(email);
+        return email;
     }
+
 
     @Override
     public List<Developer> getAllDevelopers() {
@@ -51,12 +63,12 @@ public class DeveloperManager implements ManageDeveloper{
 
     @Override
     public List<Developer> getAllDevelopersBySkill(Skill skill) {
-        return null;
+        return this.repository.getAllDevelopersBySkill(skill);
     }
 
     @Override
     public List<Developer> getAllDevelopersBySkillAndExperience(Skill skill, Experience experience) {
-        return null;
+        return this.repository.getAllDevelopersBySkillAndExperience(skill, experience);
     }
 
 
