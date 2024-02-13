@@ -1,13 +1,8 @@
 package domain.developers;
 
-import shared.Experience;
-import shared.Skill;
 import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
-
-import java.time.LocalDate;
-import java.util.HashMap;
 
 public class Developer {
     private final Name firstName;
@@ -34,4 +29,7 @@ public class Developer {
         return emailAddress.toString();
     }
 
+    public SkillsByYearsOfExperience getSkills() {
+        return skills;
+    }
 }

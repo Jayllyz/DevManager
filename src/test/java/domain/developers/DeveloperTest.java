@@ -11,7 +11,6 @@ import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
 import shared.exceptions.NoEntityFoundException;
 
-import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 

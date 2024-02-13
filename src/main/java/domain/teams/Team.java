@@ -1,14 +1,17 @@
 package domain.teams;
 
 import domain.developers.Developer;
+import shared.Skill;
+import shared.teams.Developers;
+import shared.teams.Name;
 
-import java.util.List;
+import java.util.HashMap;
 
 public class Team {
-    private String name;
-    private List<Developer> developers;
+    private Name name;
+    private Developers developers;
 
-    public Team(String name, List<Developer> developers) {
+    public Team(Name name, Developers developers) {
         this.name = name;
         this.developers = developers;
     }

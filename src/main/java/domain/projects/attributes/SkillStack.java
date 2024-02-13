@@ -24,11 +24,8 @@ public class SkillStack {
             requiredDevelopers += stack.get(skill);
         }
 
-        if(requiredDevelopers < 4) {
-            throw new InvalidAttributeException("The skill stack required developer cannot have less than 4 developers");
-        }
         if(requiredDevelopers > 8) {
-            throw new InvalidAttributeException("The skill stack required developer cannot have more than 8 developers");
+            throw new InvalidAttributeException("A skill in a stack cannot require more than 8 developers");
         }
 
         this.stack = stack;
