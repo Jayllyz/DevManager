@@ -8,12 +8,11 @@ import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
-import shared.exceptions.NoEntityFoundException;
+import shared.exceptions.EntityNotFoundException;
 
-import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
 
@@ -21,19 +20,7 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
     HashMap<Skill,Experience> skillSet2 = new HashMap<>();
     HashMap<Skill,Experience> skillSet3 = new HashMap<>();
 
-    List<Developer> developers;
-
-    {
-        try {
-            developers = List.of(
-                    new Developer(new Name("john"),new Name("Doe"),new Email("johndoe@gmail.com"),new SkillsByYearsOfExperience(skillSet1)),
-                    new Developer(new Name("Marc"),new Name("Robel"),new Email("marc@gmail.com"),new SkillsByYearsOfExperience(skillSet2)),
-                    new Developer(new Name("Jeanne"),new Name("Darc"),new Email("jeanne@gmail.com"),new SkillsByYearsOfExperience(skillSet3))
-            );
-        } catch (InvalidAttributeException e) {
-            throw new RuntimeException(e);
-        }
-    }
+    List<Developer> developers = new ArrayList<>();
 
     public DeveloperFakeRepositoryAdapter() throws InvalidAttributeException {
         skillSet1.put(Skill.PHP, Experience.fromYearsOfExperience(2));
@@ -41,7 +28,7 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
         skillSet1.put(Skill.COFFEE,Experience.fromYearsOfExperience(6));
         skillSet1.put(Skill.HTML,Experience.fromYearsOfExperience(14));
 
-        skillSet2.put(Skill.PHP,Experience.fromYearsOfExperience(1));
+        skillSet2.put(Skill.PHP,Experience.fromYearsOfExperience(14));
         skillSet2.put(Skill.COBOL,Experience.fromYearsOfExperience(4));
         skillSet2.put(Skill.CSS,Experience.fromYearsOfExperience(1));
         skillSet2.put(Skill.SCRATCH,Experience.fromYearsOfExperience(23));
@@ -49,7 +36,11 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
         skillSet3.put(Skill.PHP,Experience.fromYearsOfExperience(2));
         skillSet3.put(Skill.COBOL,Experience.fromYearsOfExperience(4));
         skillSet3.put(Skill.COFFEE,Experience.fromYearsOfExperience(1));
-        skillSet3.put(Skill.HTML,Experience.fromYearsOfExperience(2));
+        skillSet3.put(Skill.SCRATCH,Experience.fromYearsOfExperience(2));
+
+        this.developers.add(new Developer(new Name("john"),new Name("Doe"),new Email("johndoe@gmail.com"),new SkillsByYearsOfExperience(skillSet1)));
+        this.developers.add(new Developer(new Name("Marc"),new Name("Robel"),new Email("marc@gmail.com"),new SkillsByYearsOfExperience(skillSet2)));
+        this.developers.add(new Developer(new Name("Jeanne"),new Name("Darc"),new Email("jeanne@gmail.com"),new SkillsByYearsOfExperience(skillSet3)));
     }
 
     @Override
@@ -65,16 +56,48 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
      * @throws IllegalArgumentException the illegal argument exception
      */
     @Override
-    public Developer getDeveloperByMail(String email) throws NoEntityFoundException {
+    public Developer getDeveloperByMail(Email email) throws EntityNotFoundException {
         for(Developer developer : this.developers) {
-            if(developer.getEmailAddress().equals(email)) return developer;
+            String developerEmail = developer.getEmailAddress();
+            if(developerEmail.equals(email.toString())) return developer;
         }
 
-        throw new NoEntityFoundException("No developer was found with this email");
+        throw new EntityNotFoundException("No developer was found with this email");
+    }
+
+    @Override
+    public void removeDeveloper(Email email) {
+        developers.removeIf(developer -> developer.getEmailAddress().equals(email.toString()));
     }
 
     @Override
     public List<Developer> getAllDevelopers() {
         return developers;
+    }
+
+    @Override
+    public List<Developer> getAllDevelopersBySkill(Skill skill) {
+        List<Developer> developersBySkill = new ArrayList<>();
+
+        for (Developer developer : developers) {
+            if(developer.hasSkill(skill)) {
+                developersBySkill.add(developer);
+            }
+        }
+
+        return developersBySkill;
+    }
+
+    @Override
+    public List<Developer> getAllDevelopersBySkillAndExperience(Skill skill, Experience experience) {
+        List<Developer> developersBySkill = new ArrayList<>();
+
+        for (Developer developer : developers) {
+            if(developer.hasSkill(skill) && developer.getSkillExperience(skill) == experience) {
+                developersBySkill.add(developer);
+            }
+        }
+
+        return developersBySkill;
     }
 }

@@ -17,13 +17,15 @@ public class Developer {
         this.skills = skillsByYearsOfExperience;
     }
 
-    public String getFirstName() {
-        return firstName.toString();
+    public Name getFirstName() {
+        return firstName;
     }
 
-    public String getLastName() {
-        return lastName.toString();
+    public Name getLastName() {
+        return lastName;
     }
+
+    public Email getEmail(){ return this.emailAddress; }
 
     public String getEmailAddress() {
         return emailAddress.toString();
@@ -32,4 +34,12 @@ public class Developer {
     public SkillsByYearsOfExperience getSkills() {
         return skills;
     }
+    public boolean hasSkill(Skill skill) {
+        return skills.hasSkill(skill);
+    }
+
+    public Experience getSkillExperience(Skill skill) {
+        return this.skills.getSkillExperience(skill);
+    }
+
 }
