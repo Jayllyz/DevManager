@@ -4,6 +4,7 @@ import shared.Skill;
 import shared.exceptions.InvalidAttributeException;
 
 import java.util.HashMap;
+import java.util.List;
 
 public class SkillsByYearsOfExperience {
     HashMap<Skill, Experience> skillByExperience;
@@ -35,6 +36,11 @@ public class SkillsByYearsOfExperience {
         if(!hasSkill(skill)) return Experience.JUNIOR;
         return skillByExperience.get(skill);
     }
+
+    public List<Skill> getSkills() {
+        return List.copyOf(skillByExperience.keySet());
+    }
+
     public boolean hasSkill(Skill skill) {
         return this.skillByExperience.containsKey(skill);
     }

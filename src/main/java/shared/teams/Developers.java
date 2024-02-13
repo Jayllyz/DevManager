@@ -1,6 +1,7 @@
 package shared.teams;
 
 import domain.developers.Developer;
+import shared.Experience;
 import shared.Skill;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
@@ -31,12 +32,14 @@ public class Developers {
             }
 
             int highest = 0;
-            SkillsByYearsOfExperience skills = developer.getSkills();
-            for (Skill skill : Skill.values()) {
-                if (skills.getSkillExperience(skill) > highest) {
-                    highest = skills.getSkillExperience(skill);
+            List<Skill> skills = developer.getSkills();
+            for (Skill skill : skills) {
+                Experience experience = developer.getSkillExperience(skill);
+                if(experience.getYearsOfExperience() > highest){
+                    highest = experience.getYearsOfExperience();
                 }
             }
+
 
             if(highest <= 3){
                 junior++;

@@ -6,6 +6,8 @@ import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 
+import java.util.List;
+
 public class Developer {
     private final Name firstName;
     private final Name lastName;
@@ -33,8 +35,8 @@ public class Developer {
         return emailAddress.toString();
     }
 
-    public SkillsByYearsOfExperience getSkills() {
-        return skills;
+    public List<Skill> getSkills() {
+        return skills.getSkills();
     }
     public boolean hasSkill(Skill skill) {
         return skills.hasSkill(skill);
