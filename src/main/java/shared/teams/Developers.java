@@ -40,7 +40,6 @@ public class Developers {
                 }
             }
 
-
             if(highest <= 3){
                 junior++;
             }
