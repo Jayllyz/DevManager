@@ -158,6 +158,6 @@ public class TeamTest {
                 developer2,
                 developer3
         );
-        assertThrows(IllegalArgumentException.class, () -> new Team(new Name("something that is more than 50 characters"), new Developers(listDeveloper)));
+        assertThrows(IllegalArgumentException.class, () -> new Team(new Name("something that is more than 50 characters for testings"), new Developers(listDeveloper)));
     }
 }

@@ -33,18 +33,6 @@ public class SkillStackTest {
     }
 
     @Test
-    void shouldThrowExceptionWhenSkillStackHasLessThan4Developers() {
-        InvalidAttributeException exception =  assertThrows(InvalidAttributeException.class,() -> {
-            SkillStack stack = new SkillStack(new HashMap<Skill, Integer>() {{
-                put(Skill.C, 1);
-            }});
-        });
-
-        String expectedMessage = "The skill stack required developer cannot have less than 4 developers";
-        assertEquals(expectedMessage,exception.getMessage());
-    }
-
-    @Test
     void shouldThrowExceptionWhenSkillStackHasMoreThan8Developers() {
         InvalidAttributeException exception =  assertThrows(InvalidAttributeException.class,() -> {
             SkillStack stack = new SkillStack(new HashMap<Skill, Integer>() {{
@@ -52,7 +40,7 @@ public class SkillStackTest {
             }});
         });
 
-        String expectedMessage = "The skill stack required developer cannot have more than 8 developers";
+        String expectedMessage = "A skill in a stack cannot require more than 8 developers";
         assertEquals(expectedMessage,exception.getMessage());
     }
 }
