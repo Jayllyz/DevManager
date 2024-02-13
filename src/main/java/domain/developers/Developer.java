@@ -1,9 +1,9 @@
 package domain.developers;
 
+import shared.Experience;
+import shared.Skill;
 import shared.developers.Email;
 import shared.developers.Name;
-import share.developers.Experience;
-import share.developers.Skill;
 import shared.developers.SkillsByYearsOfExperience;
 
 public class Developer {
