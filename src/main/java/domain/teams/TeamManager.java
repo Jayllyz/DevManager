@@ -11,7 +11,14 @@ import java.util.HashMap;
 import java.util.List;
 
 public class TeamManager implements ManageTeam {
-    private TeamRepository teamRepository;
+    TeamRepository teamRepository;
+
+    public TeamManager(TeamRepository teamRepository) {
+        if(teamRepository == null) {
+            throw new IllegalArgumentException("repository can't be null");
+        }
+        this.teamRepository = teamRepository;
+    }
 
     @Override
     public Team createTeam(String name, List<Developer> developers) {
@@ -21,7 +28,6 @@ public class TeamManager implements ManageTeam {
         } catch (InvalidAttributeException e) {
             throw new IllegalArgumentException(e.getMessage());
         }
-        teamRepository.createTeam(team);
-        return team;
+        return this.teamRepository.createTeam(team);
     }
 }

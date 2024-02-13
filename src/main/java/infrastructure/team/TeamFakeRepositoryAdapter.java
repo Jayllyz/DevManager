@@ -11,6 +11,7 @@ import shared.exceptions.InvalidAttributeException;
 import shared.teams.Developers;
 import shared.teams.Name;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,9 +70,9 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
     List<Team> teams;
     {
         try{
-            teams = List.of(
+            teams = new ArrayList<> (List.of(
                     new Team(new Name("Team 1"), new Developers(developers))
-            );
+            ));
         } catch (InvalidAttributeException e) {
             throw new RuntimeException(e);
         }
