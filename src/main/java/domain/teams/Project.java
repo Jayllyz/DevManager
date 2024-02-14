@@ -7,6 +7,7 @@ import shared.projects.SkillStack;
 import shared.projects.StartDate;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashMap;
 
 import static java.time.temporal.ChronoUnit.MONTHS;
@@ -47,7 +48,11 @@ public class Project {
     }
 
     public int getDurationInMonth() {
-        return (int) MONTHS.between(getStart(),getDeadline());
+        Period difference = Period.between(getStart(),getDeadline());
+        int months = (int) difference.getYears() * 12 + difference.getMonths();
+        if(difference.getDays() > 0) months++;
+
+        return months;
     }
 
 

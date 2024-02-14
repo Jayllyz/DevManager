@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.*;
 public class TeamTest {
     private final TeamManager teamManager;
 
-    Project projectNoCritical;
     Project projectNormal;
 
     public TeamTest() throws InvalidAttributeException {
@@ -101,7 +100,7 @@ public class TeamTest {
         skillSet1.addNewSkill(Skill.PHP,Experience.SKILLED);
 
         SkillsByYearsOfExperience skillSet2 = new SkillsByYearsOfExperience();
-        skillSet1.addNewSkill(Skill.PHP,Experience.JUNIOR);
+        skillSet2.addNewSkill(Skill.PHP,Experience.JUNIOR);
 
 
         List<Developer> developers= List.of(
@@ -116,6 +115,84 @@ public class TeamTest {
         });
 
         String expectedError = "Team can't have a junior developer without an expert developer";
+        assertEquals(expectedError,e.getMessage());
+
+    }
+
+    @Test
+    @DisplayName("should throw exception they are no expert for 6 month project")
+    void shouldThrowExceptionNoExpertFor6MonthProject() throws InvalidAttributeException {
+
+        SkillsByYearsOfExperience skillSet1 = new SkillsByYearsOfExperience();
+        skillSet1.addNewSkill(Skill.PHP,Experience.SKILLED);
+
+
+        List<Developer> developers= List.of(
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet1)
+        );
+
+        InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
+            Team team = new Team(projectNormal,developers);
+        });
+
+        String expectedError = "Team need an expert if the project is longer than 6 months";
+        assertEquals(expectedError,e.getMessage());
+
+    }
+
+    @Test
+    @DisplayName("should throw exception when team is less than five with expert")
+    void shouldThrowExceptionWhenTeamIsLessThanFiveWithExpert() throws InvalidAttributeException {
+
+        SkillsByYearsOfExperience skillSet1 = new SkillsByYearsOfExperience();
+        skillSet1.addNewSkill(Skill.PHP,Experience.SKILLED);
+
+        SkillsByYearsOfExperience skillSet2 = new SkillsByYearsOfExperience();
+        skillSet2.addNewSkill(Skill.PHP,Experience.EXPERT);
+
+
+        List<Developer> developers= List.of(
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
+        );
+
+        InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
+            Team team = new Team(projectNormal,developers);
+        });
+
+        String expectedError = "An expert cannot be in a team with less than 5 developers if the project is not critical";
+        assertEquals(expectedError,e.getMessage());
+
+    }
+
+    @Test
+    @DisplayName("should throw exception when team has more than 3 juniors")
+    void shouldThrowExceptionWhenTeamContainMoreThan3Juniors() throws InvalidAttributeException {
+
+        SkillsByYearsOfExperience skillSet1 = new SkillsByYearsOfExperience();
+        skillSet1.addNewSkill(Skill.PHP,Experience.JUNIOR);
+
+        SkillsByYearsOfExperience skillSet2 = new SkillsByYearsOfExperience();
+        skillSet2.addNewSkill(Skill.PHP,Experience.EXPERT);
+
+
+        List<Developer> developers= List.of(
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("gd@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("wef@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
+        );
+
+        InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
+            Team team = new Team(projectNormal,developers);
+        });
+
+        String expectedError = "Team can't have more than 3 junior developers";
         assertEquals(expectedError,e.getMessage());
 
     }

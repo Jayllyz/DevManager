@@ -6,6 +6,7 @@ import shared.Priority;
 import shared.exceptions.InvalidAttributeException;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class Team {
@@ -21,6 +22,11 @@ public class Team {
         if(developers == null) {
             throw new InvalidAttributeException("Team developers are not defined");
         }
+
+        if(teamHasDuplicatesDevelopers()) {
+            throw new InvalidAttributeException("There cannot be duplicates developers in the team");
+        }
+
         if(developers.size() < 3){
             throw new InvalidAttributeException("Team must have at least 3 developers");
         }
@@ -29,26 +35,37 @@ public class Team {
             throw new InvalidAttributeException("Team can't have more than 8 developers");
         }
 
-        HashMap<Experience,Integer> teamExperience = getTeamExperience(developers);
+        HashMap<Experience,Integer> numberOfDeveloperByExperience = getTeamExperience(developers);
 
-        int juniorCount = teamExperience.get(Experience.JUNIOR);
-        int skilledCount = teamExperience.get(Experience.SKILLED);
-        int expertCount = teamExperience.get(Experience.EXPERT);
+        int juniorCount = numberOfDeveloperByExperience.get(Experience.JUNIOR);
+        int expertCount = numberOfDeveloperByExperience.get(Experience.EXPERT);
 
 
         if(expertCount == 0){
 
-            if(juniorCount > 0) {
-                throw new InvalidAttributeException("Team can't have a junior developer without an expert developer");
+            validateTeamWithoutExpert(juniorCount,project);
 
-            }
+        } else {
 
-            if(project.getDurationInMonth() > 6) {
-                throw new InvalidAttributeException("Team need an expert if the project is longer than 6 months");
-            }
+            validateTeamWithExpert(juniorCount,project,developers);
+        }
+
+        this.developers = developers;
+    }
+
+    private void validateTeamWithoutExpert(int juniorCount, Project project) throws InvalidAttributeException {
+        if(juniorCount > 0) {
+            throw new InvalidAttributeException("Team can't have a junior developer without an expert developer");
 
         }
 
+        int test = project.getDurationInMonth();
+        if(project.getDurationInMonth() > 6) {
+            throw new InvalidAttributeException("Team need an expert if the project is longer than 6 months");
+        }
+    }
+
+    private void validateTeamWithExpert(int juniorCount, Project project,List<Developer> developers) throws InvalidAttributeException {
         if(developers.size() < 5 && project.getPriority() != Priority.CRITICAL) {
             throw new InvalidAttributeException("An expert cannot be in a team with less than 5 developers if the project is not critical");
         }
@@ -56,8 +73,6 @@ public class Team {
         if(juniorCount > 3){
             throw new InvalidAttributeException("Team can't have more than 3 junior developers");
         }
-
-        this.developers = developers;
     }
 
     private HashMap<Experience,Integer> getTeamExperience(List<Developer> developers) {
@@ -74,6 +89,21 @@ public class Team {
         }
 
         return experiences;
+    }
+
+    private boolean teamHasDuplicatesDevelopers(List<Developer> developers) {
+        HashSet<String> seenEmail = new HashSet<>();
+
+        for(Developer developer : developers) {
+            String developerEmail = developer.getEmailAddress();
+            if(seenEmail.contains(developerEmail)) {
+                return false;
+            }
+            seenEmail.add(developerEmail);
+        }
+
+        return true;
+
     }
 }
 
