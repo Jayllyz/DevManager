@@ -1,14 +1,11 @@
 package domain.projects;
 
 import shared.Priority;
-import shared.Skill;
 import domain.projects.attributes.*;
 import shared.Status;
-import shared.exceptions.InvalidAttributeException;
 import shared.projects.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 
 public class ProjectManager implements ManageProject {
@@ -24,17 +21,13 @@ public class ProjectManager implements ManageProject {
     }
 
     @Override
-    public Project createProject(String name, int priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
-        Project project;
-        try {
-            project = new Project(new Name(name), Priority.intToPriority(priority), new Description(description), new Start(start), new Deadline(deadline), new SkillStack(stack));
-        } catch (InvalidAttributeException e) {
-            throw new IllegalArgumentException(e.getMessage());
-        }
+    public Project createProject(Name name, Priority priority, Description description, StartDate start, Deadline deadline, SkillStack skillStack) {
 
-        if(project.getDeadline().isBefore(project.getStart())) {
-            throw new IllegalArgumentException("Deadline cannot be before start date");
-        }
+        Project project = new Project(name, priority, description, start, deadline, skillStack);
+
+        // step1 : find availables developers for project
+
+        // step2 : createTeam
 
         repository.createProject(project);
         return project;

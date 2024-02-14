@@ -1,4 +1,4 @@
-package domain.projects.attributes;
+package shared.projects;
 
 import shared.Skill;
 import shared.exceptions.InvalidAttributeException;
@@ -7,6 +7,10 @@ import java.util.HashMap;
 
 public class SkillStack {
     HashMap<Skill, Integer> stack;
+
+    public SkillStack() {
+        this.stack = new HashMap<>()    ;
+    }
 
     public SkillStack(HashMap<Skill, Integer> stack) throws InvalidAttributeException {
         if(stack == null) {
@@ -25,10 +29,26 @@ public class SkillStack {
         }
 
         if(requiredDevelopers > 8) {
-            throw new InvalidAttributeException("A skill in a stack cannot require more than 8 developers");
+            throw new InvalidAttributeException("A skill in a skill stack cannot require more than 8 developers");
         }
 
         this.stack = stack;
+    }
+
+    public void put(Skill skill,Integer devNumberRequired) throws InvalidAttributeException {
+        if(devNumberRequired > 8) {
+            throw new InvalidAttributeException("A skill in a skill stack cannot require more than 8 developers");
+        }
+
+        this.stack.put(skill, devNumberRequired);
+    }
+
+    public int get(Skill skill) {
+        if(!this.stack.containsKey(skill)) {
+            throw new IllegalArgumentException("skill does not exist in the skill stack");
+        }
+
+        return stack.get(skill);
     }
 
     public HashMap<Skill, Integer> getStack() {

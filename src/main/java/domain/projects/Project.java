@@ -14,16 +14,21 @@ public class Project {
     private Name name;
     private Priority priority;
     private Description description;
-    private Start start;
+    private StartDate start;
     private Deadline deadline;
     private SkillStack stack;
     private Status status;
 
-    public Project(Name name, Priority priority, Description description, Start start, Deadline deadline, SkillStack stack) {
+    public Project(Name name, Priority priority, Description description, StartDate projectStart, Deadline deadline, SkillStack stack) {
+
+        if(projectStart.toDate().isAfter(deadline.toDate())) {
+            throw new IllegalArgumentException("Start date of the project cannot be after end date !");
+        }
+
         this.name = name;
         this.priority = priority;
         this.description = description;
-        this.start = start;
+        this.start = projectStart;
         this.deadline = deadline;
         this.stack = stack;
         this.status = Status.WAITING;
@@ -42,11 +47,11 @@ public class Project {
     }
 
     public LocalDate getStart() {
-        return start.getStart();
+        return start.toDate();
     }
 
     public LocalDate getDeadline() {
-        return deadline.getDeadline();
+        return deadline.toDate();
     }
 
     public HashMap<Skill, Integer> getStack() {

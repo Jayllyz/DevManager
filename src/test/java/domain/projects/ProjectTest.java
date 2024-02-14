@@ -25,7 +25,7 @@ public class ProjectTest {
         stack.put(Skill.COBOL, 4);
         Project project;
         try {
-            project = new Project(new Name("Test"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
+            project = new Project(new Name("Test"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -53,7 +53,7 @@ public class ProjectTest {
         stack.put(Skill.COBOL, 4);
         Project project;
         try{
-            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -67,7 +67,7 @@ public class ProjectTest {
         stack.put(Skill.COBOL, 4);
         Project project;
         try{
-            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -81,7 +81,7 @@ public class ProjectTest {
         stack.put(Skill.COBOL, 4);
         Project project;
         try{
-            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -95,7 +95,7 @@ public class ProjectTest {
         stack.put(Skill.COBOL, 4);
         Project project;
         try{
-            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new Start(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(stack));
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

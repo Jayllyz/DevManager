@@ -5,6 +5,7 @@ import shared.exceptions.InvalidAttributeException;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SkillsByYearsOfExperience {
     HashMap<Skill, Experience> skillByExperience;
@@ -35,6 +36,15 @@ public class SkillsByYearsOfExperience {
     public Experience getSkillExperience(Skill skill) {
         if(!hasSkill(skill)) return Experience.JUNIOR;
         return skillByExperience.get(skill);
+    }
+
+    public Experience getGlobalExperience() {
+        Experience bestExperience = Experience.JUNIOR;
+        for (Experience experience : this.skillByExperience.values()) {
+            if(experience.getYearsOfExperience() > bestExperience.getYearsOfExperience()) bestExperience = experience;
+        }
+
+        return bestExperience;
     }
 
     public List<Skill> getSkills() {

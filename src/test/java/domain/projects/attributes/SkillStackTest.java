@@ -3,6 +3,7 @@ package domain.projects.attributes;
 import org.junit.jupiter.api.Test;
 import shared.Skill;
 import shared.exceptions.InvalidAttributeException;
+import shared.projects.SkillStack;
 
 import java.util.HashMap;
 

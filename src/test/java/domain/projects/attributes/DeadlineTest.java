@@ -2,6 +2,7 @@ package domain.projects.attributes;
 
 import org.junit.jupiter.api.Test;
 import shared.exceptions.InvalidAttributeException;
+import shared.projects.Deadline;
 
 import java.time.LocalDate;
 
@@ -15,7 +16,7 @@ public class DeadlineTest {
             Deadline deadline = new Deadline(null);
         });
 
-        String expectedMessage = "Deadline cannot be null";
+        String expectedMessage = "Deadline of project cannot be null";
         assertEquals(expectedMessage,exception.getMessage());
     }
 
@@ -25,7 +26,7 @@ public class DeadlineTest {
             Deadline deadline = new Deadline(LocalDate.of(2020, 1, 1));
         });
 
-        String expectedMessage = "Deadline cannot be in the past";
+        String expectedMessage = "Deadline of project cannot be in the past";
         assertEquals(expectedMessage,exception.getMessage());
     }
 }

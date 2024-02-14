@@ -58,4 +58,30 @@ class SkillsByYearsOfExperienceTest {
 
 
     }
+
+    @Test
+    void shouldReturnExpertExperienceWhenBEstExperienceIsExpert() throws InvalidAttributeException {
+        HashMap<Skill, Experience> skillByYearsOfExperience = new HashMap<>();
+        skillByYearsOfExperience.put(Skill.PHP, Experience.fromYearsOfExperience(1));
+        skillByYearsOfExperience.put(Skill.JAVA, Experience.fromYearsOfExperience(2));
+        skillByYearsOfExperience.put(Skill.SCRATCH, Experience.fromYearsOfExperience(14));
+
+        try {
+            SkillsByYearsOfExperience skills = new SkillsByYearsOfExperience(skillByYearsOfExperience);
+            assertEquals(Experience.EXPERT,skills.getGlobalExperience());
+        } catch (InvalidAttributeException ignored) {}
+    }
+
+    @Test
+    void shouldReturnSkilledExperienceWhenBEstExperienceIsSkilled() throws InvalidAttributeException {
+        HashMap<Skill, Experience> skillByYearsOfExperience = new HashMap<>();
+        skillByYearsOfExperience.put(Skill.PHP, Experience.JUNIOR);
+        skillByYearsOfExperience.put(Skill.JAVA, Experience.SKILLED);
+        skillByYearsOfExperience.put(Skill.SCRATCH, Experience.JUNIOR);
+
+        try {
+            SkillsByYearsOfExperience skills = new SkillsByYearsOfExperience(skillByYearsOfExperience);
+            assertEquals(Experience.SKILLED,skills.getGlobalExperience());
+        } catch (InvalidAttributeException ignored) {}
+    }
 }

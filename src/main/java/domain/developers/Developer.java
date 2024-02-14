@@ -46,4 +46,8 @@ public class Developer {
         return this.skills.getSkillExperience(skill);
     }
 
+    public Experience getGlobalExperience() {
+        return this.skills.getGlobalExperience();
+    }
+
 }

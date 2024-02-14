@@ -6,8 +6,11 @@ import domain.projects.attributes.*;
 import shared.Priority;
 import shared.Status;
 import shared.Skill;
+import shared.projects.Deadline;
 import shared.projects.Name;
 import shared.exceptions.InvalidAttributeException;
+import shared.projects.SkillStack;
+import shared.projects.StartDate;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -48,9 +51,9 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
     {
         try {
             projects = new ArrayList<>(List.of(
-                    new Project(new Name("Calculator"), Priority.NORMAL, new Description("Une calculatrice en C"), new Start(LocalDate.of(2024, 2, 6)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack1)),
-                    new Project(new Name("Project Network"), Priority.BEST_EFFORT, new Description("Faire un double proxy en TLS avec Scratch"), new Start(LocalDate.of(2024, 2, 2)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack2)),
-                    new Project(new Name("Annual Project"), Priority.CRITICAL, new Description("Refaire le projet annuel de 2022"), new Start(LocalDate.of(2024, 2, 3)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack3))
+                    new Project(new Name("Calculator"), Priority.NORMAL, new Description("Une calculatrice en C"), new StartDate(LocalDate.of(2024, 2, 6)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack1)),
+                    new Project(new Name("Project Network"), Priority.BEST_EFFORT, new Description("Faire un double proxy en TLS avec Scratch"), new StartDate(LocalDate.of(2024, 2, 2)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack2)),
+                    new Project(new Name("Annual Project"), Priority.CRITICAL, new Description("Refaire le projet annuel de 2022"), new StartDate(LocalDate.of(2024, 2, 3)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack3))
             ));
         } catch (InvalidAttributeException e) {
             throw new RuntimeException(e);

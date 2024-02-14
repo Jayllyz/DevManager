@@ -1,29 +1,40 @@
 package shared;
 
 import org.junit.jupiter.api.Test;
+import shared.developers.Email;
+import shared.exceptions.InvalidAttributeException;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PriorityTest {
     @Test
-    void shouldConvertIntToPriority() {
-        Priority priority = Priority.intToPriority(1);
+    void shouldConvertStringToPriority() throws InvalidAttributeException {
+        Priority priority = Priority.fromString("normal");
         assert(priority == Priority.NORMAL);
     }
 
     @Test
-    void shouldConvertIntToPriority2() {
-        Priority priority = Priority.intToPriority(2);
+    void shouldConvertStringToPriority2() throws InvalidAttributeException {
+        Priority priority = Priority.fromString("best-effort");
         assert(priority == Priority.BEST_EFFORT);
     }
 
     @Test
-    void shouldConvertIntToPriority3() {
-        Priority priority = Priority.intToPriority(3);
+    void shouldConvertStringToPriority3() throws InvalidAttributeException {
+        Priority priority = Priority.fromString("critical");
         assert(priority == Priority.CRITICAL);
     }
 
     @Test
-    void shouldConvertIntToPriority4() {
-        Priority priority = Priority.intToPriority(4);
-        assert(priority == null);
+    void shouldThrowExceptionWhenStringPriorityIsNotCorrect() {
+
+        InvalidAttributeException exception =  assertThrows(InvalidAttributeException.class,() -> {
+            Priority priority = Priority.fromString("asdf");
+        });
+
+        String expectedMessage = "Priority must be normal, best-effort, or critical";
+        assertEquals(expectedMessage,exception.getMessage());
+
     }
 }
