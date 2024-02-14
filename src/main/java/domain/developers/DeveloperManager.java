@@ -70,6 +70,4 @@ public class DeveloperManager implements ManageDeveloper{
     public List<Developer> getAllDevelopersBySkillAndExperience(Skill skill, Experience experience) {
         return this.repository.getAllDevelopersBySkillAndExperience(skill, experience);
     }
-
-
 }

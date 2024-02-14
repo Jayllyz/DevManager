@@ -20,8 +20,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class DeveloperTest {
 
-
-
     DeveloperRepository repository;
     private final ManageDeveloper devManager;
 

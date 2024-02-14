@@ -6,8 +6,7 @@ import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 
-import java.time.LocalDate;
-import java.util.HashMap;
+import java.util.List;
 
 public class Developer {
     private final Name firstName;
@@ -36,6 +35,9 @@ public class Developer {
         return emailAddress.toString();
     }
 
+    public List<Skill> getSkills() {
+        return skills.getSkills();
+    }
     public boolean hasSkill(Skill skill) {
         return skills.hasSkill(skill);
     }

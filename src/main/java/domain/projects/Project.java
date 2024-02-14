@@ -1,21 +1,25 @@
 package domain.projects;
 
-
+import shared.Priority;
 import shared.Skill;
+import domain.projects.attributes.*;
+import shared.Status;
+import shared.projects.*;
+import shared.exceptions.InvalidAttributeException;
 
 import java.time.LocalDate;
 import java.util.HashMap;
 
 public class Project {
-    private String name;
-    private int priority;
-    private String description;
-    private LocalDate start;
-    private LocalDate deadline;
-    private HashMap<Skill, Integer> stack;
+    private Name name;
+    private Priority priority;
+    private Description description;
+    private Start start;
+    private Deadline deadline;
+    private SkillStack stack;
     private Status status;
 
-    public Project(String name, int priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
+    public Project(Name name, Priority priority, Description description, Start start, Deadline deadline, SkillStack stack) {
         this.name = name;
         this.priority = priority;
         this.description = description;
@@ -26,58 +30,38 @@ public class Project {
     }
 
     public String getName() {
-        return name;
+        return name.toString();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getPriority() {
+    public Priority getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
-        this.priority = priority;
-    }
-
     public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+        return description.toString();
     }
 
     public LocalDate getStart() {
-        return start;
-    }
-
-    public void setStart(LocalDate start) {
-        this.start = start;
+        return start.getStart();
     }
 
     public LocalDate getDeadline() {
-        return deadline;
-    }
-
-    public void setDeadline(LocalDate deadline) {
-        this.deadline = deadline;
+        return deadline.getDeadline();
     }
 
     public HashMap<Skill, Integer> getStack() {
-        return stack;
-    }
-
-    public void setStack(HashMap<Skill, Integer> stack) {
-        this.stack = stack;
+        return stack.getStack();
     }
 
     public Status getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void postponeProject(LocalDate newDate){
+        try {
+            this.deadline = new Deadline(newDate);
+        } catch (InvalidAttributeException e) {
+            e.printStackTrace();
+        }
     }
 }

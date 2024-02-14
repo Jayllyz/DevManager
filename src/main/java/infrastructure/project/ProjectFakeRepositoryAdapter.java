@@ -2,8 +2,12 @@ package infrastructure.project;
 
 import domain.projects.Project;
 import domain.projects.ProjectRepository;
-import domain.projects.Status;
+import domain.projects.attributes.*;
+import shared.Priority;
+import shared.Status;
 import shared.Skill;
+import shared.projects.Name;
+import shared.exceptions.InvalidAttributeException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,37 +23,40 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
     /**
      * The Stack 1.
      */
-    HashMap<Skill, Integer> stack1 = new HashMap<>();
+    HashMap<Skill, Integer> stack1 = new HashMap<>(){{
+        put(Skill.C, 4);
+    }};
     /**
      * The Stack 2.
      */
-    HashMap<Skill, Integer> stack2 = new HashMap<>();
+    HashMap<Skill, Integer> stack2 = new HashMap<>(){{
+        put(Skill.SCRATCH, 5);
+    }};
     /**
      * The Stack 3.
      */
-    HashMap<Skill, Integer> stack3 = new HashMap<>();
+    HashMap<Skill, Integer> stack3 = new HashMap<>(){{
+        put(Skill.PHP, 2);
+        put(Skill.COBOL, 4);
+        put(Skill.COFFEE, 1);
+    }};
 
     /**
      * The Projects.
      */
-    List<Project> projects = new ArrayList<>(List.of(
-            new Project("Calculator", 1, "Une calculatrice en C", LocalDate.of(2024, 2, 6), LocalDate.of(2024, 4, 1), stack1),
-            new Project("Project Network", 2, "Faire un double proxy en TLS avec Scratch", LocalDate.of(2024, 2, 2), LocalDate.of(2024, 4, 1), stack2),
-            new Project("Annual Project", 3, "Refaire le projet annuel de 2022", LocalDate.of(2024, 2, 3), LocalDate.of(2024, 4, 1), stack3)
-    ));
-
-    /**
-     * Instantiates a new Project fake repository adapter.
-     */
-    public ProjectFakeRepositoryAdapter() {
-        stack1.put(Skill.C, 3);
-
-        stack2.put(Skill.SCRATCH, 5);
-
-        stack3.put(Skill.PHP, 2);
-        stack3.put(Skill.COBOL, 4);
-        stack3.put(Skill.COFFEE, 1);
+    List<Project> projects;
+    {
+        try {
+            projects = new ArrayList<>(List.of(
+                    new Project(new Name("Calculator"), Priority.NORMAL, new Description("Une calculatrice en C"), new Start(LocalDate.of(2024, 2, 6)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack1)),
+                    new Project(new Name("Project Network"), Priority.BEST_EFFORT, new Description("Faire un double proxy en TLS avec Scratch"), new Start(LocalDate.of(2024, 2, 2)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack2)),
+                    new Project(new Name("Annual Project"), Priority.CRITICAL, new Description("Refaire le projet annuel de 2022"), new Start(LocalDate.of(2024, 2, 3)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack3))
+            ));
+        } catch (InvalidAttributeException e) {
+            throw new RuntimeException(e);
+        }
     }
+
     @Override
     public Project createProject(Project project) {
         projects.add(project);
@@ -75,13 +82,18 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
         }
         return false;
     }
-  
+
     @Override
     public Project postponeProject(Project project, LocalDate startDate) {
         if(startDate != null && startDate.isBefore(project.getStart())) {
             throw new IllegalArgumentException("startDate can't be before project start");
         }
-        project.setStart(startDate);
+
+        if(startDate != null && startDate.isAfter(project.getDeadline())) {
+            throw new IllegalArgumentException("startDate can't be after project deadline");
+        }
+
+        project.postponeProject(startDate);
         return project;
     }
 
@@ -96,6 +108,4 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
         }
         return null;
     }
-
-
 }

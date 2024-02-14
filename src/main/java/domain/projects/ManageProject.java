@@ -1,7 +1,7 @@
 package domain.projects;
 
-
 import shared.Skill;
+import shared.Status;
 
 import java.time.LocalDate;
 import java.util.HashMap;
