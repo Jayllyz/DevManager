@@ -1,5 +1,6 @@
 package domain.projects;
 
+import domain.developers.Developer;
 import shared.Priority;
 import domain.projects.attributes.*;
 import shared.Status;

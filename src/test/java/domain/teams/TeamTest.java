@@ -155,7 +155,7 @@ public class TeamTest {
 
         List<Developer> developers= List.of(
                 new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ggg@gmail.com"), skillSet1),
                 new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
                 new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
         );
@@ -197,81 +197,30 @@ public class TeamTest {
 
     }
 
-//    @Test
-//    @DisplayName("Should create a team")
-//    void shouldCreateATeam() {
-//        HashMap<Skill, Experience> skillSet1 = new HashMap<>();
-//        HashMap<Skill, Experience> skillSet2 = new HashMap<>();
-//        HashMap<Skill, Experience> skillSet3 = new HashMap<>();
-//
-//        try {
-//            skillSet1.put(Skill.HTML, Experience.fromYearsOfExperience(4));
-//            skillSet2.put(Skill.SCRATCH, Experience.fromYearsOfExperience(4));
-//            skillSet3.put(Skill.COBOL, Experience.fromYearsOfExperience(4));
-//        } catch (InvalidAttributeException e) {
-//            throw new IllegalArgumentException(e.getMessage());
-//        }
-//
-//        Developer developer1;
-//        Developer developer2;
-//        Developer developer3;
-//        try {
-//            developer1 = new Developer(new shared.developers.Name("john"), new shared.developers.Name("Doe"), new Email("johndoe@gmail.com"), new SkillsByYearsOfExperience(skillSet1));
-//
-//            developer2 = new Developer(new shared.developers.Name("Marc"), new shared.developers.Name("Robel"), new Email("marc@gmail.com"), new SkillsByYearsOfExperience(skillSet2));
-//            developer3 = new Developer(new shared.developers.Name("Jeanne"), new shared.developers.Name("Darc"), new Email("jeanne@gmail.com"), new SkillsByYearsOfExperience(skillSet3));
-//        } catch (InvalidAttributeException e) {
-//            throw new IllegalArgumentException(e.getMessage());
-//        }
-//
-//        List<Developer> listDeveloper = List.of(
-//                developer1,
-//                developer2,
-//                developer3
-//        );
-//
-//        Team team;
-//        try {
-//            team = new Team(projectNormal, listDeveloper);
-//        } catch (InvalidAttributeException e) {
-//            throw new IllegalArgumentException(e.getMessage());
-//        }
-//        assertInstanceOf(Team.class, team);
-//        assertNotNull(team);
-//    }
-//
-//    @Test
-//    @DisplayName("Should create a team with the function")
-//    void shouldCreateATeamWithTheFunction() throws InvalidAttributeException {
-//        HashMap<Skill, Experience> skillSet1 = new HashMap<>();
-//        HashMap<Skill, Experience> skillSet2 = new HashMap<>();
-//        HashMap<Skill, Experience> skillSet3 = new HashMap<>();
-//        try {
-//            skillSet1.put(Skill.HTML, Experience.fromYearsOfExperience(4));
-//            skillSet2.put(Skill.SCRATCH, Experience.fromYearsOfExperience(4));
-//            skillSet3.put(Skill.COBOL, Experience.fromYearsOfExperience(4));
-//        } catch (InvalidAttributeException e) {
-//            throw new IllegalArgumentException(e.getMessage());
-//        }
-//
-//        Developer developer1;
-//        Developer developer2;
-//        Developer developer3;
-//        try {
-//            developer1 = new Developer(new shared.developers.Name("Tyrion"), new shared.developers.Name("Fordring"), new Email("tf@gmail.com"), new SkillsByYearsOfExperience(skillSet1));
-//            developer2 = new Developer(new shared.developers.Name("Onyxia"), new shared.developers.Name("AileNoir"), new Email("oa@gmail.com"), new SkillsByYearsOfExperience(skillSet2));
-//            developer3 = new Developer(new shared.developers.Name("Nefarian"), new shared.developers.Name("AileNoir"), new Email("na@gmail.com"), new SkillsByYearsOfExperience(skillSet3));
-//        } catch (InvalidAttributeException e) {
-//            throw new IllegalArgumentException(e.getMessage());
-//        }
-//
-//        List<Developer> listDeveloper = List.of(
-//                developer1,
-//                developer2,
-//                developer3
-//        );
-//
-//        Team team = teamManager.createTeam(new Name("Test"), new Developers(listDeveloper));
-//        assertInstanceOf(Team.class, team);
-//    }
+    @Test
+    @DisplayName("should throw exception when team has duplicates developers")
+    void shouldThrowExceptionWhenTeamContainDuplicates() throws InvalidAttributeException {
+
+        SkillsByYearsOfExperience skillSet1 = new SkillsByYearsOfExperience();
+        skillSet1.addNewSkill(Skill.PHP,Experience.JUNIOR);
+
+        SkillsByYearsOfExperience skillSet2 = new SkillsByYearsOfExperience();
+        skillSet2.addNewSkill(Skill.PHP,Experience.EXPERT);
+
+
+        List<Developer> developers= List.of(
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
+        );
+
+        InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
+            Team team = new Team(projectNormal,developers);
+        });
+
+        String expectedError = "There cannot be duplicates developers in the team";
+        assertEquals(expectedError,e.getMessage());
+
+    }
+
 }

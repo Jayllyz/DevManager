@@ -41,7 +41,7 @@ public class SkillStackTest {
             }});
         });
 
-        String expectedMessage = "A skill in a stack cannot require more than 8 developers";
+        String expectedMessage = "A skill in a skill stack cannot require more than 8 developers";
         assertEquals(expectedMessage,exception.getMessage());
     }
 }

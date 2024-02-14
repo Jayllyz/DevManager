@@ -23,7 +23,7 @@ public class Team {
             throw new InvalidAttributeException("Team developers are not defined");
         }
 
-        if(teamHasDuplicatesDevelopers()) {
+        if(teamHasDuplicatesDevelopers(developers)) {
             throw new InvalidAttributeException("There cannot be duplicates developers in the team");
         }
 
@@ -97,12 +97,12 @@ public class Team {
         for(Developer developer : developers) {
             String developerEmail = developer.getEmailAddress();
             if(seenEmail.contains(developerEmail)) {
-                return false;
+                return true;
             }
             seenEmail.add(developerEmail);
         }
 
-        return true;
+        return false;
 
     }
 }
