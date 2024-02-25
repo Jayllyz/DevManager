@@ -7,6 +7,7 @@ import infrastructure.project.ProjectFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shared.Status;
+import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.InvalidAttributeException;
 import shared.projects.*;
 
@@ -21,7 +22,7 @@ public class ProjectTest {
 
     @Test
     @DisplayName("Should create a project")
-    void shouldCreateAProject() throws InvalidAttributeException {
+    void shouldCreateAProject() throws InvalidAttributeException, EntityAlreadyExistsException {
 
         SkillStack skillsNeeded = new SkillStack();
         skillsNeeded.put(Skill.JAVA,5);
@@ -40,6 +41,62 @@ public class ProjectTest {
         );
 
         assertInstanceOf(Project.class,result);
+    }
+
+    @Test
+    @DisplayName("Can't create a project when start date is after end date")
+    void shouldThrowExceptionWhenStartDateAfterDeadline() throws InvalidAttributeException {
+
+        SkillStack skillsNeeded = new SkillStack();
+        skillsNeeded.put(Skill.JAVA,5);
+        skillsNeeded.put(Skill.JAVA,3);
+
+        LocalDate k = LocalDate.now();
+
+        ProjectManager projectHexagon = new ProjectManager(projectRepository);
+
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+        Project result = projectHexagon.createProject(
+                new Name("refonte site"),
+                Priority.NORMAL,
+                new Description("test"),
+                new StartDate(LocalDate.now().plusDays(100)),
+                new Deadline(LocalDate.now().plusDays(10)),
+                skillsNeeded
+        );
+        });
+
+        String message = "Start date of the project cannot be after end date !";
+
+        assertEquals(message,exception.getMessage());
+    }
+
+    @Test
+    @DisplayName("Can't create a project with already existing name")
+    void shouldThrowExceptionWhenProjectNameIsTaken() throws InvalidAttributeException {
+
+        SkillStack skillsNeeded = new SkillStack();
+        skillsNeeded.put(Skill.JAVA,5);
+        skillsNeeded.put(Skill.JAVA,3);
+
+        LocalDate k = LocalDate.now();
+
+        ProjectManager projectHexagon = new ProjectManager(projectRepository);
+
+        EntityAlreadyExistsException exception = assertThrows(EntityAlreadyExistsException.class, () -> {
+            Project result = projectHexagon.createProject(
+                    new Name("Spotify"),
+                    Priority.NORMAL,
+                    new Description("test"),
+                    new StartDate(LocalDate.now().plusDays(1)),
+                    new Deadline(LocalDate.now().plusDays(10)),
+                    skillsNeeded
+            );
+        });
+
+        String message = "Project with name Spotify already exist.";
+
+        assertEquals(message,exception.getMessage());
     }
 //
 //    @Test

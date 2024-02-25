@@ -1,5 +1,6 @@
 package domain.projects;
 
+import shared.exceptions.EntityAlreadyExistsException;
 import shared.projects.Deadline;
 import domain.projects.attributes.Description;
 import shared.projects.SkillStack;
@@ -12,7 +13,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface ManageProject {
-    Project createProject(Name name, Priority priority, Description description, StartDate start, Deadline deadline, SkillStack skillStack);
+    Project createProject(Name name, Priority priority, Description description, StartDate start, Deadline deadline, SkillStack skillStack) throws EntityAlreadyExistsException;
+    List<Developer> getAvailableDevelopersForProject(Name name);
     List<Project> listProjectByStatus(Status status);
     Boolean deleteProject(Project project);
     Project postponeProject(Project project, LocalDate startDate);

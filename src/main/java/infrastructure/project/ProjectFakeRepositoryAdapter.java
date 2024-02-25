@@ -64,6 +64,17 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
     }
 
     @Override
+    public Boolean existProject(Name name) {
+        for(Project project : projects) {
+            String projectName = project.getName();
+            if(projectName.equals(name.toString())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
     public List<Developer> getAvailableDevelopers(SkillStack skills) {
         return null;
     }

@@ -1,9 +1,9 @@
 package domain.projects;
 
-import domain.developers.Developer;
 import shared.Priority;
 import domain.projects.attributes.*;
 import shared.Status;
+import shared.exceptions.EntityAlreadyExistsException;
 import shared.projects.*;
 
 import java.time.LocalDate;
@@ -22,11 +22,20 @@ public class ProjectManager implements ManageProject {
     }
 
     @Override
-    public Project createProject(Name name, Priority priority, Description description, StartDate start, Deadline deadline, SkillStack skillStack) {
+    public Project createProject(Name name, Priority priority, Description description, StartDate start, Deadline deadline, SkillStack skillStack) throws EntityAlreadyExistsException {
+
+        if(this.repository.existProject(name)){
+            throw new EntityAlreadyExistsException("Project with name " + name + " already exist.");
+        }
 
         Project project = new Project(name, priority, description, start, deadline, skillStack, Status.WAITING);
 
         return repository.createProject(project);
+    }
+
+    @Override
+    public List<Developer> getAvailableDevelopersForProject(Name name) {
+        return null;
     }
 
     @Override
