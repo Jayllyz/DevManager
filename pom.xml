@@ -13,23 +13,22 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <junit.jupiter.version>5.10.2</junit.jupiter.version>
-<!--        <googlecode.json-simple.version>1.1.1</googlecode.json-simple.version>-->
         <maven.compiler.version>3.12.1</maven.compiler.version>
         <maven.surefire.version>3.2.5</maven.surefire.version>
+        <maven.javalin.version>6.1.2</maven.javalin.version>
     </properties>
 
     <dependencies>
-<!--        &lt;!&ndash; https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.googlecode.json-simple</groupId>-->
-<!--            <artifactId>json-simple</artifactId>-->
-<!--            <version>${googlecode.json-simple.version}</version>-->
-<!--        </dependency>-->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
             <version>${junit.jupiter.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.javalin</groupId>
+            <artifactId>javalin</artifactId>
+            <version>${maven.javalin.version}</version>
         </dependency>
     </dependencies>
 
