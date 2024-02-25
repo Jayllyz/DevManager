@@ -12,9 +12,12 @@ public class Developer {
     private final Email emailAddress;
     private final SkillsByYearsOfExperience skills;
 
-    public Developer(Email emailAddress, SkillsByYearsOfExperience skillsByYearsOfExperience) {
+    private final Project currentProject;
+
+    public Developer(Email emailAddress, SkillsByYearsOfExperience skillsByYearsOfExperience,Project currentProject) {
         this.emailAddress = emailAddress;
         this.skills = skillsByYearsOfExperience;
+        this.currentProject = currentProject;
     }
 
     public Email getEmail(){ return this.emailAddress; }

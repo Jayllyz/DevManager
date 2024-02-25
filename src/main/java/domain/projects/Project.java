@@ -19,7 +19,7 @@ public class Project {
     private SkillStack stack;
     private Status status;
 
-    public Project(Name name, Priority priority, Description description, StartDate projectStart, Deadline deadline, SkillStack stack) {
+    public Project(Name name, Priority priority, Description description, StartDate projectStart, Deadline deadline, SkillStack stack,Status status) {
 
         if(projectStart.toDate().isAfter(deadline.toDate())) {
             throw new IllegalArgumentException("Start date of the project cannot be after end date !");

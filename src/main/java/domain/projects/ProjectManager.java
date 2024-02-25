@@ -24,14 +24,9 @@ public class ProjectManager implements ManageProject {
     @Override
     public Project createProject(Name name, Priority priority, Description description, StartDate start, Deadline deadline, SkillStack skillStack) {
 
-        Project project = new Project(name, priority, description, start, deadline, skillStack);
+        Project project = new Project(name, priority, description, start, deadline, skillStack, Status.WAITING);
 
-        // step1 : find availables developers for project
-
-        // step2 : createTeam
-
-        repository.createProject(project);
-        return project;
+        return repository.createProject(project);
     }
 
     @Override
@@ -47,6 +42,7 @@ public class ProjectManager implements ManageProject {
         repository.deleteProject(project);
         return true;
     }
+
   
     @Override
     public Project postponeProject(Project project, LocalDate startDate) {
