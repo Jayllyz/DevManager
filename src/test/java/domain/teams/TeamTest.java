@@ -10,14 +10,12 @@ import shared.Skill;
 import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
-import shared.exceptions.EntityNotFoundException;
 import shared.exceptions.InvalidAttributeException;
 import shared.projects.Deadline;
 import shared.projects.SkillStack;
 import shared.projects.StartDate;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -48,7 +46,7 @@ public class TeamTest {
         SkillsByYearsOfExperience skillSet1 = new SkillsByYearsOfExperience();
         skillSet1.addNewSkill(Skill.PHP,Experience.EXPERT);
 
-        Developer john = new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1);
+        Developer john = new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1, projects);
 
         List<Developer> developers= List.of(john);
 
@@ -71,15 +69,15 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("asdf@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("f@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("vasd@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("eqwfv@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ta@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("hsfd@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("jj@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1)
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("asdf@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("f@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("vasd@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("eqwfv@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ta@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("hsfd@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("jj@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1, projects)
         );
 
 
@@ -104,9 +102,9 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet2),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet2, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2, projects)
         );
 
 
@@ -128,9 +126,9 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet1)
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet1, projects)
         );
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
@@ -154,10 +152,10 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ggg@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ggg@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2, projects)
         );
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
@@ -181,11 +179,11 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("gd@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("wef@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("gd@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("wef@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2, projects)
         );
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
@@ -209,9 +207,9 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1, projects),
+                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2, projects)
         );
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {

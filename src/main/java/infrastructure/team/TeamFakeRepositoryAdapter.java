@@ -1,13 +1,15 @@
 package infrastructure.team;
 
-import domain.developers.Developer;
+import domain.teams.Developer;
 import domain.teams.Project;
 import domain.teams.Team;
 import domain.teams.TeamRepository;
 import shared.Experience;
 import shared.Priority;
 import shared.Skill;
+import shared.Status;
 import shared.developers.Email;
+import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
 import shared.projects.Deadline;
@@ -59,7 +61,7 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
         );
 
         developers = List.of(
-                new Developer(new shared.developers.Name("john"),new shared.developers.Name("Doe"),new Email("johndoe@gmail.com"),new SkillsByYearsOfExperience(skillSet1)),
+                new Developer(new Name("john"),new Name("Doe"),new Email("johndoe@gmail.com"),new SkillsByYearsOfExperience(skillSet1)),
                 new Developer(new shared.developers.Name("Marc"),new shared.developers.Name("Robel"),new Email("marc@gmail.com"),new SkillsByYearsOfExperience(skillSet2)),
                 new Developer(new shared.developers.Name("Jeanne"),new shared.developers.Name("Darc"),new Email("jeanne@gmail.com"),new SkillsByYearsOfExperience(skillSet3)),
                 new Developer(new shared.developers.Name("danzo"),new shared.developers.Name("Darc"),new Email("fda@gmail.com"),new SkillsByYearsOfExperience(skillSet3)),
@@ -73,7 +75,7 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
         skillsNeeded.put(Skill.SCRATCH,1);
         skillsNeeded.put(Skill.HTML,3);
 
-        this.project1 = new Project(Priority.NORMAL,new StartDate(tomorrow),new Deadline(in7Months),skillsNeeded);
+        this.project1 = new Project(new shared.projects.Name("Spotify"),Priority.NORMAL,new StartDate(tomorrow),new Deadline(in7Months),skillsNeeded, Status.DONE);
 
         teams = new ArrayList<> (List.of(
                 new Team(project1, developers)

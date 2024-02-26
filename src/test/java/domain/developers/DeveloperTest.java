@@ -44,7 +44,7 @@ class DeveloperTest {
 
         Developer john = null;
         try {
-            john = new Developer(new Name("john"),new Name("doe"), new Email("johnnyjones@john.john"), skills);
+            john = new Developer(new Name("john"),new Name("doe"), new Email("johnnyjones@john.john"), skills, projects);
         } catch (InvalidAttributeException e) {
             throw new RuntimeException(e);
         }
@@ -58,7 +58,7 @@ class DeveloperTest {
         skills.addNewSkill(Skill.CSS,Experience.SKILLED);
         Developer john;
         try {
-            john = new Developer(new Name("john"),new Name("doe"), new Email("johndoe@gmail.com"), skills);
+            john = new Developer(new Name("john"),new Name("doe"), new Email("johndoe@gmail.com"), skills, projects);
         } catch (InvalidAttributeException e) {
             throw new RuntimeException(e);
         }

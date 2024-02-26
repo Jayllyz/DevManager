@@ -2,14 +2,22 @@ package infrastructure.developer;
 
 import domain.developers.Developer;
 import domain.developers.DeveloperRepository;
+import domain.developers.Project;
+import domain.developers.Projects;
 import shared.Experience;
+import shared.Priority;
 import shared.Skill;
+import shared.Status;
 import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
 import shared.exceptions.EntityNotFoundException;
+import shared.projects.Deadline;
+import shared.projects.SkillStack;
+import shared.projects.StartDate;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -20,9 +28,30 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
     HashMap<Skill,Experience> skillSet2 = new HashMap<>();
     HashMap<Skill,Experience> skillSet3 = new HashMap<>();
 
+    List<Project> projects;
+
     List<Developer> developers = new ArrayList<>();
 
     public DeveloperFakeRepositoryAdapter() throws InvalidAttributeException {
+
+        SkillStack skillStack1 = new SkillStack();
+        SkillStack skillStack2 = new SkillStack();
+        SkillStack skillStack3 = new SkillStack();
+
+        skillStack1.put(Skill.C,4);
+
+        skillStack2.put(Skill.SCRATCH,5);
+
+        skillStack3.put(Skill.PHP, 2);
+        skillStack3.put(Skill.COBOL, 4);
+        skillStack3.put(Skill.COFFEE, 1);
+
+        this.projects = new ArrayList<>(List.of(
+                new Project(new shared.projects.Name("Calculator"), Priority.NORMAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack1, Status.CANCELLED),
+                new Project(new shared.projects.Name("Spotify"), Priority.CRITICAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack2,Status.IN_PROGRESS),
+                new Project(new shared.projects.Name("jsp"), Priority.NORMAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack3,Status.DONE)
+        ));
+
         skillSet1.put(Skill.PHP, Experience.fromYearsOfExperience(2));
         skillSet1.put(Skill.COBOL,Experience.fromYearsOfExperience(1));
         skillSet1.put(Skill.COFFEE,Experience.fromYearsOfExperience(6));
@@ -38,9 +67,19 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
         skillSet3.put(Skill.COFFEE,Experience.fromYearsOfExperience(1));
         skillSet3.put(Skill.SCRATCH,Experience.fromYearsOfExperience(2));
 
-        this.developers.add(new Developer(new Name("john"),new Name("Doe"),new Email("johndoe@gmail.com"),new SkillsByYearsOfExperience(skillSet1)));
-        this.developers.add(new Developer(new Name("Marc"),new Name("Robel"),new Email("marc@gmail.com"),new SkillsByYearsOfExperience(skillSet2)));
-        this.developers.add(new Developer(new Name("Jeanne"),new Name("Darc"),new Email("jeanne@gmail.com"),new SkillsByYearsOfExperience(skillSet3)));
+        Projects projects1 = new Projects();
+        projects1.add(projects.get(2));
+
+        Projects projectInProgress = new Projects();
+        projectInProgress.add(projects.get(1));
+
+        Projects projects3 = new Projects();
+        projects3.add(projects.get(2));
+        projects3.add(projects.get(0));
+
+        this.developers.add(new Developer(new Name("john"),new Name("Doe"),new Email("johndoe@gmail.com"),new SkillsByYearsOfExperience(skillSet1), projects1));
+        this.developers.add(new Developer(new Name("Marc"),new Name("Robel"),new Email("marc@gmail.com"),new SkillsByYearsOfExperience(skillSet2), projectInProgress));
+        this.developers.add(new Developer(new Name("Jeanne"),new Name("Darc"),new Email("jeanne@gmail.com"),new SkillsByYearsOfExperience(skillSet3), projects3));
     }
 
     @Override

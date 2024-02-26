@@ -1,5 +1,6 @@
-package domain.developers;
+package domain.teams;
 
+import domain.developers.Projects;
 import shared.Experience;
 import shared.Skill;
 import shared.developers.Email;
@@ -13,19 +14,13 @@ public class Developer {
     private final Name lastName;
     private final Email emailAddress;
     private final SkillsByYearsOfExperience skills;
-    private final Projects projects;
-
-    public Developer(Name firstName, Name lastName, Email emailAddress, SkillsByYearsOfExperience skillsByYearsOfExperience, Projects projects) {
+    public Developer(Name firstName, Name lastName, Email emailAddress, SkillsByYearsOfExperience skillsByYearsOfExperience) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.emailAddress = emailAddress;
         this.skills = skillsByYearsOfExperience;
-        this.projects = projects;
     }
 
-    public Boolean isCurrentlyInProject() {
-        return projects.hasInProgressProject();
-    }
     public Email getEmail(){ return this.emailAddress; }
 
     public String getEmailAddress() {

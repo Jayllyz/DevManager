@@ -1,4 +1,4 @@
-package domain.teams;
+package domain.developers;
 
 import shared.Priority;
 import shared.Skill;

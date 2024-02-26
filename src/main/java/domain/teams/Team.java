@@ -1,6 +1,6 @@
 package domain.teams;
 
-import domain.developers.Developer;
+import domain.teams.Developer;
 import shared.Experience;
 import shared.Priority;
 import shared.exceptions.InvalidAttributeException;
