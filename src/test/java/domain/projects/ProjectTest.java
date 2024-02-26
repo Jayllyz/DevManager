@@ -1,6 +1,12 @@
 package domain.projects;
 
+import domain.developers.DeveloperManager;
+import domain.developers.DeveloperRepository;
+import domain.developers.ManageDeveloper;
+import domain.developers.ManageDeveloperProject;
 import domain.projects.attributes.*;
+import infrastructure.developer.DeveloperFakeRepositoryAdapter;
+import infrastructure.project.DeveloperGateway;
 import shared.Priority;
 import shared.Skill;
 import infrastructure.project.ProjectFakeRepositoryAdapter;
@@ -18,7 +24,21 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ProjectTest {
-    ProjectRepository projectRepository = new ProjectFakeRepositoryAdapter();
+    ProjectRepository projectRepository;
+    ProjectManager projectManager;
+    DeveloperManagement developerManagement;
+
+    public ProjectTest() throws InvalidAttributeException {
+        projectRepository = new ProjectFakeRepositoryAdapter();
+
+        DeveloperRepository developerRepository = new DeveloperFakeRepositoryAdapter();
+        ManageDeveloperProject developerManager = new DeveloperManager(developerRepository);
+
+        developerManagement = new DeveloperGateway(developerManager);
+
+        projectManager = new ProjectManager(projectRepository,developerManagement);
+
+    }
 
     @Test
     @DisplayName("Should create a project")
@@ -30,8 +50,7 @@ public class ProjectTest {
 
         LocalDate k = LocalDate.now();
 
-        ProjectManager projectHexagon = new ProjectManager(projectRepository);
-        Project result = projectHexagon.createProject(
+        Project result = projectManager.createProject(
                 new Name("refonte site"),
                 Priority.NORMAL,
                 new Description("test"),
@@ -53,10 +72,9 @@ public class ProjectTest {
 
         LocalDate k = LocalDate.now();
 
-        ProjectManager projectHexagon = new ProjectManager(projectRepository);
 
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
-        Project result = projectHexagon.createProject(
+        Project result = projectManager.createProject(
                 new Name("refonte site"),
                 Priority.NORMAL,
                 new Description("test"),
@@ -81,10 +99,8 @@ public class ProjectTest {
 
         LocalDate k = LocalDate.now();
 
-        ProjectManager projectHexagon = new ProjectManager(projectRepository);
-
         EntityAlreadyExistsException exception = assertThrows(EntityAlreadyExistsException.class, () -> {
-            Project result = projectHexagon.createProject(
+            Project result = projectManager.createProject(
                     new Name("Spotify"),
                     Priority.NORMAL,
                     new Description("test"),
@@ -109,8 +125,7 @@ public class ProjectTest {
 
         LocalDate k = LocalDate.now();
 
-        ProjectManager projectHexagon = new ProjectManager(projectRepository);
-        Project result = projectHexagon.createProject(
+        Project result = projectManager.createProject(
                 new Name("refonte site"),
                 Priority.NORMAL,
                 new Description("test"),

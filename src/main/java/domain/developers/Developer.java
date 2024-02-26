@@ -13,6 +13,7 @@ public class Developer {
     private final Name firstName;
     private final Name lastName;
     private final Email emailAddress;
+
     private final SkillsByYearsOfExperience skills;
     private final Projects projects;
 
@@ -40,6 +41,13 @@ public class Developer {
         return skills.hasSkill(skill);
     }
 
+    public Projects getProjects() {
+        return projects;
+    }
+
+    public SkillsByYearsOfExperience getSkillsByYearsOfExperience() {
+        return skills;
+    }
     public Experience getSkillExperience(Skill skill) {
         return this.skills.getSkillExperience(skill);
     }

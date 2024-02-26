@@ -11,14 +11,20 @@ import java.util.List;
 
 public class ProjectManager implements ManageProject {
     ProjectRepository repository;
+    DeveloperManagement developerManagement;
 
-    public ProjectManager(ProjectRepository repository) {
+    public ProjectManager(ProjectRepository repository,DeveloperManagement developerManagement) {
 
         if(repository == null) {
             throw new IllegalArgumentException("repository can't be null");
         }
 
+        if(developerManagement == null) {
+            throw new IllegalArgumentException("developer management can't be null");
+        }
+
         this.repository = repository;
+        this.developerManagement = developerManagement;
     }
 
     @Override
