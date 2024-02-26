@@ -41,13 +41,12 @@ public class Project {
 
 
         Period period = Period.between(start, deadline);
-
-        int monthsDifference = period.getYears() * 12 + period.getMonths();
-        if (period.getDays() > 0) {
-            monthsDifference++;
+        int monthDuration = period.getYears() * 12 + period.getMonths();
+        if(period.getDays() > 0 ) {
+            monthDuration++;
         }
 
-        return monthsDifference;
+        return monthDuration;
     }
     public String getName() {
         return name.toString();

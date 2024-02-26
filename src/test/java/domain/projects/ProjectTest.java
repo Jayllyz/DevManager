@@ -98,6 +98,30 @@ public class ProjectTest {
 
         assertEquals(message,exception.getMessage());
     }
+
+    @Test
+    @DisplayName("Project should be 5 month durations")
+    void shouldReturn5MonthsForDurationInMonth() throws InvalidAttributeException, EntityAlreadyExistsException {
+
+        SkillStack skillsNeeded = new SkillStack();
+        skillsNeeded.put(Skill.JAVA,5);
+        skillsNeeded.put(Skill.JAVA,3);
+
+        LocalDate k = LocalDate.now();
+
+        ProjectManager projectHexagon = new ProjectManager(projectRepository);
+        Project result = projectHexagon.createProject(
+                new Name("refonte site"),
+                Priority.NORMAL,
+                new Description("test"),
+                new StartDate(LocalDate.now().plusDays(1)),
+                new Deadline(LocalDate.now().plusMonths(4).plusDays(40)),
+                skillsNeeded
+        );
+
+        assertEquals(5,result.getDurationInMonth());
+
+    }
 //
 //    @Test
 //    @DisplayName("Should return list of WAITING projects")
