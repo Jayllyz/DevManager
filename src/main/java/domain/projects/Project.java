@@ -8,6 +8,7 @@ import shared.projects.*;
 import shared.exceptions.InvalidAttributeException;
 
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.HashMap;
 
 public class Project {
@@ -32,6 +33,21 @@ public class Project {
         this.deadline = deadline;
         this.stack = stack;
         this.status = Status.WAITING;
+    }
+
+    public int getDurationInMonth() {
+        LocalDate start = getStart();
+        LocalDate deadline = getDeadline();
+
+
+        Period period = Period.between(start, deadline);
+
+        int monthsDifference = period.getYears() * 12 + period.getMonths();
+        if (period.getDays() > 0) {
+            monthsDifference++;
+        }
+
+        return monthsDifference;
     }
 
     public String getName() {
