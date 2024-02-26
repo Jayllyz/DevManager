@@ -5,6 +5,7 @@ import shared.Skill;
 import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
+import shared.projects.StartDate;
 
 import java.util.List;
 

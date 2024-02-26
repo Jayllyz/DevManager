@@ -11,6 +11,7 @@ import shared.projects.StartDate;
 
 import java.time.LocalDate;
 import java.util.HashMap;
+import java.util.List;
 
 public class Project {
     private Name name;
@@ -32,6 +33,10 @@ public class Project {
         this.deadline = deadline;
         this.stack = stack;
         this.status = Status.WAITING;
+    }
+
+    public List<Skill> getSkills() {
+        return stack.getSkills();
     }
 
     public String getName() {

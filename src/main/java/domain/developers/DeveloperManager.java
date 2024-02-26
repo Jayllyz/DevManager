@@ -73,7 +73,7 @@ public class DeveloperManager implements ManageDeveloper, ManageDeveloperProject
     }
 
     @Override
-    public List<Developer> getAvailableDevelopersForProject(Name name) {
-        return null;
+    public List<Developer> getAvailableDevelopersForProject(Name name) throws EntityNotFoundException {
+        return repository.getAvailableDevelopersForProject(name);
     }
 }

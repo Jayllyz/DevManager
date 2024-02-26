@@ -139,4 +139,45 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
 
         return developersBySkill;
     }
+
+    @Override
+    public List<Developer> getAvailableDevelopersForProject(shared.projects.Name name) throws EntityNotFoundException {
+
+        List<Developer> availableDevelopers = new ArrayList<>();
+
+        Project project = getProjectByName(name);
+        for(Developer developer : developers) {
+            if(developer.isCurrentlyInProject()) {
+                continue;
+            }
+
+            if(developerContainSkillForProject(developer,project)) {
+                availableDevelopers.add(developer);
+            }
+        }
+
+        return availableDevelopers;
+    }
+
+    private Project getProjectByName(shared.projects.Name name) throws EntityNotFoundException {
+        for(Project project : projects) {
+            String projectName = project.getName();
+            if(projectName.equals(name.toString())) {
+                return project;
+            }
+        }
+
+        throw new EntityNotFoundException("No project found");
+    }
+
+    private boolean developerContainSkillForProject(Developer developer, Project project) {
+        List<Skill> projectSkills = project.getSkills();
+        for(Skill skill : projectSkills) {
+            if(developer.hasSkill(skill))
+                return true;
+        }
+
+        return false;
+
+    }
 }

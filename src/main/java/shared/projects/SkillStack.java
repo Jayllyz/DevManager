@@ -3,7 +3,10 @@ package shared.projects;
 import shared.Skill;
 import shared.exceptions.InvalidAttributeException;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 
 public class SkillStack {
     HashMap<Skill, Integer> stack;
@@ -29,6 +32,8 @@ public class SkillStack {
         }
 
         this.stack.put(skill, devNumberRequired);
+        currentDevelopersCount++;
+
     }
 
     public int get(Skill skill) {
@@ -37,6 +42,10 @@ public class SkillStack {
         }
 
         return stack.get(skill);
+    }
+
+    public List<Skill> getSkills() {
+        return new ArrayList<>(stack.keySet());
     }
 
     public HashMap<Skill, Integer> getStack() {
