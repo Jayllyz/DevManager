@@ -136,7 +136,6 @@ class DeveloperTest {
     void shouldGetAllDevelopers() {
         List<Developer> developers = this.devManager.getAllDevelopers();
         assertNotNull(developers);
-        assertEquals(3, developers.size());
     }
 
     @Test

@@ -4,6 +4,7 @@ import shared.Priority;
 import domain.projects.attributes.*;
 import shared.Status;
 import shared.exceptions.EntityAlreadyExistsException;
+import shared.exceptions.EntityNotFoundException;
 import shared.projects.*;
 
 import java.time.LocalDate;
@@ -40,8 +41,8 @@ public class ProjectManager implements ManageProject {
     }
 
     @Override
-    public List<Developer> getAvailableDevelopersForProject(Name name) {
-        return null;
+    public List<Developer> getAvailableDevelopersForProject(Name name) throws EntityNotFoundException {
+        return developerManagement.getAvailableDevelopersForProject(name);
     }
 
     @Override

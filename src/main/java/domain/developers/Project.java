@@ -32,7 +32,7 @@ public class Project {
         this.start = projectStart;
         this.deadline = deadline;
         this.stack = stack;
-        this.status = Status.WAITING;
+        this.status = status;
     }
 
     public List<Skill> getSkills() {

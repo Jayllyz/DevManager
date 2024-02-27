@@ -14,6 +14,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shared.Status;
 import shared.exceptions.EntityAlreadyExistsException;
+import shared.exceptions.EntityNotFoundException;
 import shared.exceptions.InvalidAttributeException;
 import shared.projects.*;
 
@@ -137,6 +138,23 @@ public class ProjectTest {
         assertEquals(5,result.getDurationInMonth());
 
     }
+
+    @Test
+    @DisplayName("should get all developers available for project")
+    void shouldGetAllAvailableDevelopers() throws InvalidAttributeException, EntityAlreadyExistsException, EntityNotFoundException {
+
+        SkillStack skillsNeeded = new SkillStack();
+        skillsNeeded.put(Skill.JAVA,5);
+        skillsNeeded.put(Skill.PHP,3);
+
+        LocalDate k = LocalDate.now();
+
+        List<Developer> availableDevelopers = projectManager.getAvailableDevelopersForProject(new Name("Calculator"));
+
+        assertEquals(2,availableDevelopers.size());
+
+    }
+
 //
 //    @Test
 //    @DisplayName("Should return list of WAITING projects")

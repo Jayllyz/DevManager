@@ -28,6 +28,8 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
     HashMap<Skill,Experience> skillSet2 = new HashMap<>();
     HashMap<Skill,Experience> skillSet3 = new HashMap<>();
 
+    HashMap<Skill,Experience> skillSet4 = new HashMap<>();
+
     List<Project> projects;
 
     List<Developer> developers = new ArrayList<>();
@@ -47,9 +49,10 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
         skillStack3.put(Skill.COFFEE, 1);
 
         this.projects = new ArrayList<>(List.of(
-                new Project(new shared.projects.Name("Calculator"), Priority.NORMAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack1, Status.CANCELLED),
+                new Project(new shared.projects.Name("Calculator"), Priority.NORMAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack1, Status.WAITING),
                 new Project(new shared.projects.Name("Spotify"), Priority.CRITICAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack2,Status.IN_PROGRESS),
-                new Project(new shared.projects.Name("jsp"), Priority.NORMAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack3,Status.DONE)
+                new Project(new shared.projects.Name("jsp"), Priority.NORMAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack3,Status.DONE),
+                new Project(new shared.projects.Name("Projet Annuel"), Priority.NORMAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack1, Status.WAITING)
         ));
 
         skillSet1.put(Skill.PHP, Experience.fromYearsOfExperience(2));
@@ -66,6 +69,9 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
         skillSet3.put(Skill.COBOL,Experience.fromYearsOfExperience(4));
         skillSet3.put(Skill.COFFEE,Experience.fromYearsOfExperience(1));
         skillSet3.put(Skill.SCRATCH,Experience.fromYearsOfExperience(2));
+        skillSet3.put(Skill.C,Experience.fromYearsOfExperience(2));
+
+        skillSet4.put(Skill.C,Experience.fromYearsOfExperience(2));
 
         Projects projects1 = new Projects();
         projects1.add(projects.get(2));
@@ -75,11 +81,15 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
 
         Projects projects3 = new Projects();
         projects3.add(projects.get(2));
-        projects3.add(projects.get(0));
+
+        Projects project4 = new Projects();
+        project4.add(projects.get(3));
 
         this.developers.add(new Developer(new Name("john"),new Name("Doe"),new Email("johndoe@gmail.com"),new SkillsByYearsOfExperience(skillSet1), projects1));
         this.developers.add(new Developer(new Name("Marc"),new Name("Robel"),new Email("marc@gmail.com"),new SkillsByYearsOfExperience(skillSet2), projectInProgress));
         this.developers.add(new Developer(new Name("Jeanne"),new Name("Darc"),new Email("jeanne@gmail.com"),new SkillsByYearsOfExperience(skillSet3), projects3));
+        this.developers.add(new Developer(new Name("Pimon"),new Name("Pang"),new Email("pimonpang@gmail.com"),new SkillsByYearsOfExperience(skillSet4), projects3));
+        this.developers.add(new Developer(new Name("Pavid"),new Name("Pantony"),new Email("pantonypavid@gmail.com"),new SkillsByYearsOfExperience(skillSet4), project4));
     }
 
     @Override
@@ -147,7 +157,9 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
 
         Project project = getProjectByName(name);
         for(Developer developer : developers) {
-            if(developer.isCurrentlyInProject()) {
+
+
+            if(!developerCanParticipate(developer,project)) {
                 continue;
             }
 
@@ -157,6 +169,37 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
         }
 
         return availableDevelopers;
+    }
+
+    private boolean developerCanParticipate(Developer developer,Project projectToJoin) throws EntityNotFoundException {
+        if(!developer.isCurrentlyInProject()) {
+            return true;
+        }
+
+        Project ongoingProject = developer.getOngoingProject();
+
+        return projectIsInAvailablePeriod(ongoingProject, projectToJoin);
+
+    }
+
+    private boolean projectIsInAvailablePeriod(Project ongoing, Project projectToJoin) {
+        LocalDate onGoingStart = ongoing.getStart();
+        LocalDate onGoingDeadline = ongoing.getDeadline();
+
+        LocalDate toJoinStart = projectToJoin.getStart();
+        LocalDate toJoinDeadline = projectToJoin.getDeadline();
+
+        if(onGoingStart.isBefore(toJoinStart) &&
+            onGoingDeadline.isAfter(toJoinStart)) {
+            return false;
+        }
+
+        if(onGoingDeadline.isAfter(onGoingStart)
+        && onGoingStart.isBefore(onGoingDeadline)) {
+            return false;
+        }
+
+        return true;
     }
 
     private Project getProjectByName(shared.projects.Name name) throws EntityNotFoundException {

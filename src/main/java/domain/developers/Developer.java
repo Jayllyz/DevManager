@@ -5,6 +5,7 @@ import shared.Skill;
 import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
+import shared.exceptions.EntityNotFoundException;
 import shared.projects.StartDate;
 
 import java.util.List;
@@ -26,7 +27,11 @@ public class Developer {
     }
 
     public Boolean isCurrentlyInProject() {
-        return projects.hasInProgressProject();
+        return projects.hasOngoingProject();
+    }
+
+    public Project getOngoingProject() throws EntityNotFoundException {
+        return projects.getOngoingProject();
     }
     public Email getEmail(){ return this.emailAddress; }
 
