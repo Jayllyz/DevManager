@@ -1,4 +1,7 @@
+import domain.developers.Developer;
 import io.javalin.Javalin;
+import shared.developers.Email;
+import shared.exceptions.EntityNotFoundException;
 
 public class HelloWorld {
     public static void main(String[] args) {
