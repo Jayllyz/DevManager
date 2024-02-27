@@ -49,8 +49,7 @@ public class DeveloperManager implements ManageDeveloper, ManageDeveloperProject
 
     @Override
     public Developer getDeveloperByMail(Email email) throws EntityNotFoundException {
-//        return repository.getDeveloperByMail(email);
-        throw new EntityNotFoundException("test exception");
+        return repository.getDeveloperByMail(email);
     }
 
     @Override
