@@ -1,43 +1,48 @@
 package domain.projects;
 
 import shared.Priority;
-import shared.Skill;
 import domain.projects.attributes.*;
 import shared.Status;
-import shared.exceptions.InvalidAttributeException;
+import shared.exceptions.EntityAlreadyExistsException;
+import shared.exceptions.EntityNotFoundException;
 import shared.projects.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 
 public class ProjectManager implements ManageProject {
     ProjectRepository repository;
+    DeveloperManagement developerManagement;
 
-    public ProjectManager(ProjectRepository repository) {
+    public ProjectManager(ProjectRepository repository,DeveloperManagement developerManagement) {
 
         if(repository == null) {
             throw new IllegalArgumentException("repository can't be null");
         }
 
+        if(developerManagement == null) {
+            throw new IllegalArgumentException("developer management can't be null");
+        }
+
         this.repository = repository;
+        this.developerManagement = developerManagement;
     }
 
     @Override
-    public Project createProject(String name, int priority, String description, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack) {
-        Project project;
-        try {
-            project = new Project(new Name(name), Priority.intToPriority(priority), new Description(description), new Start(start), new Deadline(deadline), new SkillStack(stack));
-        } catch (InvalidAttributeException e) {
-            throw new IllegalArgumentException(e.getMessage());
+    public Project createProject(Name name, Priority priority, Description description, StartDate start, Deadline deadline, SkillStack skillStack) throws EntityAlreadyExistsException {
+
+        if(this.repository.existProject(name)){
+            throw new EntityAlreadyExistsException("Project with name " + name + " already exist.");
         }
 
-        if(project.getDeadline().isBefore(project.getStart())) {
-            throw new IllegalArgumentException("Deadline cannot be before start date");
-        }
+        Project project = new Project(name, priority, description, start, deadline, skillStack, Status.WAITING);
 
-        repository.createProject(project);
-        return project;
+        return repository.createProject(project);
+    }
+
+    @Override
+    public List<Developer> getAvailableDevelopersForProject(Name name) throws EntityNotFoundException {
+        return developerManagement.getAvailableDevelopersForProject(name);
     }
 
     @Override
@@ -53,6 +58,7 @@ public class ProjectManager implements ManageProject {
         repository.deleteProject(project);
         return true;
     }
+
   
     @Override
     public Project postponeProject(Project project, LocalDate startDate) {

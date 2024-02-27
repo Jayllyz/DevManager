@@ -1,56 +1,46 @@
 package infrastructure.project;
 
+import domain.projects.Developer;
 import domain.projects.Project;
 import domain.projects.ProjectRepository;
 import domain.projects.attributes.*;
 import shared.Priority;
 import shared.Status;
 import shared.Skill;
+import shared.exceptions.EntityNotFoundException;
+import shared.projects.Deadline;
 import shared.projects.Name;
 import shared.exceptions.InvalidAttributeException;
+import shared.projects.SkillStack;
+import shared.projects.StartDate;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * The type Project fake repository adapter.
  */
 public class ProjectFakeRepositoryAdapter implements ProjectRepository {
-
-    /**
-     * The Stack 1.
-     */
-    HashMap<Skill, Integer> stack1 = new HashMap<>(){{
-        put(Skill.C, 4);
-    }};
-    /**
-     * The Stack 2.
-     */
-    HashMap<Skill, Integer> stack2 = new HashMap<>(){{
-        put(Skill.SCRATCH, 5);
-    }};
-    /**
-     * The Stack 3.
-     */
-    HashMap<Skill, Integer> stack3 = new HashMap<>(){{
-        put(Skill.PHP, 2);
-        put(Skill.COBOL, 4);
-        put(Skill.COFFEE, 1);
-    }};
-
-    /**
-     * The Projects.
-     */
     List<Project> projects;
     {
         try {
+
+            SkillStack skillStack1 = new SkillStack();
+            SkillStack skillStack2 = new SkillStack();
+            SkillStack skillStack3 = new SkillStack();
+
+            skillStack1.put(Skill.C,4);
+
+            skillStack2.put(Skill.SCRATCH,5);
+
+            skillStack3.put(Skill.PHP, 2);
+            skillStack3.put(Skill.COBOL, 4);
+            skillStack3.put(Skill.COFFEE, 1);
+
             projects = new ArrayList<>(List.of(
-                    new Project(new Name("Calculator"), Priority.NORMAL, new Description("Une calculatrice en C"), new Start(LocalDate.of(2024, 2, 6)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack1)),
-                    new Project(new Name("Project Network"), Priority.BEST_EFFORT, new Description("Faire un double proxy en TLS avec Scratch"), new Start(LocalDate.of(2024, 2, 2)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack2)),
-                    new Project(new Name("Annual Project"), Priority.CRITICAL, new Description("Refaire le projet annuel de 2022"), new Start(LocalDate.of(2024, 2, 3)), new Deadline(LocalDate.of(2024, 4, 1)), new SkillStack(stack3))
+                    new Project(new Name("Calculator"), Priority.NORMAL, new Description("Une calculatrice en C"), new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack1,Status.CANCELLED),
+                    new Project(new Name("Spotify"), Priority.CRITICAL, new Description("you know"), new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack2,Status.IN_PROGRESS),
+                    new Project(new Name("jsp"), Priority.NORMAL, new Description("un projet"), new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack3,Status.DONE)
             ));
         } catch (InvalidAttributeException e) {
             throw new RuntimeException(e);
@@ -72,6 +62,28 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
             }
         }
         return returnList;
+    }
+
+    @Override
+    public Boolean existProject(Name name) {
+        for(Project project : projects) {
+            String projectName = project.getName();
+            if(projectName.equals(name.toString())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private Project getProject(Name name) throws EntityNotFoundException {
+        for(Project project : projects) {
+            String projectName = project.getName();
+            if(projectName.equals(name.toString())) {
+                return project;
+            }
+        }
+
+        throw new EntityNotFoundException("Project not found");
     }
 
     @Override

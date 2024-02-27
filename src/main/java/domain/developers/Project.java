@@ -1,48 +1,41 @@
-package domain.projects;
+package domain.developers;
 
 import shared.Priority;
 import shared.Skill;
-import domain.projects.attributes.*;
 import shared.Status;
-import shared.projects.*;
 import shared.exceptions.InvalidAttributeException;
+import shared.projects.Deadline;
+import shared.projects.Name;
+import shared.projects.SkillStack;
+import shared.projects.StartDate;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.HashMap;
+import java.util.List;
 
 public class Project {
     private Name name;
     private Priority priority;
-    private Description description;
     private StartDate start;
     private Deadline deadline;
     private SkillStack stack;
     private Status status;
 
-    public Project(Name name, Priority priority, Description description, StartDate projectStart, Deadline deadline, SkillStack stack,Status status) {
-
+    public Project(Name name, Priority priority, StartDate projectStart, Deadline deadline, SkillStack stack, Status status) {
         if(projectStart.toDate().isAfter(deadline.toDate())) {
             throw new IllegalArgumentException("Start date of the project cannot be after end date !");
         }
 
         this.name = name;
         this.priority = priority;
-        this.description = description;
         this.start = projectStart;
         this.deadline = deadline;
         this.stack = stack;
-        this.status = Status.WAITING;
+        this.status = status;
     }
 
-    public int getDurationInMonth() {
-        LocalDate start = getStart();
-        LocalDate deadline = getDeadline();
-
-
-        Period period = Period.between(start, deadline);
-
-        return period.getYears() * 12 + period.getMonths();
+    public List<Skill> getSkills() {
+        return stack.getSkills();
     }
 
     public String getName() {
@@ -51,10 +44,6 @@ public class Project {
 
     public Priority getPriority() {
         return priority;
-    }
-
-    public String getDescription() {
-        return description.toString();
     }
 
     public LocalDate getStart() {

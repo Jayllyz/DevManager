@@ -8,15 +8,17 @@ public enum Priority {
 
     private int priority;
 
-    public static Priority intToPriority(int priority) {
-        try {
-            if (priority < 1 || priority > 3) {
-                throw new InvalidAttributeException("Priority must be between 1 and 3");
+    public static Priority fromString(String priority) throws InvalidAttributeException {
+
+            if(priority.equals("normal")){
+                return NORMAL;
             }
-            return Priority.values()[priority - 1];
-        } catch (InvalidAttributeException e) {
-            e.printStackTrace();
-        }
-        return null;
+            if(priority.equals("best-effort")) {
+                return BEST_EFFORT;
+            }
+            if(priority.equals("critical")){
+                return CRITICAL;
+            }
+            throw new InvalidAttributeException("Priority must be normal, best-effort, or critical");
     }
 }
