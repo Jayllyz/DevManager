@@ -1,9 +1,9 @@
-package domain.teams;
+package domain.projects;
 
-import domain.teams.Developer;
+import domain.developers.Developer;
+import domain.teams.Project;
 import shared.Experience;
 import shared.Priority;
-import shared.developers.Email;
 import shared.exceptions.InvalidAttributeException;
 
 import java.util.HashMap;
@@ -11,10 +11,10 @@ import java.util.HashSet;
 import java.util.List;
 
 public class Team {
-    private final Project project;
+    private domain.teams.Project project;
     private List<Developer> developers;
 
-    public Team(Project project,List<Developer> developers) throws InvalidAttributeException {
+    public Team(domain.teams.Project project, List<Developer> developers) throws InvalidAttributeException {
 
         if(project == null) {
             throw new InvalidAttributeException("You need a project to create a team");
@@ -29,31 +29,11 @@ public class Team {
         }
 
         this.developers = developers;
-        this.project = project;
+
 
     }
 
-    public void addDeveloper(Developer developer) throws InvalidAttributeException {
-
-        if(developerInTeam(developer)) {
-            throw new InvalidAttributeException("Developer already exist in team");
-        }
-
-        developers.add(developer);
-    }
-
-    private boolean developerInTeam(Developer developer) {
-
-        Email developerEmail = developer.getEmail();
-
-        for(Developer teamDeveloper : developers) {
-            Email currentEmail = teamDeveloper.getEmail();
-            if(developerEmail.equals(currentEmail)) return true;
-        }
-        return false;
-    }
-
-    public void validate() throws InvalidAttributeException {
+    public void validateTeam() throws InvalidAttributeException {
         if(developers.size() < 3){
             throw new InvalidAttributeException("Team must have at least 3 developers");
         }
@@ -76,9 +56,10 @@ public class Team {
 
             validateTeamWithExpert(juniorCount,project,developers);
         }
+
     }
 
-    private void validateTeamWithoutExpert(int juniorCount, Project project) throws InvalidAttributeException {
+    private void validateTeamWithoutExpert(int juniorCount, domain.teams.Project project) throws InvalidAttributeException {
         if(juniorCount > 0) {
             throw new InvalidAttributeException("Team can't have a junior developer without an expert developer");
 
@@ -90,7 +71,7 @@ public class Team {
         }
     }
 
-    private void validateTeamWithExpert(int juniorCount, Project project,List<Developer> developers) throws InvalidAttributeException {
+    private void validateTeamWithExpert(int juniorCount, Project project, List<Developer> developers) throws InvalidAttributeException {
         if(developers.size() < 5 && project.getPriority() != Priority.CRITICAL) {
             throw new InvalidAttributeException("An expert cannot be in a team with less than 5 developers if the project is not critical");
         }

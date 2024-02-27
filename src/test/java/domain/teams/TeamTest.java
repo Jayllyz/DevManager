@@ -47,13 +47,14 @@ public class TeamTest {
         SkillsByYearsOfExperience skillSet1 = new SkillsByYearsOfExperience();
         skillSet1.addNewSkill(Skill.PHP,Experience.EXPERT);
 
-        Developer john = new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1);
+        Developer john = new Developer(new Email("johndoe@gmail.com"), skillSet1);
 
         List<Developer> developers= List.of(john);
 
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
+            team.validate();
         });
 
         String expectedError = "Team must have at least 3 developers";
@@ -70,20 +71,21 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("asdf@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("f@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("vasd@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("eqwfv@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ta@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("hsfd@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("jj@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1)
+                new Developer(new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Email("asdf@gmail.com"), skillSet1),
+                new Developer(new Email("f@gmail.com"), skillSet1),
+                new Developer(new Email("vasd@gmail.com"), skillSet1),
+                new Developer(new Email("eqwfv@gmail.com"), skillSet1),
+                new Developer(new Email("ta@gmail.com"), skillSet1),
+                new Developer(new Email("hsfd@gmail.com"), skillSet1),
+                new Developer(new Email("jj@gmail.com"), skillSet1),
+                new Developer(new Email("dfgh@gmail.com"), skillSet1)
         );
 
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
+            team.validate();
         });
 
         String expectedError = "Team can't have more than 8 developers";
@@ -103,14 +105,15 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet2),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
+                new Developer(new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Email("dfgh@gmail.com"), skillSet2),
+                new Developer(new Email("ag@gmail.com"), skillSet2)
         );
 
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
+            team.validate();
         });
 
         String expectedError = "Team can't have a junior developer without an expert developer";
@@ -127,13 +130,14 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet1)
+                new Developer(new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Email("dfgh@gmail.com"), skillSet1),
+                new Developer(new Email("ag@gmail.com"), skillSet1)
         );
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
+            team.validate();
         });
 
         String expectedError = "Team need an expert if the project is longer than 6 months";
@@ -153,14 +157,15 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ggg@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
+                new Developer(new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Email("ggg@gmail.com"), skillSet1),
+                new Developer(new Email("dfgh@gmail.com"), skillSet1),
+                new Developer(new Email("ag@gmail.com"), skillSet2)
         );
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
+            team.validate();
         });
 
         String expectedError = "An expert cannot be in a team with less than 5 developers if the project is not critical";
@@ -180,15 +185,16 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("dfgh@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("gd@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("wef@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
+                new Developer(new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Email("dfgh@gmail.com"), skillSet1),
+                new Developer(new Email("gd@gmail.com"), skillSet1),
+                new Developer(new Email("wef@gmail.com"), skillSet1),
+                new Developer(new Email("ag@gmail.com"), skillSet2)
         );
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
+            team.validate();
         });
 
         String expectedError = "Team can't have more than 3 junior developers";
@@ -208,13 +214,14 @@ public class TeamTest {
 
 
         List<Developer> developers= List.of(
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("johndoe@gmail.com"), skillSet1),
-                new Developer(new Name("john"), new Name("Doe"), new Email("ag@gmail.com"), skillSet2)
+                new Developer(new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Email("johndoe@gmail.com"), skillSet1),
+                new Developer(new Email("ag@gmail.com"), skillSet2)
         );
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
+            team.validate();
         });
 
         String expectedError = "There cannot be duplicates developers in the team";

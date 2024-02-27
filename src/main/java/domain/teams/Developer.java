@@ -1,5 +1,4 @@
 package domain.teams;
-
 import domain.developers.Projects;
 import shared.Experience;
 import shared.Skill;
@@ -10,13 +9,9 @@ import shared.developers.SkillsByYearsOfExperience;
 import java.util.List;
 
 public class Developer {
-    private final Name firstName;
-    private final Name lastName;
     private final Email emailAddress;
     private final SkillsByYearsOfExperience skills;
-    public Developer(Name firstName, Name lastName, Email emailAddress, SkillsByYearsOfExperience skillsByYearsOfExperience) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public Developer(Email emailAddress, SkillsByYearsOfExperience skillsByYearsOfExperience) {
         this.emailAddress = emailAddress;
         this.skills = skillsByYearsOfExperience;
     }

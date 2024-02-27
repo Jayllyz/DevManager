@@ -61,11 +61,11 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
         );
 
         developers = List.of(
-                new Developer(new Name("john"),new Name("Doe"),new Email("johndoe@gmail.com"),new SkillsByYearsOfExperience(skillSet1)),
-                new Developer(new shared.developers.Name("Marc"),new shared.developers.Name("Robel"),new Email("marc@gmail.com"),new SkillsByYearsOfExperience(skillSet2)),
-                new Developer(new shared.developers.Name("Jeanne"),new shared.developers.Name("Darc"),new Email("jeanne@gmail.com"),new SkillsByYearsOfExperience(skillSet3)),
-                new Developer(new shared.developers.Name("danzo"),new shared.developers.Name("Darc"),new Email("fda@gmail.com"),new SkillsByYearsOfExperience(skillSet3)),
-                new Developer(new shared.developers.Name("popo"),new shared.developers.Name("Darc"),new Email("fsfsf@gmail.com"),new SkillsByYearsOfExperience(skillSet3))
+                new Developer(new Email("johndoe@gmail.com"),new SkillsByYearsOfExperience(skillSet1)),
+                new Developer(new Email("marc@gmail.com"),new SkillsByYearsOfExperience(skillSet2)),
+                new Developer(new Email("jeanne@gmail.com"),new SkillsByYearsOfExperience(skillSet3)),
+                new Developer(new Email("fda@gmail.com"),new SkillsByYearsOfExperience(skillSet3)),
+                new Developer(new Email("fsfsf@gmail.com"),new SkillsByYearsOfExperience(skillSet3))
         );
 
         LocalDate tomorrow = LocalDate.now().plusDays(1);

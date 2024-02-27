@@ -22,4 +22,14 @@ public class TeamManager implements ManageTeam {
 
         return this.teamRepository.createTeam(team);
     }
+
+    @Override
+    public Team addDevelopersToProject(Project project, List<Developer> developers) {
+        return null;
+    }
+
+    @Override
+    public Team removeDevelopersFromProject(Project project, List<Developer> developers) {
+        return null;
+    }
 }

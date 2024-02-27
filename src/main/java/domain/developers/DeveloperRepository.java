@@ -3,8 +3,10 @@ package domain.developers;
 import shared.Experience;
 import shared.Skill;
 import shared.developers.Email;
+import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.EntityNotFoundException;
 import shared.projects.Name;
+
 
 import java.util.List;
 
@@ -16,4 +18,5 @@ public interface DeveloperRepository {
     List<Developer> getAllDevelopersBySkill(Skill skill);
     List<Developer> getAllDevelopersBySkillAndExperience(Skill skill, Experience experience);
     List<Developer> getAvailableDevelopersForProject(Name name) throws EntityNotFoundException;
+
 }
