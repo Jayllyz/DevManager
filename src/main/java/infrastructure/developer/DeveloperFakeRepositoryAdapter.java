@@ -11,7 +11,6 @@ import shared.Status;
 import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
-import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.InvalidAttributeException;
 import shared.exceptions.EntityNotFoundException;
 import shared.projects.Deadline;
@@ -177,7 +176,7 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
             return true;
         }
 
-        Project ongoingProject = developer.getOngoingProject();
+        Project ongoingProject = developer.blablaabla();
 
         return projectIsInAvailablePeriod(ongoingProject, projectToJoin);
 
