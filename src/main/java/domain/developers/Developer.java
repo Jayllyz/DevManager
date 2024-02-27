@@ -6,12 +6,12 @@ import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.EntityNotFoundException;
-import shared.projects.StartDate;
 
 import java.util.List;
 
 public class Developer {
     private final Name firstName;
+
     private final Name lastName;
     private final Email emailAddress;
 
@@ -26,12 +26,19 @@ public class Developer {
         this.projects = projects;
     }
 
+    public Name getFirstName() {
+        return firstName;
+    }
+
+    public Name getLastName() {
+        return lastName;
+    }
     public Boolean isCurrentlyInProject() {
         return projects.hasOngoingProject();
     }
 
-    public Project getOngoingProject() throws EntityNotFoundException {
-        return projects.getOngoingProject();
+    public Project blablaabla() throws EntityNotFoundException {
+        return projects.blablaabla();
     }
     public Email getEmail(){ return this.emailAddress; }
 
