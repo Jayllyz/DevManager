@@ -7,8 +7,12 @@ import shared.Skill;
 import shared.developers.Email;
 import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
+import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.InvalidAttributeException;
 import shared.exceptions.EntityNotFoundException;
+import shared.projects.Deadline;
+import shared.projects.SkillStack;
+import shared.projects.StartDate;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -100,4 +104,15 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
 
         return developersBySkill;
     }
+
+    @Override
+    public List<Developer> getAvailableDevelopersForProject(shared.projects.Name name) throws EntityAlreadyExistsException {
+        return null;
+    }
+
+    @Override
+    public List<Developer> getAvailableDevelopersForProject(StartDate start, Deadline deadline, SkillStack skillsNeeded) throws EntityAlreadyExistsException {
+        return null;
+    }
+
 }

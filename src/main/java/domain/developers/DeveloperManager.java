@@ -5,6 +5,10 @@ import shared.Skill;
 import shared.developers.Email;
 import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.EntityNotFoundException;
+import shared.projects.Deadline;
+import shared.projects.Name;
+import shared.projects.SkillStack;
+import shared.projects.StartDate;
 
 import java.util.List;
 
@@ -12,7 +16,7 @@ import java.util.List;
  * The type Developer manager.
  */
 // HEXAGON
-public class DeveloperManager implements ManageDeveloper{
+public class DeveloperManager implements ManageDeveloper, ManageDeveloperProject{
     DeveloperRepository repository;
 
     public DeveloperManager(DeveloperRepository repository) {
@@ -69,5 +73,10 @@ public class DeveloperManager implements ManageDeveloper{
     @Override
     public List<Developer> getAllDevelopersBySkillAndExperience(Skill skill, Experience experience) {
         return this.repository.getAllDevelopersBySkillAndExperience(skill, experience);
+    }
+
+    @Override
+    public List<Developer> getAvailableDevelopersForProject(StartDate start, Deadline deadline, SkillStack skillsNeeded) throws EntityAlreadyExistsException {
+        return null;
     }
 }

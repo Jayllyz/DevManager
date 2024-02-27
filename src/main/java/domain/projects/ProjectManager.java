@@ -34,8 +34,13 @@ public class ProjectManager implements ManageProject {
     }
 
     @Override
-    public List<Developer> getAvailableDevelopersForProject(Name name) {
+    public List<Developer> getAvailableDevelopersForProject(Name name) throws EntityAlreadyExistsException {
+        if(!this.repository.existProject(name)){
+            throw new EntityAlreadyExistsException("No project found");
+        }
+
         return null;
+
     }
 
     @Override

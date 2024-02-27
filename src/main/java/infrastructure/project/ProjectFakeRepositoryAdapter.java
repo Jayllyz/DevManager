@@ -1,12 +1,13 @@
 package infrastructure.project;
 
-import domain.developers.Developer;
+import domain.projects.Developer;
 import domain.projects.Project;
 import domain.projects.ProjectRepository;
 import domain.projects.attributes.*;
 import shared.Priority;
 import shared.Status;
 import shared.Skill;
+import shared.exceptions.EntityNotFoundException;
 import shared.projects.Deadline;
 import shared.projects.Name;
 import shared.exceptions.InvalidAttributeException;
@@ -74,9 +75,15 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
         return false;
     }
 
-    @Override
-    public List<Developer> getAvailableDevelopers(SkillStack skills) {
-        return null;
+    private Project getProject(Name name) throws EntityNotFoundException {
+        for(Project project : projects) {
+            String projectName = project.getName();
+            if(projectName.equals(name.toString())) {
+                return project;
+            }
+        }
+
+        throw new EntityNotFoundException("Project not found");
     }
 
     @Override

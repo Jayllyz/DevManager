@@ -1,6 +1,5 @@
 package domain.teams;
 
-import domain.developers.Developer;
 import shared.exceptions.InvalidAttributeException;
 
 import java.util.List;
