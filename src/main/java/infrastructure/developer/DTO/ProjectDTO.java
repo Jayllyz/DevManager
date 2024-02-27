@@ -19,7 +19,7 @@ public class ProjectDTO {
     private LocalDate start;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate deadline;
-    private HashMap<Skill, Integer> stack;
+    private HashMap<Skill, Integer> skillStack;
     private Status status;
 
     public ProjectDTO(String name, Priority priority, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack, Status status) {
@@ -27,7 +27,7 @@ public class ProjectDTO {
         this.priority = priority;
         this.start = start;
         this.deadline = deadline;
-        this.stack = stack;
+        this.skillStack = stack;
         this.status = status;
     }
 
@@ -47,8 +47,8 @@ public class ProjectDTO {
         return deadline;
     }
 
-    public HashMap<Skill, Integer> getStack() {
-        return stack;
+    public HashMap<Skill, Integer> getSkillStack() {
+        return skillStack;
     }
 
     public Status getStatus() {
