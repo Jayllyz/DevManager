@@ -7,13 +7,11 @@ import java.util.HashMap;
 import java.util.List;
 
 public class DeveloperDTO {
-    private final String firstName;
-
-    private final String lastName;
-    private final String emailAddress;
-
-    private final HashMap<Skill, Experience> skillByExperience;
-    private final List<ProjectDTO> projects;
+    private String firstName;
+    private String lastName;
+    private String emailAddress;
+    private HashMap<Skill, Experience> skillByExperience;
+    private List<ProjectDTO> projects;
 
     public DeveloperDTO(String firstName, String lastName, String emailAddress, HashMap<Skill, Experience> skillByExperience, List<ProjectDTO> projects) {
         this.firstName = firstName;

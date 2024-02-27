@@ -5,6 +5,7 @@ import shared.Skill;
 import shared.developers.Email;
 import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.EntityNotFoundException;
+import shared.exceptions.InvalidAttributeException;
 import shared.projects.Name;
 
 
@@ -28,8 +29,8 @@ public class DeveloperManager implements ManageDeveloper, ManageDeveloperProject
 
 
     @Override
-    public Developer createDeveloper(Developer developer) throws EntityAlreadyExistsException {
-        if(developerExist(developer.getEmail())) {
+    public Developer createDeveloper(Developer developer) throws EntityAlreadyExistsException, InvalidAttributeException {
+        if(developerExist(new Email(developer.getEmailAddress()))) {
             throw new EntityAlreadyExistsException("The email provided is already used by a developer");
         }
 

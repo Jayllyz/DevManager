@@ -15,7 +15,6 @@ import java.util.HashMap;
 public class ProjectDTO {
     private String name;
     private Priority priority;
-
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate start;
     @JsonFormat(pattern = "yyyy-MM-dd")

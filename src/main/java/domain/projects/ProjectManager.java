@@ -5,6 +5,7 @@ import domain.projects.attributes.*;
 import shared.Status;
 import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.EntityNotFoundException;
+import shared.exceptions.InvalidAttributeException;
 import shared.projects.*;
 
 import java.time.LocalDate;
@@ -41,7 +42,7 @@ public class ProjectManager implements ManageProject {
     }
 
     @Override
-    public List<Developer> getAvailableDevelopersForProject(Name name) throws EntityNotFoundException {
+    public List<Developer> getAvailableDevelopersForProject(Name name) throws EntityNotFoundException, InvalidAttributeException {
         return developerManagement.getAvailableDevelopersForProject(name);
     }
 

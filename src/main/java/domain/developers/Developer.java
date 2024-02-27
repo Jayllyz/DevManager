@@ -7,6 +7,7 @@ import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.EntityNotFoundException;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class Developer {
@@ -25,12 +26,12 @@ public class Developer {
         this.projects = projects;
     }
 
-    public Name getFirstName() {
-        return firstName;
+    public String getFirstName() {
+        return firstName.toString();
     }
 
-    public Name getLastName() {
-        return lastName;
+    public String getLastName() {
+        return lastName.toString();
     }
     public Boolean isCurrentlyInProject() {
         return projects.hasOngoingProject();
@@ -39,7 +40,6 @@ public class Developer {
     public Project blablaabla() throws EntityNotFoundException {
         return projects.blablaabla();
     }
-    public Email getEmail(){ return this.emailAddress; }
 
     public String getEmailAddress() {
         return emailAddress.toString();
@@ -48,6 +48,7 @@ public class Developer {
     public List<Skill> getSkills() {
         return skills.getSkills();
     }
+
     public boolean hasSkill(Skill skill) {
         return skills.hasSkill(skill);
     }
@@ -56,9 +57,15 @@ public class Developer {
         return projects;
     }
 
-    public SkillsByYearsOfExperience getSkillsByYearsOfExperience() {
-        return skills;
+    public HashMap<Skill, Experience> getSkillsByYearsOfExperience() {
+        HashMap<Skill, Experience> skillByExperience = new HashMap<>();
+        for (Skill skill : skills.getSkills()) {
+            skillByExperience.put(skill, skills.getSkillExperience(skill));
+        }
+
+        return skillByExperience;
     }
+
     public Experience getSkillExperience(Skill skill) {
         return this.skills.getSkillExperience(skill);
     }

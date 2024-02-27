@@ -5,12 +5,16 @@ import domain.developers.Projects;
 import domain.projects.Developer;
 import domain.projects.DeveloperManagement;
 import domain.projects.Project;
+import shared.Experience;
+import shared.Skill;
 import shared.developers.Email;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.EntityNotFoundException;
+import shared.exceptions.InvalidAttributeException;
 import shared.projects.Name;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class DeveloperGateway implements DeveloperManagement {
@@ -22,12 +26,12 @@ public class DeveloperGateway implements DeveloperManagement {
     }
 
     @Override
-    public List<Developer> getAvailableDevelopersForProject(Name name) throws EntityNotFoundException {
+    public List<Developer> getAvailableDevelopersForProject(Name name) throws EntityNotFoundException, InvalidAttributeException {
         List<domain.developers.Developer> developersFromHexagon= developerHexagon.getAvailableDevelopersForProject(name);
         return transformDevelopersToProjectDomain(developersFromHexagon);
     }
 
-    private List<Developer> transformDevelopersToProjectDomain(List<domain.developers.Developer> developers) {
+    private List<Developer> transformDevelopersToProjectDomain(List<domain.developers.Developer> developers) throws InvalidAttributeException {
         List<Developer> mappedDevelopers = new ArrayList<>();
 
         for(domain.developers.Developer developer : developers) {
@@ -38,13 +42,14 @@ public class DeveloperGateway implements DeveloperManagement {
         return mappedDevelopers;
     }
 
-    private Developer transformDeveloperForProject(domain.developers.Developer developer) {
-        Email developerEmail = developer.getEmail();
-        SkillsByYearsOfExperience skills = developer.getSkillsByYearsOfExperience();
+    private Developer transformDeveloperForProject(domain.developers.Developer developer) throws InvalidAttributeException {
+        String developerEmail = developer.getEmailAddress();
+        HashMap<Skill, Experience> skills = developer.getSkillsByYearsOfExperience();
 
-        return new Developer(developerEmail,skills);
+        try {
+            return new Developer(new Email(developerEmail), new SkillsByYearsOfExperience(skills));
+        } catch (InvalidAttributeException e) {
+            throw new InvalidAttributeException("Developer has invalid attributes");
+        }
     }
-
-
-
 }
