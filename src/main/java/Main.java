@@ -1,6 +1,8 @@
 import domain.developers.Developer;
 import domain.developers.DeveloperManager;
+import domain.developers.DeveloperRepository;
 import infrastructure.developer.DTO.DeveloperMapper;
+import infrastructure.developer.DeveloperAdapter;
 import infrastructure.developer.DeveloperFakeRepositoryAdapter;
 import shared.developers.Email;
 import shared.exceptions.EntityNotFoundException;
@@ -24,5 +26,6 @@ public class Main {
 //    ManageDeveloper manageDeveloper = new DeveloperManager(devRepository);
 //
 //    // CREATE THE LEFT SIDE ( DRIVING SIDE )
-//    TestControllerAdapter devAdapter = new TestControllerAdapter(manageDeveloper);
+    DeveloperManager developerManager = new DeveloperManager(null);
+    DeveloperAdapter devAdapter = new DeveloperAdapter(developerManager);
 }

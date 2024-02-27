@@ -23,7 +23,7 @@ public class Projects {
         return false;
     }
 
-    public Project blablaabla() throws EntityNotFoundException {
+    public Project getOngoingProject() throws EntityNotFoundException {
         for(Project project : projects) {
             if(project.getStatus() == Status.IN_PROGRESS
                     || project.getStatus() == Status.WAITING) {

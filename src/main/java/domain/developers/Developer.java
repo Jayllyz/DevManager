@@ -37,8 +37,8 @@ public class Developer {
         return projects.hasOngoingProject();
     }
 
-    public Project blablaabla() throws EntityNotFoundException {
-        return projects.blablaabla();
+    public Project getOngoingProject() throws EntityNotFoundException {
+        return projects.getOngoingProject();
     }
 
     public String getEmailAddress() {

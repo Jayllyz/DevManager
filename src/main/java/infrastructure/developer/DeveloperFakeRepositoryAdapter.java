@@ -176,7 +176,7 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
             return true;
         }
 
-        Project ongoingProject = developer.blablaabla();
+        Project ongoingProject = developer.getOngoingProject();
 
         return projectIsInAvailablePeriod(ongoingProject, projectToJoin);
 
