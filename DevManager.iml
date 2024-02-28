@@ -8,4 +8,16 @@
   <component name="CheckStyle-IDEA-Module" serialisationVersion="2">
     <option name="activeLocationsIds" />
   </component>
+  <component name="FacetManager">
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <setting name="provider-name" value="Hibernate" />
+        <datasource-mapping>
+          <factory-entry name="DevManager" value="2b68f524-8b0f-4168-80e3-c83c4ce19cc5" />
+        </datasource-mapping>
+        <naming-strategy-map />
+      </configuration>
+    </facet>
+  </component>
 </module>
