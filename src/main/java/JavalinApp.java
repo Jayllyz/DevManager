@@ -4,10 +4,7 @@ import infrastructure.developer.DeveloperControllerAdapter;
 import infrastructure.developer.DeveloperFakeRepositoryAdapter;
 import infrastructure.shared.JavalinExceptionHandler;
 import io.javalin.Javalin;
-import io.javalin.security.RouteRole;
 import shared.exceptions.InvalidAttributeException;
-import static io.javalin.apibuilder.ApiBuilder.*;
-
 
 public class JavalinApp {
     public void start() throws InvalidAttributeException {
