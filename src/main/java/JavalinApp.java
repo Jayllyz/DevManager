@@ -14,9 +14,15 @@ public class JavalinApp {
 
         JavalinExceptionHandler.setApplicationExceptions(app);
 
+        // Developer Endpoints
+        // GET
         app.get("developer/{email}", DeveloperControllerAdapter::getDeveloperByEmail);
         app.get("developer", DeveloperControllerAdapter::getAllDevelopers);
-        // Get developer by email
+
+        // DELETE
+        app.delete("developer/{email}", DeveloperControllerAdapter::deleteDeveloper);
+
+
 
         app.start(8282);
     }

@@ -7,6 +7,7 @@ import infrastructure.developer.DTO.DeveloperDTO;
 import infrastructure.developer.DTO.DeveloperMapper;
 import shared.developers.Email;
 import io.javalin.http.Context;
+import shared.exceptions.EntityAlreadyExistsException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,6 @@ public class DeveloperControllerAdapter {
         ctx.json(developersDTOS);
     }
 
-
     public static void getDeveloperByEmail(Context ctx) {
         String email = ctx.pathParam("email");
         Developer developer = developerManager.getDeveloperByMail(new Email(email));
@@ -38,4 +38,10 @@ public class DeveloperControllerAdapter {
         ctx.json(developerDTO);
     }
 
+    public static void deleteDeveloper(Context ctx) {
+        String email = ctx.pathParam("email");
+        developerManager.removeDeveloper(new Email(email));
+        ctx.status(200);
+    }
+    
 }
