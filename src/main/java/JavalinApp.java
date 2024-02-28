@@ -15,6 +15,7 @@ public class JavalinApp {
         JavalinExceptionHandler.setApplicationExceptions(app);
 
         app.get("developer/{email}", DeveloperControllerAdapter::getDeveloperByEmail);
+        app.get("developer", DeveloperControllerAdapter::getAllDevelopers);
         // Get developer by email
 
         app.start(8282);
