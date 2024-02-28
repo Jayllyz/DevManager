@@ -1,6 +1,7 @@
 package infrastructure.shared.database;
 
 import jakarta.persistence.*;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Objects;
@@ -8,7 +9,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "developer", schema = "public", catalog = "devManager")
 public class DeveloperEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "email")
     private String email;
@@ -57,13 +57,6 @@ public class DeveloperEntity {
         this.newColumn = newColumn;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "team",
-            joinColumns = @JoinColumn(name = "dev_id"),
-            inverseJoinColumns = @JoinColumn(name = "project_id")
-    )
-    private List<ProjectEntity> projects;
 
     @Override
     public boolean equals(Object o) {

@@ -6,7 +6,6 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "developer_skills", schema = "public", catalog = "devManager")
-@IdClass(DeveloperSkillsEntityPK.class)
 public class DeveloperSkillsEntity {
     @Basic
     @Column(name = "years_experience")

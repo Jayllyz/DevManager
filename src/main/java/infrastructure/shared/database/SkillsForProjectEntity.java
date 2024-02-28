@@ -6,7 +6,6 @@ import java.util.Objects;
 
 @Entity
 @jakarta.persistence.Table(name = "skills_for_project", schema = "public", catalog = "devManager")
-@IdClass(infrastructure.shared.database.SkillsForProjectEntityPK.class)
 public class SkillsForProjectEntity {
     @Basic
     @jakarta.persistence.Column(name = "dev_number")
