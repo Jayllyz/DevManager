@@ -13,12 +13,12 @@ public class JavalinApp {
     public void start() throws InvalidAttributeException {
         ManageDeveloper developerManager = new DeveloperManager(new DeveloperFakeRepositoryAdapter());
 
-        var app = Javalin.create(/*config*/);
+        Javalin app = Javalin.create(/*config*/);
 
         JavalinExceptionHandler.setApplicationExceptions(app);
 
+        app.get("developer/{email}", DeveloperControllerAdapter::getDeveloperByEmail);
         // Get developer by email
-        app.get("/developer/{email}", DeveloperControllerAdapter::getDeveloperByEmail);
 
         app.start(8282);
     }
