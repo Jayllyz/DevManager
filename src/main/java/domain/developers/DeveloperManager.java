@@ -55,7 +55,7 @@ public class DeveloperManager implements ManageDeveloper, ManageDeveloperProject
     @Override
     public Email removeDeveloper(Email email) {
         if(!developerExist(email)) {
-            return null;
+            throw new EntityNotFoundException("The developer with the email provided does not exist");
         }
         this.repository.removeDeveloper(email);
         return email;

@@ -105,11 +105,6 @@ public class DeveloperControllerAdapter {
     public static void deleteDeveloper(Context ctx) {
         String email = ctx.pathParam("email");
         Email result = developerManager.removeDeveloper(new Email(email));
-        if(result == null) {
-            ctx.status(404);
-            ctx.json("{ \"status\": 404, \"message\": \"Developer not found\" }");
-            return;
-        }
         ctx.json("{ \"status\": 200, \"message\": \"Developer deleted successfully\" }");
         ctx.status(200);
     }
