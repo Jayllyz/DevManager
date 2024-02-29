@@ -94,7 +94,8 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
 
     @Override
     public Developer createDeveloper(Developer developer) {
-        return null;
+        this.developers.add(developer);
+        return developer;
     }
 
     /**

@@ -2,6 +2,7 @@ package infrastructure.shared;
 
 import io.javalin.Javalin;
 import io.javalin.http.Context;
+import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.EntityNotFoundException;
 import shared.exceptions.InvalidAttributeException;
 
@@ -25,6 +26,12 @@ public class JavalinExceptionHandler {
             String jsonError = makeJsonError(404,e.getMessage());
             ctx.json(jsonError).
                     status(400);
+        });
+
+        app.exception(EntityAlreadyExistsException.class, (e, ctx) -> {
+            String jsonError = makeJsonError(404,e.getMessage());
+            ctx.json(jsonError).
+                    status(409);
         });
 
     }

@@ -21,6 +21,9 @@ public class JavalinApp {
         app.get("developer/skill/{skill}", DeveloperControllerAdapter::getAllDevelopersBySkill);
         app.get("developer/skillAndExperience/", DeveloperControllerAdapter::getAllDevelopersBySkillAndExperience);
 
+        // POST
+        app.post("developer/", DeveloperControllerAdapter::createDeveloper);
+
         // DELETE
         app.delete("developer/{email}", DeveloperControllerAdapter::deleteDeveloper);
 
