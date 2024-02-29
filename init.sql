@@ -52,7 +52,6 @@ CREATE TABLE team
     FOREIGN KEY (project_id) REFERENCES Project(id)
 );
 
-
 INSERT INTO Developer (email, last_name, first_name)
 VALUES
     ('john@example.com', 'Smith', 'John'),
