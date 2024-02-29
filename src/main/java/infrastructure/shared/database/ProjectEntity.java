@@ -8,7 +8,7 @@ import java.util.Objects;
 @Entity
 @jakarta.persistence.Table(name = "project", schema = "public", catalog = "devManager")
 public class ProjectEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @jakarta.persistence.Column(name = "id")
     private int id;

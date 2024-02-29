@@ -7,7 +7,6 @@ import java.util.Objects;
 @Entity
 @jakarta.persistence.Table(name = "skill", schema = "public", catalog = "devManager")
 public class SkillEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @jakarta.persistence.Column(name = "id")
     private int id;
