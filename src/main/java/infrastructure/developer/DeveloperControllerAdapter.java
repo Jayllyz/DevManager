@@ -5,6 +5,7 @@ import domain.developers.DeveloperManager;
 import domain.developers.ManageDeveloper;
 import infrastructure.developer.DTO.DeveloperDTO;
 import infrastructure.developer.DTO.DeveloperMapper;
+import shared.Skill;
 import shared.developers.Email;
 import io.javalin.http.Context;
 import shared.exceptions.EntityAlreadyExistsException;
@@ -36,6 +37,30 @@ public class DeveloperControllerAdapter {
         Developer developer = developerManager.getDeveloperByMail(new Email(email));
         DeveloperDTO developerDTO = DeveloperMapper.mapDeveloperToDTO(developer);
         ctx.json(developerDTO);
+    }
+
+    public static void getAllDevelopersBySkill(Context ctx) {
+        String skill = ctx.pathParam("skill");
+        skill = skill.toUpperCase();
+        Skill skillEnum;
+
+        try {
+            skillEnum = Skill.valueOf(skill);
+        } catch (IllegalArgumentException e) {
+            ctx.status(400);
+            ctx.json("{ \"status\": 400, \"message\": \"Invalid skill\" }");
+            return;
+        }
+
+        List<Developer> developers = developerManager.getAllDevelopersBySkill(skillEnum);
+        List<DeveloperDTO> developersDTOS = new ArrayList<>();
+
+        for(Developer developer : developers) {
+            DeveloperDTO developerDTO = DeveloperMapper.mapDeveloperToDTO(developer);
+            developersDTOS.add(developerDTO);
+        }
+
+        ctx.json(developersDTOS);
     }
 
     public static void deleteDeveloper(Context ctx) {
