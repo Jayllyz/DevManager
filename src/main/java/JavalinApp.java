@@ -16,9 +16,10 @@ public class JavalinApp {
 
         // Developer Endpoints
         // GET
-        app.get("developer/{email}", DeveloperControllerAdapter::getDeveloperByEmail);
-        app.get("developer", DeveloperControllerAdapter::getAllDevelopers);
+        app.get("developer/email/{email}", DeveloperControllerAdapter::getDeveloperByEmail);
+        app.get("developer/all/", DeveloperControllerAdapter::getAllDevelopers);
         app.get("developer/skill/{skill}", DeveloperControllerAdapter::getAllDevelopersBySkill);
+        app.get("developer/skillAndExperience/", DeveloperControllerAdapter::getAllDevelopersBySkillAndExperience);
 
         // DELETE
         app.delete("developer/{email}", DeveloperControllerAdapter::deleteDeveloper);

@@ -5,6 +5,7 @@ import domain.developers.DeveloperManager;
 import domain.developers.ManageDeveloper;
 import infrastructure.developer.DTO.DeveloperDTO;
 import infrastructure.developer.DTO.DeveloperMapper;
+import shared.Experience;
 import shared.Skill;
 import shared.developers.Email;
 import io.javalin.http.Context;
@@ -44,15 +45,33 @@ public class DeveloperControllerAdapter {
         skill = skill.toUpperCase();
         Skill skillEnum;
 
-        try {
-            skillEnum = Skill.valueOf(skill);
-        } catch (IllegalArgumentException e) {
-            ctx.status(400);
-            ctx.json("{ \"status\": 400, \"message\": \"Invalid skill\" }");
-            return;
-        }
+        skillEnum = Skill.valueOf(skill);
 
         List<Developer> developers = developerManager.getAllDevelopersBySkill(skillEnum);
+        List<DeveloperDTO> developersDTOS = new ArrayList<>();
+
+        for(Developer developer : developers) {
+            DeveloperDTO developerDTO = DeveloperMapper.mapDeveloperToDTO(developer);
+            developersDTOS.add(developerDTO);
+        }
+
+        ctx.json(developersDTOS);
+    }
+
+    public static void getAllDevelopersBySkillAndExperience(Context ctx){
+        String skill = ctx.queryParam("skill");
+        String experience = ctx.queryParam("experience");
+
+        Skill skillEnum;
+        Experience experienceEnum;
+
+        skill = skill.toUpperCase();
+        skillEnum = Skill.valueOf(skill);
+
+        experience = experience.toUpperCase();
+        experienceEnum = Experience.valueOf(experience);
+
+        List<Developer> developers = developerManager.getAllDevelopersBySkillAndExperience(skillEnum, experienceEnum);
         List<DeveloperDTO> developersDTOS = new ArrayList<>();
 
         for(Developer developer : developers) {

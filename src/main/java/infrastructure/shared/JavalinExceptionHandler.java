@@ -21,6 +21,12 @@ public class JavalinExceptionHandler {
                     status(400);
         });
 
+        app.exception(IllegalArgumentException.class, (e, ctx) -> {
+            String jsonError = makeJsonError(404,e.getMessage());
+            ctx.json(jsonError).
+                    status(400);
+        });
+
     }
 
     private static String makeJsonError(int statusCode, String errorMessage) {
