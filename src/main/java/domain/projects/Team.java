@@ -1,7 +1,5 @@
 package domain.projects;
 
-import domain.developers.Developer;
-import domain.teams.Project;
 import shared.Experience;
 import shared.Priority;
 import shared.exceptions.InvalidAttributeException;
@@ -11,10 +9,10 @@ import java.util.HashSet;
 import java.util.List;
 
 public class Team {
-    private domain.teams.Project project;
+    private Project project;
     private List<Developer> developers;
 
-    public Team(domain.teams.Project project, List<Developer> developers) throws InvalidAttributeException {
+    public Team(Project project, List<Developer> developers) throws InvalidAttributeException {
 
         if(project == null) {
             throw new InvalidAttributeException("You need a project to create a team");
@@ -29,7 +27,7 @@ public class Team {
         }
 
         this.developers = developers;
-
+        this.project = project;
 
     }
 
@@ -50,16 +48,16 @@ public class Team {
 
         if(expertCount == 0){
 
-            validateTeamWithoutExpert(juniorCount,project);
+            validateTeamWithoutExpert(juniorCount, project);
 
         } else {
 
-            validateTeamWithExpert(juniorCount,project,developers);
+            validateTeamWithExpert(juniorCount, project, developers);
         }
 
     }
 
-    private void validateTeamWithoutExpert(int juniorCount, domain.teams.Project project) throws InvalidAttributeException {
+    private void validateTeamWithoutExpert(int juniorCount, Project project) throws InvalidAttributeException {
         if(juniorCount > 0) {
             throw new InvalidAttributeException("Team can't have a junior developer without an expert developer");
 
@@ -110,6 +108,9 @@ public class Team {
 
         return false;
 
+    }
+    public List<Developer> getDevelopers() {
+        return developers;
     }
 }
 

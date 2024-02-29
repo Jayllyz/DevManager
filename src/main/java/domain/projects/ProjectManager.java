@@ -15,7 +15,7 @@ public class ProjectManager implements ManageProject {
     ProjectRepository repository;
     DeveloperManagement developerManagement;
 
-    public ProjectManager(ProjectRepository repository,DeveloperManagement developerManagement) {
+    public ProjectManager(ProjectRepository repository, DeveloperManagement developerManagement) {
 
         if(repository == null) {
             throw new IllegalArgumentException("repository can't be null");
@@ -44,6 +44,11 @@ public class ProjectManager implements ManageProject {
     @Override
     public List<Developer> getAvailableDevelopersForProject(Name name) throws EntityNotFoundException, InvalidAttributeException {
         return developerManagement.getAvailableDevelopersForProject(name);
+    }
+
+    @Override
+    public List<Project> getAllProjects() {
+        return repository.getAllProjects();
     }
 
     @Override

@@ -15,4 +15,5 @@ public interface ProjectRepository {
     Boolean deleteProject(Project project);
     Project postponeProject(Project project, LocalDate startDate);
     Project getNextStartingProject();
+    List<Project> getAllProjects();
 }

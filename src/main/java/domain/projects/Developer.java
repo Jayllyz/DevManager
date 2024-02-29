@@ -38,4 +38,8 @@ public class Developer {
         return this.skills.getGlobalExperience();
     }
 
+    public SkillsByYearsOfExperience getSkillsByYearsOfExperience() {
+        return this.skills;
+    }
+
 }

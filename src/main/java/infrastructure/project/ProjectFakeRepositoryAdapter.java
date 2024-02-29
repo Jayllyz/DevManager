@@ -120,4 +120,9 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
         }
         return null;
     }
+
+    @Override
+    public List<Project> getAllProjects() {
+        return projects;
+    }
 }
