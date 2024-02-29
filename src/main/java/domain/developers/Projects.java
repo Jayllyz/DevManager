@@ -37,4 +37,7 @@ public class Projects {
         projects.add(project);
     }
 
+    public List<Project> listProjects() {
+        return projects;
+    }
 }

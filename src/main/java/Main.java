@@ -1,13 +1,18 @@
 import domain.developers.DeveloperManager;
-import domain.developers.DeveloperRepository;
-import domain.developers.ManageDeveloper;
-import infrastructure.developer.DeveloperFakeRepositoryAdapter;
-import infrastructure.developer.TestControllerAdapter;
-import io.javalin.Javalin;
+import infrastructure.developer.DeveloperControllerAdapter;
+import shared.exceptions.EntityNotFoundException;
 import shared.exceptions.InvalidAttributeException;
 
 
 public class Main {
+
+    public static void main(String[] args) throws InvalidAttributeException, EntityNotFoundException {
+        try {
+            new JavalinApp().start();
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+    }
 
     // CREATE THE RIGHT SIDE ( DRIVEN )
 //    DeveloperRepository devRepository = new DeveloperFakeRepositoryAdapter();
@@ -16,10 +21,6 @@ public class Main {
 //    ManageDeveloper manageDeveloper = new DeveloperManager(devRepository);
 //
 //    // CREATE THE LEFT SIDE ( DRIVING SIDE )
-//    TestControllerAdapter devAdapter = new TestControllerAdapter(manageDeveloper);
-
-
-    public Main() throws InvalidAttributeException {
-
-    }
+//    DeveloperManager developerManager = new DeveloperManager(null);
+//    DeveloperControllerAdapter devAdapter = new DeveloperControllerAdapter(developerManager);
 }

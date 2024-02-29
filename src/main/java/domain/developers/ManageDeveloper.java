@@ -6,11 +6,12 @@ import shared.developers.Email;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.EntityNotFoundException;
+import shared.exceptions.InvalidAttributeException;
 
 import java.util.List;
 
 public interface ManageDeveloper {
-    Developer createDeveloper(Developer developer) throws EntityAlreadyExistsException;
+    Developer createDeveloper(Developer developer) throws EntityAlreadyExistsException, InvalidAttributeException;
     Developer getDeveloperByMail(Email email) throws EntityNotFoundException;
     Email removeDeveloper(Email email);
     List<Developer> getAllDevelopers();
