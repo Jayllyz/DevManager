@@ -1,6 +1,7 @@
 package infrastructure.developer.DTO;
 
 import domain.developers.Developer;
+import domain.developers.Project;
 import shared.Experience;
 import shared.Skill;
 
@@ -15,8 +16,10 @@ public class DeveloperMapper {
         String emailAddress = developer.getEmailAddress();
         HashMap<Skill, Experience> skillByExperience = developer.getSkillsByYearsOfExperience();
         List<ProjectDTO> projects = new ArrayList<>();
-        for (int i = 0; i < developer.getProjects().listProjects().size(); i++) {
-            projects.add(ProjectMapper.mapProjectToDTO(developer.getProjects().listProjects().get(i)));
+
+        List<Project> projectList = developer.getProjects().listProjects();
+        for (int i = 0; i < projectList.size(); i++) {
+            projects.add(ProjectMapper.mapProjectToDTO(projectList.get(i)));
         }
 
         return new DeveloperDTO(firstName, lastName, emailAddress, skillByExperience, projects);
