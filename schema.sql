@@ -53,10 +53,10 @@ CREATE TABLE team
 );
 
 
-INSERT INTO Developer (email, last_name, first_name, New_Column)
+INSERT INTO Developer (email, last_name, first_name)
 VALUES
-    ('john@example.com', 'Smith', 'John',1),
-    ('alice@example.com', 'Johnson', 'Alice',1);
+    ('john@example.com', 'Smith', 'John'),
+    ('alice@example.com', 'Johnson', 'Alice');
 
 INSERT INTO Skill (name)
 VALUES
@@ -90,3 +90,4 @@ VALUES
     (2,3,1), -- developer2 also assigned to Project A
     (2,2,2); -- developer2 also assigned to Project A
 
+g
