@@ -89,5 +89,3 @@ VALUES
     (1,2,1), -- developer1 assigned to Project A
     (2,3,1), -- developer2 also assigned to Project A
     (2,2,2); -- developer2 also assigned to Project A
-
-g

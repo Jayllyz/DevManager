@@ -45,29 +45,16 @@ public class DeveloperEntity {
         this.firstName = firstName;
     }
 
-    @Basic
-    @Column(name = "new_column")
-    private int newColumn;
-
-    public int getNewColumn() {
-        return newColumn;
-    }
-
-    public void setNewColumn(int newColumn) {
-        this.newColumn = newColumn;
-    }
-
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DeveloperEntity that = (DeveloperEntity) o;
-        return newColumn == that.newColumn && Objects.equals(email, that.email) && Objects.equals(lastName, that.lastName) && Objects.equals(firstName, that.firstName);
+        return Objects.equals(email, that.email) && Objects.equals(lastName, that.lastName) && Objects.equals(firstName, that.firstName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email, lastName, firstName, newColumn);
+        return Objects.hash(email, lastName, firstName);
     }
 }
