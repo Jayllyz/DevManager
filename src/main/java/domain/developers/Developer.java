@@ -12,7 +12,6 @@ import java.util.List;
 
 public class Developer {
     private final Name firstName;
-
     private final Name lastName;
     private final Email emailAddress;
     private final SkillsByYearsOfExperience skills;

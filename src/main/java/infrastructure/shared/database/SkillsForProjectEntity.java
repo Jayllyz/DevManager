@@ -19,42 +19,29 @@ public class SkillsForProjectEntity {
         this.devNumber = devNumber;
     }
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
-    @Column(name = "skill_id")
-    private int skillId;
+    @ManyToOne
+    @JoinColumn(name = "skill_id")
+    private SkillEntity skill;
 
-    public int getSkillId() {
-        return skillId;
+    public SkillEntity getSkill() {
+        return skill;
+    }
+    public void setSkill(SkillEntity skill) {
+        this.skill = skill;
     }
 
-    public void setSkillId(int skillId) {
-        this.skillId = skillId;
-    }
-
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "project_id")
-    private int projectId;
+    private int project_id;
 
     public int getProjectId() {
-        return projectId;
+        return project_id;
     }
 
     public void setProjectId(int projectId) {
-        this.projectId = projectId;
+        this.project_id = projectId;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SkillsForProjectEntity that = (SkillsForProjectEntity) o;
-        return devNumber == that.devNumber && skillId == that.skillId && projectId == that.projectId;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(devNumber, skillId, projectId);
-    }
 }
