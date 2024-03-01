@@ -1,14 +1,14 @@
 import domain.developers.DeveloperManager;
 import domain.developers.ManageDeveloper;
 import infrastructure.developer.DeveloperControllerAdapter;
-import infrastructure.developer.DeveloperFakeRepositoryAdapter;
+import infrastructure.developer.driven.DeveloperFakeRepositoryAdapter;
+import infrastructure.developer.driven.DeveloperPostgreAdapter;
 import infrastructure.shared.JavalinExceptionHandler;
 import io.javalin.Javalin;
 import shared.exceptions.InvalidAttributeException;
 
 public class JavalinApp {
     public void start() throws InvalidAttributeException {
-        ManageDeveloper developerManager = new DeveloperManager(new DeveloperFakeRepositoryAdapter());
 
         Javalin app = Javalin.create(/*config*/);
 

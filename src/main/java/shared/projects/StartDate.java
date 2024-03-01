@@ -11,7 +11,7 @@ public class StartDate {
             throw new InvalidAttributeException("Start date of project cannot be null");
         }
         if(projectStart.isBefore(LocalDate.now())) {
-            throw new InvalidAttributeException("Deadline of project cannot be in the past !");
+            throw new InvalidAttributeException("Start of project cannot be in the past !");
         }
 
         this.projectStart = projectStart;

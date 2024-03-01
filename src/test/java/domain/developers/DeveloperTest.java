@@ -3,7 +3,7 @@ package domain.developers;
 import shared.Experience;
 import shared.Priority;
 import shared.Skill;
-import infrastructure.developer.DeveloperFakeRepositoryAdapter;
+import infrastructure.developer.driven.DeveloperFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shared.Status;

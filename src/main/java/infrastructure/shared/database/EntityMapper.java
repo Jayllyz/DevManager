@@ -1,13 +1,23 @@
 package infrastructure.shared.database;
 
+import domain.developers.Developer;
+import domain.developers.Project;
+import domain.developers.Projects;
 import infrastructure.developer.DTO.DeveloperDTO;
 import infrastructure.developer.DTO.ProjectDTO;
-import jakarta.persistence.Entity;
+import infrastructure.developer.DTO.ProjectMapper;
 import shared.Experience;
 import shared.Priority;
 import shared.Skill;
 import shared.Status;
+import shared.developers.Email;
+import shared.developers.Name;
+import shared.developers.SkillsByYearsOfExperience;
+import shared.projects.Deadline;
+import shared.projects.SkillStack;
+import shared.projects.StartDate;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,30 +25,33 @@ import java.util.Set;
 
 public class EntityMapper {
 
-    public static DeveloperDTO developerEntityToDTO(DeveloperEntity developerEntity) {
-        DeveloperDTO developerDTO = new DeveloperDTO();
+    public static Developer developerEntityToDomain(DeveloperEntity developerEntity) {
 
-        developerDTO.setEmailAddress(developerEntity.getEmail());
-        developerDTO.setFirstName(developerEntity.getFirstName());
-        developerDTO.setLastName(developerEntity.getLastName());
+        String firstName = developerEntity.getFirstName();
+        String lastName = developerEntity.getFirstName();
+        String emailAddress = developerEntity.getEmail();
+        SkillsByYearsOfExperience developerSkills = getSkillByExperience(developerEntity);
+        List<ProjectEntity> projectEntities = developerEntity.getProjects();
 
-        HashMap<Skill,Experience> developerSkills = getSkillByExperience(developerEntity);
-        developerDTO.setSkillByExperience(developerSkills);
+        Projects projects = new Projects();
 
-        List<ProjectDTO> projects = new ArrayList<>();
-
-        for(ProjectEntity projectEntity : developerEntity.getProjects()) {
-            ProjectDTO projectDTO = projectEntityToDTO(projectEntity);
-            projects.add(projectDTO);
+        for(ProjectEntity projectEntity : projectEntities) {
+            Project project = projectEntityToDomain(projectEntity);
+            projects.add(project);
         }
 
-        developerDTO.setProjects(projects);
-
-        return developerDTO;
+        return new Developer(
+                new Name(firstName),
+                new Name(lastName),
+                new Email(emailAddress),
+                developerSkills,
+                projects
+        );
     }
 
-    private static HashMap<Skill, Experience> getSkillByExperience(DeveloperEntity developerEntity) {
-        HashMap<Skill,Experience> skillExperienceHashMap = new HashMap<>();
+    private static SkillsByYearsOfExperience getSkillByExperience(DeveloperEntity developerEntity) {
+
+        SkillsByYearsOfExperience skillExperience = new SkillsByYearsOfExperience();
 
         Set<DeveloperSkillsEntity> developerSkillsEntities = developerEntity.getSkillsEntities();
 
@@ -47,29 +60,33 @@ public class EntityMapper {
             Skill skill = Skill.valueOf(skillName.toUpperCase());
             Experience experience = Experience.fromYearsOfExperience(devSkill.getYearsExperience());
 
-            skillExperienceHashMap.put(skill,experience);
+            skillExperience.addNewSkill(skill,experience);
         }
 
-        return skillExperienceHashMap;
+        return skillExperience;
     }
 
-    public static ProjectDTO projectEntityToDTO(ProjectEntity projectEntity) {
-        ProjectDTO projectDTO = new ProjectDTO();
+    public static Project projectEntityToDomain(ProjectEntity projectEntity) {
 
-        projectDTO.setName(projectEntity.getName());
-        projectDTO.setDeadline(projectEntity.getDeadline().toLocalDate());
-        projectDTO.setStart(projectEntity.getStartDate().toLocalDate());
+        String name = projectEntity.getName();
+        LocalDate deadline = projectEntity.getDeadline().toLocalDate();
+        LocalDate start = projectEntity.getStartDate().toLocalDate();
         Status projectStatus = Status.fromString(projectEntity.getStatus());
         Priority projectPriority = Priority.fromString(projectEntity.getPriority());
+        SkillStack skillStack = getSkillsForProject(projectEntity);
 
-        HashMap<Skill,Integer> skillRequired = getSkillsForProject(projectEntity);
-        projectDTO.setSkillStack(skillRequired);
-
-        return projectDTO;
+        return new Project(
+                new shared.projects.Name(name),
+                projectPriority,
+                new StartDate(start),
+                new Deadline(deadline),
+                skillStack,
+                projectStatus
+        );
     }
 
-    private static HashMap<Skill, Integer> getSkillsForProject(ProjectEntity projectEntity) {
-        HashMap<Skill, Integer> skillStack = new HashMap<>();
+    private static SkillStack getSkillsForProject(ProjectEntity projectEntity) {
+        SkillStack skillStack = new SkillStack();
 
         Set<SkillsForProjectEntity> projectSkills = projectEntity.getSkillsEntities();
 

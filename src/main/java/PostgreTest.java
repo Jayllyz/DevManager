@@ -1,14 +1,9 @@
 import infrastructure.developer.DTO.DeveloperDTO;
 import infrastructure.shared.database.DeveloperEntity;
-import infrastructure.shared.database.DeveloperSkillsEntity;
 import infrastructure.shared.database.EntityMapper;
-import infrastructure.shared.database.SkillEntity;
 import jakarta.persistence.*;
-import org.hibernate.SessionFactory;
 import shared.exceptions.EntityNotFoundException;
 import shared.exceptions.InvalidAttributeException;
-
-import java.util.List;
 
 
 public class PostgreTest {
@@ -54,11 +49,11 @@ public class PostgreTest {
 //                DeveloperEntity a = s;
 //            }
 //
-            DeveloperEntity devtest =  entityManager.find(DeveloperEntity.class,"john@example.com");
-            DeveloperEntity bb = devtest;
-
-            DeveloperDTO devDto = EntityMapper.developerEntityToDTO(bb);
-            int a = 3;
+//            DeveloperEntity devtest =  entityManager.find(DeveloperEntity.class,"john@example.com");
+//            DeveloperEntity bb = devtest;
+//
+//            DeveloperDTO devDto = EntityMapper.developerEntityToDomain(bb);
+//            int a = 3;
 //
 //            String hql = "FROM DeveloperEntity"; // HQL query to select all rows
 //            TypedQuery<DeveloperEntity> query = entityManager.createQuery(hql, DeveloperEntity.class);
