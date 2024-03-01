@@ -3,8 +3,6 @@ package infrastructure.project.DTO;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import shared.Experience;
-import shared.Priority;
 import shared.Skill;
 import shared.Status;
 

@@ -42,8 +42,8 @@ public class JavalinApp {
         app.post("project/", ProjectControllerAdapter::createProject);
         app.post("project/{name}/addDeveloper/", ProjectControllerAdapter::addDeveloperToProject);
 
-        // PUT
-        app.put("project/{name}/postpone/{startDate}", ProjectControllerAdapter::postponeProject);
+        // PATCH
+        app.patch("project/{name}/postpone/{startDate}", ProjectControllerAdapter::postponeProject);
 
         // DELETE
         app.delete("project/{name}", ProjectControllerAdapter::deleteProject);
