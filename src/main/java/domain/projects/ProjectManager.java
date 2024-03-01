@@ -81,4 +81,9 @@ public class ProjectManager implements ManageProject {
     public Project getNextStartingProject() {
         return repository.getNextStartingProject();
     }
+
+    @Override
+    public Team getTeamForProject(Project project) {
+        return teamManagement.getTeamForProject(project);
+    }
 }

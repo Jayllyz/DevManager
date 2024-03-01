@@ -1,8 +1,8 @@
 package infrastructure.project;
 
-import domain.projects.Developer;
 import domain.projects.Project;
 import domain.projects.ProjectRepository;
+import domain.projects.Team;
 import domain.projects.attributes.*;
 import shared.Priority;
 import shared.Status;

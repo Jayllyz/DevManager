@@ -24,14 +24,14 @@ public class TeamGateway implements TeamManagement {
     }
 
     @Override
-    public Team addDeveloperToProject(Developer developer, Project project) {
-        domain.teams.Team team = teamHexagon.addDeveloperToProject(developer, project);
+    public Team addDeveloperToProject(List<Developer> developers, Project project) {
+        domain.teams.Team team = teamHexagon.addDeveloperToProject(developers, project);
         return transformTeamToProjectDomain(team, project);
     }
 
     @Override
-    public Team removeDeveloperFromProject(Developer developer, Project project) {
-        domain.teams.Team team = teamHexagon.removeDeveloperFromProject(developer, project);
+    public Team removeDeveloperFromProject(List<Developer> developers, Project project) {
+        domain.teams.Team team = teamHexagon.removeDeveloperFromProject(developers, project);
         return transformTeamToProjectDomain(team, project);
     }
 

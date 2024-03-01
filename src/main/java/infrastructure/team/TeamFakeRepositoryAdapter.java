@@ -12,6 +12,7 @@ import shared.developers.Email;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
 import shared.projects.Deadline;
+import shared.projects.Name;
 import shared.projects.SkillStack;
 import shared.projects.StartDate;
 
@@ -96,11 +97,26 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
                 return team;
             }
         }
-        throw new IllegalArgumentException("No team found for this project");
+
+        SkillStack skillStack = new SkillStack();
+        for (Skill skill : project.getStack().keySet()) {
+            skillStack.put(skill, project.getStack().get(skill));
+        }
+
+        Project newProject = new Project(
+                new Name(project.getName()),
+                project.getPriority(),
+                new StartDate(project.getStart()),
+                new Deadline(project.getDeadline()),
+                skillStack,
+                project.getStatus()
+        );
+
+        return new Team(newProject, new ArrayList<>());
     }
 
     @Override
-    public Team addDevelopersToProject(domain.projects.Project project, List<domain.projects.Developer> developers) {
+    public Team addDeveloperToProject(List<domain.projects.Developer> developers, domain.projects.Project project) {
         Team team = getTeamForProject(project);
         for (domain.projects.Developer developer : developers) {
             Developer newDeveloper = new Developer(developer.getEmail(), developer.getSkillsByYearsOfExperience());
@@ -110,7 +126,7 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
     }
 
     @Override
-    public Team removeDevelopersFromProject(domain.projects.Project project, List<domain.projects.Developer> developers) {
+    public Team removeDeveloperFromProject(List<domain.projects.Developer> developers, domain.projects.Project project) {
         Team team = getTeamForProject(project);
         for (domain.projects.Developer developer : developers) {
             Developer newDeveloper = new Developer(developer.getEmail(), developer.getSkillsByYearsOfExperience());

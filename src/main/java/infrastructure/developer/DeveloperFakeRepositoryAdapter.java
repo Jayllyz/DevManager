@@ -159,7 +159,6 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
         Project project = getProjectByName(name);
         for(Developer developer : developers) {
 
-
             if(!developerCanParticipate(developer,project)) {
                 continue;
             }

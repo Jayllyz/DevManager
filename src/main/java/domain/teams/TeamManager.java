@@ -29,12 +29,12 @@ public class TeamManager implements ManageTeam, ManageTeamProject {
     }
 
     @Override
-    public Team addDeveloperToProject(domain.projects.Developer developer, domain.projects.Project project) {
-        return null;
+    public Team addDeveloperToProject(List<domain.projects.Developer> developers, domain.projects.Project project) {
+        return this.teamRepository.addDeveloperToProject(developers, project);
     }
 
     @Override
-    public Team removeDeveloperFromProject(domain.projects.Developer developer, domain.projects.Project project) {
-        return null;
+    public Team removeDeveloperFromProject(List<domain.projects.Developer> developers, domain.projects.Project project) {
+        return this.teamRepository.removeDeveloperFromProject(developers, project);
     }
 }

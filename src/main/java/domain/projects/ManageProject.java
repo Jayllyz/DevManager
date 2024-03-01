@@ -22,4 +22,5 @@ public interface ManageProject {
     Boolean deleteProject(Project project);
     Project postponeProject(Project project, LocalDate startDate);
     Project getNextStartingProject();
+    Team getTeamForProject(Project project);
 }
