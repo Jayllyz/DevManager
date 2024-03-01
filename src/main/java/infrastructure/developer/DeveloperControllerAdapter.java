@@ -3,7 +3,6 @@ package infrastructure.developer;
 import domain.developers.*;
 import infrastructure.developer.DTO.DeveloperDTO;
 import infrastructure.developer.DTO.DeveloperMapper;
-import infrastructure.developer.driven.DeveloperFakeRepositoryAdapter;
 import infrastructure.developer.driven.DeveloperPostgreAdapter;
 import shared.Experience;
 import shared.Skill;

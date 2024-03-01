@@ -1,13 +1,5 @@
-import domain.developers.DeveloperManager;
-import domain.developers.ManageDeveloper;
-import domain.projects.DeveloperManagement;
-import domain.projects.ManageProject;
-import domain.projects.ProjectManager;
 import infrastructure.developer.DeveloperControllerAdapter;
-import infrastructure.developer.driven.DeveloperFakeRepositoryAdapter;
-import infrastructure.developer.driven.DeveloperPostgreAdapter;
 import infrastructure.project.ProjectControllerAdapter;
-import infrastructure.project.ProjectFakeRepositoryAdapter;
 import infrastructure.shared.JavalinExceptionHandler;
 import io.javalin.Javalin;
 import shared.exceptions.InvalidAttributeException;
@@ -37,7 +29,7 @@ public class JavalinApp {
         app.get("project/name/{name}", ProjectControllerAdapter::getProjectByName);
         app.get("project/all/", ProjectControllerAdapter::getAllProjects);
         app.get("project/status/{status}", ProjectControllerAdapter::getProjectsByStatus);
-//        app.get("project/nextStarting/", ProjectControllerAdapter::getNextStartingProject);
+//      app.get("project/nextStarting/", ProjectControllerAdapter::getNextStartingProject);
 
         // POST
         app.post("project/", ProjectControllerAdapter::createProject);
