@@ -34,7 +34,12 @@ public class JavalinApp {
 
         // Project Endpoints
         // GET
+        app.get("project/name/{name}", ProjectControllerAdapter::getProjectByName);
         app.get("project/all/", ProjectControllerAdapter::getAllProjects);
+        app.get("project/status/{status}", ProjectControllerAdapter::getProjectsByStatus);
+
+        // DELETE
+        app.delete("project/{name}", ProjectControllerAdapter::deleteProject);
 
 
         app.start(8282);

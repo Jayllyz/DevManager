@@ -58,6 +58,11 @@ public class ProjectManager implements ManageProject {
     }
 
     @Override
+    public Project getProjectByName(Name name) throws EntityNotFoundException {
+        return repository.getProjectByName(name);
+    }
+
+    @Override
     public List<Project> listProjectByStatus(Status status) {
         return repository.listProjectByStatus(status);
     }

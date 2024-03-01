@@ -18,6 +18,7 @@ public interface ManageProject {
     Project createProject(Name name, Priority priority, Description description, StartDate start, Deadline deadline, SkillStack skillStack) throws EntityAlreadyExistsException;
     List<Developer> getAvailableDevelopersForProject(Name name) throws EntityNotFoundException, InvalidAttributeException;
     List<Project> getAllProjects();
+    Project getProjectByName(Name name) throws EntityNotFoundException;
     List<Project> listProjectByStatus(Status status);
     Boolean deleteProject(Project project);
     Project postponeProject(Project project, LocalDate startDate);

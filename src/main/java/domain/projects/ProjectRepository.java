@@ -15,4 +15,5 @@ public interface ProjectRepository {
     Project postponeProject(Project project, LocalDate startDate);
     Project getNextStartingProject();
     List<Project> getAllProjects();
+    Project getProjectByName(Name name);
 }
