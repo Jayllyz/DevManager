@@ -3,7 +3,6 @@ package domain.projects;
 import shared.Experience;
 import shared.Skill;
 import shared.developers.Email;
-import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 
 import java.util.List;

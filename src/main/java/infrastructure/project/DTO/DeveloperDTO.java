@@ -9,9 +9,12 @@ import java.util.HashMap;
 
 public class DeveloperDTO {
     private String emailAddress;
-    private HashMap<Skill, Experience> skillByExperience;
+    private HashMap<String, Integer> skillByExperience;
 
-    public DeveloperDTO (String emailAddress, HashMap<Skill, Experience> skillByExperience){
+    @JsonCreator
+    public DeveloperDTO (
+            @JsonProperty("email") String emailAddress,
+            @JsonProperty("skill") HashMap<String, Integer> skillByExperience){
         this.emailAddress = emailAddress;
         this.skillByExperience = skillByExperience;
     }
@@ -20,7 +23,7 @@ public class DeveloperDTO {
         return emailAddress;
     }
 
-    public HashMap<Skill, Experience> getSkillByExperience() {
+    public HashMap<String, Integer> getSkillByExperience() {
         return skillByExperience;
     }
 }

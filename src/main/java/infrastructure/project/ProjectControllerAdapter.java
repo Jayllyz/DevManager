@@ -124,6 +124,32 @@ public class ProjectControllerAdapter {
         ctx.json(returnedProjectDTO);
     }
 
+    public static void addDeveloperToProject(Context ctx) {
+        String name = ctx.pathParam("name");
+        Project project = projectManager.getProjectByName(new Name(name));
+
+        ProjectDTO projectDTO = ctx.bodyAsClass(ProjectDTO.class);
+        List<DeveloperDTO> developersDTO = projectDTO.getTeam();
+
+        List<Developer> developers = new ArrayList<>();
+        for(DeveloperDTO developerDTO : developersDTO) {
+            developers.add(DeveloperMapper.mapDTOToDeveloper(developerDTO));
+        }
+
+        Team team = projectManager.addDeveloperToProject(developers, project);
+        List<Developer> teamDevelopers = team.getDevelopers();
+
+        List<DeveloperDTO> developersDTOS = new ArrayList<>();
+        for(Developer developer : teamDevelopers) {
+            DeveloperDTO developerDTO = DeveloperMapper.mapDeveloperToDTO(developer);
+            developersDTOS.add(developerDTO);
+        }
+
+        ProjectDTO returnedProjectDTO = ProjectMapper.mapProjectToDTO(project, developersDTOS);
+        ctx.status(200);
+        ctx.json(returnedProjectDTO);
+    }
+
     public static void postponeProject(Context ctx) {
         String name = ctx.pathParam("name");
         String startDate = ctx.pathParam("startDate");
