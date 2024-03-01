@@ -2,8 +2,6 @@ package infrastructure.project.DTO;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import shared.Experience;
-import shared.Skill;
 
 import java.util.HashMap;
 
