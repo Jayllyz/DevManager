@@ -3,7 +3,6 @@ package domain.developers;
 import shared.Experience;
 import shared.Skill;
 import shared.developers.Email;
-import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.EntityNotFoundException;
 import shared.projects.Name;
 

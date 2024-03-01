@@ -1,7 +1,6 @@
 package domain.projects;
 
 import shared.Status;
-import shared.exceptions.EntityNotFoundException;
 import shared.projects.Name;
 
 import java.time.LocalDate;
