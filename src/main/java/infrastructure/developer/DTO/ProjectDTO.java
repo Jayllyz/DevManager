@@ -4,10 +4,6 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import shared.Priority;
 import shared.Skill;
 import shared.Status;
-import shared.projects.Deadline;
-import shared.projects.Name;
-import shared.projects.SkillStack;
-import shared.projects.StartDate;
 
 import java.time.LocalDate;
 import java.util.HashMap;

@@ -14,8 +14,9 @@ import java.util.List;
 public class ProjectManager implements ManageProject {
     ProjectRepository repository;
     DeveloperManagement developerManagement;
+    TeamManagement teamManagement;
 
-    public ProjectManager(ProjectRepository repository,DeveloperManagement developerManagement) {
+    public ProjectManager(ProjectRepository repository, DeveloperManagement developerManagement, TeamManagement teamManagement) {
 
         if(repository == null) {
             throw new IllegalArgumentException("repository can't be null");
@@ -25,8 +26,13 @@ public class ProjectManager implements ManageProject {
             throw new IllegalArgumentException("developer management can't be null");
         }
 
+        if(teamManagement == null) {
+            throw new IllegalArgumentException("team management can't be null");
+        }
+
         this.repository = repository;
         this.developerManagement = developerManagement;
+        this.teamManagement = teamManagement;
     }
 
     @Override
@@ -44,6 +50,16 @@ public class ProjectManager implements ManageProject {
     @Override
     public List<Developer> getAvailableDevelopersForProject(Name name) throws EntityNotFoundException, InvalidAttributeException {
         return developerManagement.getAvailableDevelopersForProject(name);
+    }
+
+    @Override
+    public List<Project> getAllProjects() {
+        return repository.getAllProjects();
+    }
+
+    @Override
+    public Project getProjectByName(Name name) throws EntityNotFoundException {
+        return repository.getProjectByName(name);
     }
 
     @Override
@@ -69,5 +85,20 @@ public class ProjectManager implements ManageProject {
     @Override
     public Project getNextStartingProject() {
         return repository.getNextStartingProject();
+    }
+
+    @Override
+    public Team getTeamForProject(Project project) {
+        return teamManagement.getTeamForProject(project);
+    }
+
+    @Override
+    public Team addDeveloperToProject(List<Developer> developers, Project project) {
+        return teamManagement.addDeveloperToProject(developers, project);
+    }
+
+    @Override
+    public Team removeDeveloperFromProject(List<Developer> developers, Project project) {
+        return teamManagement.removeDeveloperFromProject(developers, project);
     }
 }

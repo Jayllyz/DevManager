@@ -105,7 +105,6 @@ public class DeveloperControllerAdapter {
         ctx.json(developerDTO);
     }
 
-
     public static void deleteDeveloper(Context ctx) {
         String email = ctx.pathParam("email");
         Email result = developerManager.removeDeveloper(new Email(email));

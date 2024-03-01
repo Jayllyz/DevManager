@@ -5,7 +5,12 @@ import domain.developers.DeveloperRepository;
 import domain.developers.ManageDeveloperProject;
 import domain.projects.attributes.*;
 import infrastructure.developer.driven.DeveloperFakeRepositoryAdapter;
+import domain.teams.ManageTeamProject;
+import domain.teams.TeamManager;
+import domain.teams.TeamRepository;
 import infrastructure.project.DeveloperGateway;
+import infrastructure.project.TeamGateway;
+import infrastructure.team.TeamFakeRepositoryAdapter;
 import shared.Priority;
 import shared.Skill;
 import infrastructure.project.ProjectFakeRepositoryAdapter;
@@ -25,16 +30,20 @@ public class ProjectTest {
     ProjectRepository projectRepository;
     ProjectManager projectManager;
     DeveloperManagement developerManagement;
+    TeamManagement teamManagement;
 
     public ProjectTest() throws InvalidAttributeException {
         projectRepository = new ProjectFakeRepositoryAdapter();
 
         DeveloperRepository developerRepository = new DeveloperFakeRepositoryAdapter();
         ManageDeveloperProject developerManager = new DeveloperManager(developerRepository);
+        TeamRepository teamRepository = new TeamFakeRepositoryAdapter();
+        ManageTeamProject teamManager = new TeamManager(teamRepository);
 
         developerManagement = new DeveloperGateway(developerManager);
+        teamManagement = new TeamGateway(teamManager);
 
-        projectManager = new ProjectManager(projectRepository,developerManagement);
+        projectManager = new ProjectManager(projectRepository, developerManagement, teamManagement);
 
     }
 
