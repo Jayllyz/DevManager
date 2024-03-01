@@ -31,6 +31,10 @@ public class DeveloperMapper {
         HashMap<String, Integer> skillByExperience = developerDTO.getSkillByExperience();
         HashMap<Skill, Experience> skills = new HashMap<>();
 
+        if(skillByExperience == null) {
+            return new Developer(new Email(emailAddress), new SkillsByYearsOfExperience(skills));
+        }
+
         for (String skill : skillByExperience.keySet()) {
             skills.put(Skill.valueOf(skill), Experience.fromYearsOfExperience(skillByExperience.get(skill)));
         }

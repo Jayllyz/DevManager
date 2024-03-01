@@ -5,6 +5,7 @@ import shared.Priority;
 import shared.developers.Email;
 import shared.exceptions.InvalidAttributeException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -13,7 +14,12 @@ public class Team {
     private final Project project;
     private List<Developer> developers;
 
-    public Team(Project project,List<Developer> developers) throws InvalidAttributeException {
+    public Team(Project project){
+        this.project = project;
+        this.developers = new ArrayList<>();
+    }
+
+    public Team(Project project, List<Developer> developers) throws InvalidAttributeException {
 
         if(project == null) {
             throw new InvalidAttributeException("You need a project to create a team");
@@ -27,7 +33,8 @@ public class Team {
             throw new InvalidAttributeException("There cannot be duplicates developers in the team");
         }
 
-        this.developers = developers;
+        this.developers = new ArrayList<>();
+        this.developers.addAll(developers);
         this.project = project;
 
     }

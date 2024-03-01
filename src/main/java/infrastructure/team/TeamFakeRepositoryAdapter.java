@@ -1,5 +1,4 @@
 package infrastructure.team;
-
 import domain.teams.Developer;
 import domain.teams.Project;
 import domain.teams.Team;
@@ -26,7 +25,7 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
 
     List<Developer> developers;
     List<Team> teams;
-    Project project1;
+    List<Project> project1;
 
     public TeamFakeRepositoryAdapter() throws InvalidAttributeException {
 
@@ -75,12 +74,17 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
         skillsNeeded.put(Skill.SCRATCH,1);
         skillsNeeded.put(Skill.HTML,3);
 
-        this.project1 = new Project(new shared.projects.Name("Spotify"),Priority.NORMAL,new StartDate(tomorrow),new Deadline(in7Months),skillsNeeded, Status.DONE);
-
-        teams = new ArrayList<> (List.of(
-                new Team(project1, developers)
+        this.project1 = new ArrayList<>(List.of(
+                new Project(new Name("Calculator"), Priority.NORMAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillsNeeded, Status.CANCELLED),
+                new Project(new Name("Spotify"), Priority.CRITICAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillsNeeded, Status.IN_PROGRESS),
+                new Project(new Name("jsp"), Priority.NORMAL, new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillsNeeded, Status.DONE)
         ));
 
+        teams = new ArrayList<>(List.of(
+                new Team(project1.get(0)),
+                new Team(project1.get(1)),
+                new Team(project1.get(2))
+        ));
     }
 
 
@@ -92,8 +96,10 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
 
     @Override
     public Team getTeamForProject(domain.projects.Project project) {
-        for(Team team : teams) {
-            if(team.getProject().equals(project)) {
+        String projectName = project.getName();
+
+        for (Team team : teams) {
+            if (team.getProject().getName().equals(projectName)) {
                 return team;
             }
         }
