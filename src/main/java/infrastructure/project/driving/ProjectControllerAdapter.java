@@ -1,12 +1,8 @@
-package infrastructure.project;
+package infrastructure.project.driving;
 
-import domain.developers.DeveloperManager;
 import domain.projects.*;
 import domain.projects.attributes.Description;
-import domain.teams.TeamManager;
-import infrastructure.developer.driven.DeveloperFakeRepositoryAdapter;
 import infrastructure.project.DTO.*;
-import infrastructure.team.TeamFakeRepositoryAdapter;
 import io.javalin.http.Context;
 import shared.Priority;
 import shared.Skill;
@@ -23,16 +19,17 @@ import java.util.List;
 import java.util.Map;
 
 public class ProjectControllerAdapter {
-    private static final ManageProject projectManager = new ProjectManager(
-            new ProjectFakeRepositoryAdapter(),
-            new DeveloperGateway(new DeveloperManager(new DeveloperFakeRepositoryAdapter())),
-            new TeamGateway(new TeamManager(new TeamFakeRepositoryAdapter()))
-    );
+
+    private static ManageProject manageProject;
+
+    public static void initialize(ManageProject manageProject) {
+        ProjectControllerAdapter.manageProject = manageProject;
+    }
 
     public static void getProjectByName(Context ctx) {
         String name = ctx.pathParam("name");
-        Project project = projectManager.getProjectByName(new Name(name));
-        Team team = projectManager.getTeamForProject(project);
+        Project project = manageProject.getProjectByName(new Name(name));
+        Team team = manageProject.getTeamForProject(project);
         List<Developer> developers = team.getDevelopers();
 
         List<DeveloperDTO> developersDTOS = new ArrayList<>();
@@ -47,10 +44,10 @@ public class ProjectControllerAdapter {
     }
 
     public static void getAllProjects(Context ctx) {
-        List<Project> projects = projectManager.getAllProjects();
+        List<Project> projects = manageProject.getAllProjects();
         List<ProjectDTO> projectsDTOS = new ArrayList<>();
         for(Project project : projects) {
-            Team team = projectManager.getTeamForProject(project);
+            Team team = manageProject.getTeamForProject(project);
             List<Developer> developers = team.getDevelopers();
 
             List<DeveloperDTO> developersDTOS = new ArrayList<>();
@@ -70,10 +67,10 @@ public class ProjectControllerAdapter {
     public static void getProjectsByStatus(Context ctx) {
         String status = ctx.pathParam("status");
         status = status.toUpperCase();
-        List<Project> projects = projectManager.listProjectByStatus(Status.valueOf(status));
+        List<Project> projects = manageProject.listProjectByStatus(Status.valueOf(status));
         List<ProjectDTO> projectsDTOS = new ArrayList<>();
         for(Project project : projects) {
-            Team team = projectManager.getTeamForProject(project);
+            Team team = manageProject.getTeamForProject(project);
             List<Developer> developers = team.getDevelopers();
 
             List<DeveloperDTO> developersDTOS = new ArrayList<>();
@@ -91,8 +88,8 @@ public class ProjectControllerAdapter {
     }
 
     public static void getNextStartingProject(Context ctx) {
-        Project project = projectManager.getNextStartingProject();
-        Team team = projectManager.getTeamForProject(project);
+        Project project = manageProject.getNextStartingProject();
+        Team team = manageProject.getTeamForProject(project);
         List<Developer> developers = team.getDevelopers();
 
         List<DeveloperDTO> developersDTOS = new ArrayList<>();
@@ -125,8 +122,8 @@ public class ProjectControllerAdapter {
             skillStack.put(entry.getKey(), entry.getValue());
         }
 
-        Project project = projectManager.createProject(name, priority, description, start, deadline, skillStack);
-        Team team = projectManager.getTeamForProject(project);
+        Project project = manageProject.createProject(name, priority, description, start, deadline, skillStack);
+        Team team = manageProject.getTeamForProject(project);
         List<Developer> developers = team.getDevelopers();
 
         List<DeveloperDTO> developersDTOS = new ArrayList<>();
@@ -142,7 +139,7 @@ public class ProjectControllerAdapter {
 
     public static void addDeveloperToProject(Context ctx) {
         String name = ctx.pathParam("name");
-        Project project = projectManager.getProjectByName(new Name(name));
+        Project project = manageProject.getProjectByName(new Name(name));
 
         ProjectDTO projectDTO = ctx.bodyAsClass(ProjectDTO.class);
         List<DeveloperDTO> developersDTO = projectDTO.getTeam();
@@ -152,7 +149,7 @@ public class ProjectControllerAdapter {
             developers.add(DeveloperMapper.mapDTOToDeveloper(developerDTO));
         }
 
-        Team team = projectManager.addDeveloperToProject(developers, project);
+        Team team = manageProject.addDeveloperToProject(developers, project);
         List<Developer> teamDevelopers = team.getDevelopers();
 
         List<DeveloperDTO> developersDTOS = new ArrayList<>();
@@ -169,11 +166,11 @@ public class ProjectControllerAdapter {
     public static void postponeProject(Context ctx) {
         String name = ctx.pathParam("name");
         String startDate = ctx.pathParam("startDate");
-        Project project = projectManager.getProjectByName(new Name(name));
+        Project project = manageProject.getProjectByName(new Name(name));
         LocalDate startDateParsed = LocalDate.parse(startDate);
-        Project postponedProject = projectManager.postponeProject(project, startDateParsed);
+        Project postponedProject = manageProject.postponeProject(project, startDateParsed);
 
-        Team team = projectManager.getTeamForProject(postponedProject);
+        Team team = manageProject.getTeamForProject(postponedProject);
         List<Developer> developers = team.getDevelopers();
 
         List<DeveloperDTO> developersDTOS = new ArrayList<>();
@@ -189,8 +186,8 @@ public class ProjectControllerAdapter {
 
     public static void deleteProject(Context ctx) {
         String name = ctx.pathParam("name");
-        Project project = projectManager.getProjectByName(new Name(name));
-        projectManager.deleteProject(project);
+        Project project = manageProject.getProjectByName(new Name(name));
+        manageProject.deleteProject(project);
 
         ctx.json("{ \"status\": 200, \"message\": \"Project successfully deleted\" }");
         ctx.status(200);

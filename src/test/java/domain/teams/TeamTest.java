@@ -1,6 +1,5 @@
 package domain.teams;
-
-import infrastructure.team.TeamFakeRepositoryAdapter;
+import infrastructure.team.driving.TeamFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shared.Experience;

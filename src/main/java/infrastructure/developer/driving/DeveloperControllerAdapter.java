@@ -1,9 +1,8 @@
-package infrastructure.developer;
+package infrastructure.developer.driving;
 
 import domain.developers.*;
 import infrastructure.developer.DTO.DeveloperDTO;
 import infrastructure.developer.DTO.DeveloperMapper;
-import infrastructure.developer.driven.DeveloperPostgreAdapter;
 import shared.Experience;
 import shared.Skill;
 import shared.developers.Email;
@@ -17,12 +16,16 @@ import java.util.List;
 
 public class DeveloperControllerAdapter {
 
-    private static final ManageDeveloper developerManager = new DeveloperManager(
-            new DeveloperPostgreAdapter()
-    );
+    private static ManageDeveloper manageDeveloper;
+
+    public static void initialize(ManageDeveloper manageDeveloper) {
+        DeveloperControllerAdapter.manageDeveloper = manageDeveloper;
+
+
+    }
 
     public static void getAllDevelopers(Context ctx) {
-        List<Developer> developers = developerManager.getAllDevelopers();
+        List<Developer> developers = manageDeveloper.getAllDevelopers();
 
         List<DeveloperDTO> developersDTOS = new ArrayList<>();
 
@@ -37,7 +40,7 @@ public class DeveloperControllerAdapter {
 
     public static void getDeveloperByEmail(Context ctx) {
         String email = ctx.pathParam("email");
-        Developer developer = developerManager.getDeveloperByMail(new Email(email));
+        Developer developer = manageDeveloper.getDeveloperByMail(new Email(email));
         DeveloperDTO developerDTO = DeveloperMapper.mapDeveloperToDTO(developer);
         ctx.json(developerDTO);
     }
@@ -49,7 +52,7 @@ public class DeveloperControllerAdapter {
 
         skillEnum = Skill.valueOf(skill);
 
-        List<Developer> developers = developerManager.getAllDevelopersBySkill(skillEnum);
+        List<Developer> developers = manageDeveloper.getAllDevelopersBySkill(skillEnum);
         List<DeveloperDTO> developersDTOS = new ArrayList<>();
 
         for(Developer developer : developers) {
@@ -76,7 +79,7 @@ public class DeveloperControllerAdapter {
         experience = experience.toString().toUpperCase();
         experienceEnum = Experience.valueOf(experience);
 
-        List<Developer> developers = developerManager.getAllDevelopersBySkillAndExperience(skillEnum, experienceEnum);
+        List<Developer> developers = manageDeveloper.getAllDevelopersBySkillAndExperience(skillEnum, experienceEnum);
         List<DeveloperDTO> developersDTOS = new ArrayList<>();
 
         for(Developer developer : developers) {
@@ -98,7 +101,7 @@ public class DeveloperControllerAdapter {
 
         Developer developer = new Developer(firstName, lastName, email, skillsByYearsOfExperience, null);
 
-        developerManager.createDeveloper(developer);
+        manageDeveloper.createDeveloper(developer);
 
         ctx.status(201);
         ctx.json(developerDTO);
@@ -106,7 +109,7 @@ public class DeveloperControllerAdapter {
 
     public static void deleteDeveloper(Context ctx) {
         String email = ctx.pathParam("email");
-        Email result = developerManager.removeDeveloper(new Email(email));
+        Email result = manageDeveloper.removeDeveloper(new Email(email));
         ctx.json("{ \"status\": 200, \"message\": \"Developer deleted successfully\" }");
         ctx.status(200);
     }

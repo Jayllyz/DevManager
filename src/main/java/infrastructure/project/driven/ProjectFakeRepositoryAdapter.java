@@ -1,4 +1,4 @@
-package infrastructure.project;
+package infrastructure.project.driven;
 
 import domain.projects.Project;
 import domain.projects.ProjectRepository;
