@@ -53,4 +53,8 @@ public class ProjectDTO {
     public Status getStatus() {
         return status;
     }
+
+    public List<DeveloperDTO> getTeam() {
+        return team;
+    }
 }
