@@ -28,13 +28,14 @@ public class Developer {
     public boolean hasSkill(Skill skill) {
         return skills.hasSkill(skill);
     }
-
     public Experience getSkillExperience(Skill skill) {
         return this.skills.getSkillExperience(skill);
     }
-
     public Experience getGlobalExperience() {
         return this.skills.getGlobalExperience();
+    }
+    public SkillsByYearsOfExperience getSkillsByYearsOfExperience() {
+        return this.skills;
     }
 
 }

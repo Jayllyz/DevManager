@@ -14,8 +14,9 @@ import java.util.List;
 public class ProjectManager implements ManageProject {
     ProjectRepository repository;
     DeveloperManagement developerManagement;
+    TeamManagement teamManagement;
 
-    public ProjectManager(ProjectRepository repository, DeveloperManagement developerManagement) {
+    public ProjectManager(ProjectRepository repository, DeveloperManagement developerManagement, TeamManagement teamManagement) {
 
         if(repository == null) {
             throw new IllegalArgumentException("repository can't be null");
@@ -25,8 +26,13 @@ public class ProjectManager implements ManageProject {
             throw new IllegalArgumentException("developer management can't be null");
         }
 
+        if(teamManagement == null) {
+            throw new IllegalArgumentException("team management can't be null");
+        }
+
         this.repository = repository;
         this.developerManagement = developerManagement;
+        this.teamManagement = teamManagement;
     }
 
     @Override

@@ -2,18 +2,18 @@ package infrastructure.project;
 
 import domain.developers.DeveloperManager;
 import domain.projects.*;
+import domain.teams.TeamManager;
 import infrastructure.developer.DeveloperFakeRepositoryAdapter;
+import infrastructure.team.TeamFakeRepositoryAdapter;
 import io.javalin.http.Context;
-import shared.exceptions.EntityNotFoundException;
-import shared.exceptions.InvalidAttributeException;
-import shared.projects.Name;
 
 import java.util.List;
 
 public class ProjectControllerAdapter {
     private static final ManageProject projectManager = new ProjectManager(
             new ProjectFakeRepositoryAdapter(),
-            new DeveloperGateway(new DeveloperManager(new DeveloperFakeRepositoryAdapter()))
+            new DeveloperGateway(new DeveloperManager(new DeveloperFakeRepositoryAdapter())),
+            new TeamGateway(new TeamManager(new TeamFakeRepositoryAdapter()))
     );
 
     public static void getAllProjects(Context ctx) {

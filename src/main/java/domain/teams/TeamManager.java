@@ -4,7 +4,7 @@ import shared.exceptions.InvalidAttributeException;
 
 import java.util.List;
 
-public class TeamManager implements ManageTeam {
+public class TeamManager implements ManageTeam, ManageTeamProject {
     TeamRepository teamRepository;
 
     public TeamManager(TeamRepository teamRepository) {
@@ -24,12 +24,17 @@ public class TeamManager implements ManageTeam {
     }
 
     @Override
-    public Team addDevelopersToProject(Project project, List<Developer> developers) {
+    public Team getTeamForProject(domain.projects.Project project) {
+        return this.teamRepository.getTeamForProject(project);
+    }
+
+    @Override
+    public Team addDeveloperToProject(domain.projects.Developer developer, domain.projects.Project project) {
         return null;
     }
 
     @Override
-    public Team removeDevelopersFromProject(Project project, List<Developer> developers) {
+    public Team removeDeveloperFromProject(domain.projects.Developer developer, domain.projects.Project project) {
         return null;
     }
 }

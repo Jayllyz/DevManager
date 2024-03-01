@@ -37,7 +37,6 @@ public class Developer {
     public Experience getGlobalExperience() {
         return this.skills.getGlobalExperience();
     }
-
     public SkillsByYearsOfExperience getSkillsByYearsOfExperience() {
         return this.skills;
     }

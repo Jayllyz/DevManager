@@ -1,6 +1,5 @@
 package domain.teams;
 
-import domain.teams.Developer;
 import shared.Experience;
 import shared.Priority;
 import shared.developers.Email;
@@ -40,6 +39,14 @@ public class Team {
         }
 
         developers.add(developer);
+    }
+
+    public void removeDeveloper(Developer developer) throws InvalidAttributeException {
+        if(!developerInTeam(developer)) {
+            throw new InvalidAttributeException("Developer does not exist in team");
+        }
+
+        developers.remove(developer);
     }
 
     private boolean developerInTeam(Developer developer) {
@@ -128,7 +135,14 @@ public class Team {
         }
 
         return false;
+    }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public List<Developer> getDevelopers() {
+        return developers;
     }
 }
 

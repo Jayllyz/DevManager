@@ -1,10 +1,8 @@
 package infrastructure.project;
 
 import domain.developers.ManageDeveloperProject;
-import domain.developers.Projects;
 import domain.projects.Developer;
 import domain.projects.DeveloperManagement;
-import domain.projects.Project;
 import shared.Experience;
 import shared.Skill;
 import shared.developers.Email;

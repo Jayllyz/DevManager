@@ -9,7 +9,6 @@ import shared.Priority;
 import shared.Skill;
 import shared.Status;
 import shared.developers.Email;
-import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
 import shared.projects.Deadline;
@@ -87,6 +86,36 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
     @Override
     public Team createTeam(Team team) {
         teams.add(team);
+        return team;
+    }
+
+    @Override
+    public Team getTeamForProject(domain.projects.Project project) {
+        for(Team team : teams) {
+            if(team.getProject().equals(project)) {
+                return team;
+            }
+        }
+        throw new IllegalArgumentException("No team found for this project");
+    }
+
+    @Override
+    public Team addDevelopersToProject(domain.projects.Project project, List<domain.projects.Developer> developers) {
+        Team team = getTeamForProject(project);
+        for (domain.projects.Developer developer : developers) {
+            Developer newDeveloper = new Developer(developer.getEmail(), developer.getSkillsByYearsOfExperience());
+            team.addDeveloper(newDeveloper);
+        }
+        return team;
+    }
+
+    @Override
+    public Team removeDevelopersFromProject(domain.projects.Project project, List<domain.projects.Developer> developers) {
+        Team team = getTeamForProject(project);
+        for (domain.projects.Developer developer : developers) {
+            Developer newDeveloper = new Developer(developer.getEmail(), developer.getSkillsByYearsOfExperience());
+            team.removeDeveloper(newDeveloper);
+        }
         return team;
     }
 }
