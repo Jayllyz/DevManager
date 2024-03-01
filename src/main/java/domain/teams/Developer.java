@@ -1,9 +1,7 @@
 package domain.teams;
-import domain.developers.Projects;
 import shared.Experience;
 import shared.Skill;
 import shared.developers.Email;
-import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 
 import java.util.List;

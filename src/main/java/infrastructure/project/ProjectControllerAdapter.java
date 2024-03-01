@@ -90,6 +90,22 @@ public class ProjectControllerAdapter {
         ctx.json(projectsDTOS);
     }
 
+    public static void getNextStartingProject(Context ctx) {
+        Project project = projectManager.getNextStartingProject();
+        Team team = projectManager.getTeamForProject(project);
+        List<Developer> developers = team.getDevelopers();
+
+        List<DeveloperDTO> developersDTOS = new ArrayList<>();
+        for(Developer developer : developers) {
+            DeveloperDTO developerDTO = DeveloperMapper.mapDeveloperToDTO(developer);
+            developersDTOS.add(developerDTO);
+        }
+
+        ProjectDTO projectDTO = ProjectMapper.mapProjectToDTO(project, developersDTOS);
+        ctx.status(200);
+        ctx.json(projectDTO);
+    }
+
     public static void createProject(Context ctx) throws EntityAlreadyExistsException {
         ProjectDTO projectDTO = ctx.bodyAsClass(ProjectDTO.class);
 

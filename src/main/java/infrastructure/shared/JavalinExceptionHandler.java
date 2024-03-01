@@ -1,7 +1,6 @@
 package infrastructure.shared;
 
 import io.javalin.Javalin;
-import io.javalin.http.Context;
 import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.EntityNotFoundException;
 import shared.exceptions.InvalidAttributeException;
