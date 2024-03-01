@@ -161,5 +161,66 @@ class DeveloperTest {
         assertEquals(1,developers.size());
     }
 
+    @Test
+    @DisplayName("Should return a String with getFirstName")
+    void shouldReturnAStringWithGetFirstName() {
+        Developer developer = this.devManager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+        assertEquals("john", developer.getFirstName());
+    }
 
+    @Test
+    @DisplayName("Should return a String with getLastName")
+    void shouldReturnAStringWithGetLastName() {
+        Developer developer = this.devManager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+        assertEquals("Doe", developer.getLastName());
+    }
+
+    @Test
+    @DisplayName("Should return a String with getEmailAddress")
+    void shouldReturnAEmailWithGetEmail() {
+        Developer developer = this.devManager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+        assertEquals("johndoe@gmail.com", developer.getEmailAddress());
+    }
+
+    @Test
+    @DisplayName("Should return a List of Skills with getSkills")
+    void shouldReturnAListOfSkillsWithGetSkills() {
+        Developer developer = this.devManager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+        assertInstanceOf(List.class, developer.getSkills());
+    }
+
+    @Test
+    @DisplayName("Should return true when developer has skill")
+    void shouldReturnTrueWhenDeveloperHasSkill() {
+        Developer developer = this.devManager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+        assertTrue(developer.hasSkill(Skill.PHP));
+    }
+
+    @Test
+    @DisplayName("Should return Projects with getProjects")
+    void shouldReturnProjectsWithGetProjects() {
+        Developer developer = this.devManager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+        assertInstanceOf(Projects.class, developer.getProjects());
+    }
+
+    @Test
+    @DisplayName("Should return false when developer has not skill")
+    void shouldReturnFalseWhenDeveloperHasNotSkill() {
+        Developer developer = this.devManager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+        assertFalse(developer.hasSkill(Skill.JAVA));
+    }
+
+    @Test
+    @DisplayName("Should return a Experience with getSkillExperience")
+    void shouldReturnAExperienceWithGetSkillExperience() {
+        Developer developer = this.devManager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+        assertEquals(Experience.JUNIOR, developer.getSkillExperience(Skill.PHP));
+    }
+
+    @Test
+    @DisplayName("Should return a Experience with getGlobalExperience")
+    void shouldReturnAExperienceWithGetGlobalExperience() {
+        Developer developer = this.devManager.getDeveloperByMail(new Email("johndoe@gmail.com"));
+        assertEquals(Experience.EXPERT, developer.getGlobalExperience());
+    }
 }
