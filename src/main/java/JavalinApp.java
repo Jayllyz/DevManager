@@ -37,7 +37,7 @@ public class JavalinApp {
         app.get("project/name/{name}", ProjectControllerAdapter::getProjectByName);
         app.get("project/all/", ProjectControllerAdapter::getAllProjects);
         app.get("project/status/{status}", ProjectControllerAdapter::getProjectsByStatus);
-//        app.get("project/nextStarting/", ProjectControllerAdapter::getNextStartingProject);
+        app.get("project/nextStarting/", ProjectControllerAdapter::getNextStartingProject);
 
         // POST
         app.post("project/", ProjectControllerAdapter::createProject);
