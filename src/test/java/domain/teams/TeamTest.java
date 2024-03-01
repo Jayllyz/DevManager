@@ -1,7 +1,6 @@
 package domain.teams;
 
-import domain.teams.Developer;
-import infrastructure.team.TeamFakeRepositoryAdapter;
+import infrastructure.team.driving.TeamFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import shared.Experience;
@@ -9,7 +8,6 @@ import shared.Priority;
 import shared.Skill;
 import shared.Status;
 import shared.developers.Email;
-import shared.developers.Name;
 import shared.developers.SkillsByYearsOfExperience;
 import shared.exceptions.InvalidAttributeException;
 import shared.projects.Deadline;
