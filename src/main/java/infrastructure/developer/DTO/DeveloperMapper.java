@@ -2,8 +2,12 @@ package infrastructure.developer.DTO;
 
 import domain.developers.Developer;
 import domain.developers.Project;
+import domain.developers.Projects;
 import shared.Experience;
 import shared.Skill;
+import shared.developers.Email;
+import shared.developers.Name;
+import shared.developers.SkillsByYearsOfExperience;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,5 +34,30 @@ public class DeveloperMapper {
         }
 
         return new DeveloperDTO(firstName, lastName, emailAddress, skillByExperienceSimple, projects);
+    }
+
+    public static Developer mapDTOtoDeveloper(DeveloperDTO developerDTO) {
+        String firstName = developerDTO.getFirstName();
+        String lastName = developerDTO.getLastName();
+        String emailAddress = developerDTO.getEmailAddress();
+        HashMap<Skill,Experience> skillByExperience = developerDTO.getSkillByExperience();
+        List<ProjectDTO> projectsDTO = developerDTO.getProjects();
+
+        Projects projects = new Projects();
+
+        for(ProjectDTO projectDTO : projectsDTO) {
+            Project project = ProjectMapper.mapDTOtoProject(projectDTO);
+            projects.add(project);
+        }
+
+
+
+        return new Developer(
+                new Name(firstName),
+                new Name(lastName),
+                new Email(emailAddress),
+                new SkillsByYearsOfExperience(skillByExperience),
+                projects
+        );
     }
 }

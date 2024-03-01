@@ -1,11 +1,13 @@
 package infrastructure.shared.database;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import org.jetbrains.annotations.Nullable;
 import shared.Skill;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "developer", schema = "public", catalog = "devManager")
@@ -46,21 +48,19 @@ public class DeveloperEntity {
         this.firstName = firstName;
     }
 
-    @ManyToMany
-    @JoinTable(
-            name = "developer_skills",
-            joinColumns = @JoinColumn(name = "dev_email"),
-            inverseJoinColumns = @JoinColumn(name = "skill_id")
-    )
-    private List<SkillEntity> skills;
+    @OneToMany(mappedBy = "dev_email")
+    Set<DeveloperSkillsEntity> skillsEntities;
+    public Set<DeveloperSkillsEntity> getSkillsEntities() {
+        return skillsEntities;
+    }
 
-    public List<SkillEntity> skills() {
-        return skills;
+    public void setSkillsEntities(Set<DeveloperSkillsEntity> skillsEntities) {
+        this.skillsEntities = skillsEntities;
     }
 
     @ManyToMany
     @JoinTable(
-            name = "developer_skills",
+            name = "team",
             joinColumns = @JoinColumn(name = "dev_id"),
             inverseJoinColumns = @JoinColumn(name = "project_id")
     )
@@ -70,11 +70,10 @@ public class DeveloperEntity {
         return projects;
     }
 
+    @JsonIgnoreProperties({"developer"})
     public void setProjects(List<ProjectEntity> projects) {
         this.projects = projects;
     }
-
-
 
     @Override
     public boolean equals(Object o) {

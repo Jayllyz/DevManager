@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @jakarta.persistence.Table(name = "project", schema = "public", catalog = "devManager")
@@ -91,6 +92,16 @@ public class ProjectEntity {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    @OneToMany(mappedBy = "project_id")
+    Set<SkillsForProjectEntity> skillsEntities;
+    public Set<SkillsForProjectEntity> getSkillsEntities() {
+        return skillsEntities;
+    }
+
+    public void setSkillsEntities(Set<SkillsForProjectEntity> skillsEntities) {
+        this.skillsEntities = skillsEntities;
     }
 
     @Override

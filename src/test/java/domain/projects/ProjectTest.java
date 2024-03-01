@@ -2,13 +2,12 @@ package domain.projects;
 
 import domain.developers.DeveloperManager;
 import domain.developers.DeveloperRepository;
-import domain.developers.ManageDeveloper;
 import domain.developers.ManageDeveloperProject;
 import domain.projects.attributes.*;
+import infrastructure.developer.driven.DeveloperFakeRepositoryAdapter;
 import domain.teams.ManageTeamProject;
 import domain.teams.TeamManager;
 import domain.teams.TeamRepository;
-import infrastructure.developer.DeveloperFakeRepositoryAdapter;
 import infrastructure.project.DeveloperGateway;
 import infrastructure.project.TeamGateway;
 import infrastructure.team.TeamFakeRepositoryAdapter;
@@ -17,14 +16,12 @@ import shared.Skill;
 import infrastructure.project.ProjectFakeRepositoryAdapter;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import shared.Status;
 import shared.exceptions.EntityAlreadyExistsException;
 import shared.exceptions.EntityNotFoundException;
 import shared.exceptions.InvalidAttributeException;
 import shared.projects.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;

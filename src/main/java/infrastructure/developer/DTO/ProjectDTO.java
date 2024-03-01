@@ -27,6 +27,35 @@ public class ProjectDTO {
         this.status = status;
     }
 
+    public ProjectDTO() {
+
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public void setStart(LocalDate start) {
+        this.start = start;
+    }
+
+    public void setDeadline(LocalDate deadline) {
+        this.deadline = deadline;
+    }
+
+    public void setSkillStack(HashMap<Skill, Integer> skillStack) {
+        this.skillStack = skillStack;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+
     public String getName() {
         return name;
     }

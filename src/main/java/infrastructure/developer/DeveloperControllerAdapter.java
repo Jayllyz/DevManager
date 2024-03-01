@@ -3,6 +3,7 @@ package infrastructure.developer;
 import domain.developers.*;
 import infrastructure.developer.DTO.DeveloperDTO;
 import infrastructure.developer.DTO.DeveloperMapper;
+import infrastructure.developer.driven.DeveloperPostgreAdapter;
 import shared.Experience;
 import shared.Skill;
 import shared.developers.Email;
@@ -17,7 +18,7 @@ import java.util.List;
 public class DeveloperControllerAdapter {
 
     private static final ManageDeveloper developerManager = new DeveloperManager(
-            new DeveloperFakeRepositoryAdapter()
+            new DeveloperPostgreAdapter()
     );
 
     public static void getAllDevelopers(Context ctx) {
@@ -61,6 +62,8 @@ public class DeveloperControllerAdapter {
     }
 
     public static void getAllDevelopersBySkillAndExperience(Context ctx){
+        String jsonBody = ctx.body();
+
         String skill = ctx.queryParam("skill");
         String experience = ctx.queryParam("experience");
 
@@ -70,7 +73,7 @@ public class DeveloperControllerAdapter {
         skill = skill.toUpperCase();
         skillEnum = Skill.valueOf(skill);
 
-        experience = experience.toUpperCase();
+        experience = experience.toString().toUpperCase();
         experienceEnum = Experience.valueOf(experience);
 
         List<Developer> developers = developerManager.getAllDevelopersBySkillAndExperience(skillEnum, experienceEnum);

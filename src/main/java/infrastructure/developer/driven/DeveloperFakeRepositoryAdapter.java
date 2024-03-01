@@ -1,4 +1,4 @@
-package infrastructure.developer;
+package infrastructure.developer.driven;
 
 import domain.developers.Developer;
 import domain.developers.DeveloperRepository;

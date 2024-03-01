@@ -1,5 +1,6 @@
 package infrastructure.shared.database;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.Objects;
@@ -9,16 +10,21 @@ import java.util.Objects;
 public class DeveloperSkillsEntity {
 
     @Id
-    @ManyToOne
-    @MapsId("email")
     @JoinColumn(name = "dev_email")
-    private DeveloperEntity developer;
+    private String dev_email;
 
     @Id
     @ManyToOne
-    @MapsId("id")
     @JoinColumn(name = "skill_id")
     private SkillEntity skill;
+
+    public SkillEntity getSkill() {
+        return skill;
+    }
+
+    public void setSkill(SkillEntity skill) {
+        this.skill = skill;
+    }
 
     @Column(name = "years_experience")
     private Integer yearsExperience;

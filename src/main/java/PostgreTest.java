@@ -1,12 +1,9 @@
+import infrastructure.developer.DTO.DeveloperDTO;
 import infrastructure.shared.database.DeveloperEntity;
-import infrastructure.shared.database.DeveloperSkillsEntity;
-import infrastructure.shared.database.SkillEntity;
+import infrastructure.shared.database.EntityMapper;
 import jakarta.persistence.*;
-import org.hibernate.SessionFactory;
 import shared.exceptions.EntityNotFoundException;
 import shared.exceptions.InvalidAttributeException;
-
-import java.util.List;
 
 
 public class PostgreTest {
@@ -45,15 +42,18 @@ public class PostgreTest {
 //            System.out.println(skill.getName());
 
 
-            String hql = "FROM DeveloperSkillsEntity "; // HQL query to select all rows
-            TypedQuery<DeveloperSkillsEntity> query = entityManager.createQuery(hql, DeveloperSkillsEntity.class);
-            List<DeveloperSkillsEntity> skills = query.getResultList();
-            for (DeveloperSkillsEntity s : skills) {
-                DeveloperSkillsEntity a = s;
-            }
+//            String hql = "FROM DeveloperEntity"; // HQL query to select all rows
+//            TypedQuery<DeveloperEntity> query = entityManager.createQuery(hql, DeveloperEntity.class);
+//            List<DeveloperEntity> skills = query.getResultList();
+//            for (DeveloperEntity s : skills) {
+//                DeveloperEntity a = s;
+//            }
 //
-//            DeveloperEntity devtest =  entityManager.find(DeveloperEntity.class,"supertest@gmail.com");
+//            DeveloperEntity devtest =  entityManager.find(DeveloperEntity.class,"john@example.com");
 //            DeveloperEntity bb = devtest;
+//
+//            DeveloperDTO devDto = EntityMapper.developerEntityToDomain(bb);
+//            int a = 3;
 //
 //            String hql = "FROM DeveloperEntity"; // HQL query to select all rows
 //            TypedQuery<DeveloperEntity> query = entityManager.createQuery(hql, DeveloperEntity.class);

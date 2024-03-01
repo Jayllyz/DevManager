@@ -17,6 +17,30 @@ public class DeveloperDTO {
     private HashMap<Skill, Experience> skillByExperience;
     private List<ProjectDTO> projects;
 
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public void setSkillByExperience(HashMap<Skill, Experience> skillByExperience) {
+        this.skillByExperience = skillByExperience;
+    }
+
+    public void setProjects(List<ProjectDTO> projects) {
+        this.projects = projects;
+    }
+
+    public DeveloperDTO() {
+
+    }
+
     @JsonCreator
     public DeveloperDTO(
             @JsonProperty("firstName") String firstName,

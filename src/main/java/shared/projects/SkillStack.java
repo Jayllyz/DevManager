@@ -51,4 +51,5 @@ public class SkillStack {
     public HashMap<Skill, Integer> getStack() {
         return stack;
     }
+
 }

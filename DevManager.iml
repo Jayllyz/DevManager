@@ -15,7 +15,7 @@
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
           <factory-entry name="DevManager" value="2b68f524-8b0f-4168-80e3-c83c4ce19cc5" />
-          <factory-entry name="default" />
+          <factory-entry name="default" value="7d846ee9-950f-4108-9866-1b5ba1a97188" />
         </datasource-mapping>
         <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />

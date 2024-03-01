@@ -9,4 +9,6 @@ public enum Skill {
     COFFEE,
     C,
     JAVA,
+    PYTHON,
+    SQL
 }
