@@ -1,6 +1,9 @@
 package infrastructure.project.DTO;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import shared.Experience;
 import shared.Priority;
 import shared.Skill;
 import shared.Status;
@@ -11,7 +14,8 @@ import java.util.List;
 
 public class ProjectDTO {
     private String name;
-    private Priority priority;
+    private String priority;
+    private String description;
     @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate start;
     @JsonFormat(pattern = "yyyy-MM-dd")
@@ -20,9 +24,19 @@ public class ProjectDTO {
     private Status status;
     private List<DeveloperDTO> team;
 
-    public ProjectDTO(String name, Priority priority, LocalDate start, LocalDate deadline, HashMap<Skill, Integer> stack, Status status, List<DeveloperDTO> team) {
+    @JsonCreator
+    public ProjectDTO(
+            @JsonProperty("name") String name,
+            @JsonProperty("priority") String priority,
+            @JsonProperty("description") String description,
+            @JsonProperty("startDate") LocalDate start,
+            @JsonProperty("deadline") LocalDate deadline,
+            @JsonProperty("stack") HashMap<Skill, Integer> stack,
+            @JsonProperty("status") Status status,
+            @JsonProperty("team") List<DeveloperDTO> team) {
         this.name = name;
         this.priority = priority;
+        this.description = description;
         this.start = start;
         this.deadline = deadline;
         this.skillStack = stack;
@@ -34,8 +48,12 @@ public class ProjectDTO {
         return name;
     }
 
-    public Priority getPriority() {
+    public String getPriority() {
         return priority;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public LocalDate getStart() {

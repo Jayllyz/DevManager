@@ -1,7 +1,6 @@
 package infrastructure.project.DTO;
 
 import domain.projects.Project;
-import shared.Priority;
 import shared.Skill;
 import shared.Status;
 
@@ -14,14 +13,16 @@ public class ProjectMapper {
     public static ProjectDTO mapProjectToDTO(Project project, List<DeveloperDTO> team) {
         String name = project.getName();
         Status status = project.getStatus();
+        String description = project.getDescription();
         LocalDate deadline = project.getDeadline();
         LocalDate start = project.getStart();
-        Priority priority = project.getPriority();
+        String priority = project.getPriority().toString();
         HashMap<Skill, Integer> skills = project.getStack();
 
         return new ProjectDTO(
                 name,
                 priority,
+                description,
                 start,
                 deadline,
                 skills,

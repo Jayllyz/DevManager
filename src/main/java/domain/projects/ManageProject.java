@@ -24,4 +24,6 @@ public interface ManageProject {
     Project postponeProject(Project project, LocalDate startDate);
     Project getNextStartingProject();
     Team getTeamForProject(Project project);
+    Team addDeveloperToProject(List<Developer> developer, Project project);
+    Team removeDeveloperFromProject(List<Developer> developer, Project project);
 }

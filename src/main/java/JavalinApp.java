@@ -38,6 +38,12 @@ public class JavalinApp {
         app.get("project/all/", ProjectControllerAdapter::getAllProjects);
         app.get("project/status/{status}", ProjectControllerAdapter::getProjectsByStatus);
 
+        // POST
+        app.post("project/", ProjectControllerAdapter::createProject);
+
+        // PUT
+        app.put("project/{name}/postpone/{startDate}", ProjectControllerAdapter::postponeProject);
+
         // DELETE
         app.delete("project/{name}", ProjectControllerAdapter::deleteProject);
 

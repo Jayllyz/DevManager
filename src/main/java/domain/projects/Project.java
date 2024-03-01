@@ -76,7 +76,10 @@ public class Project {
 
     public void postponeProject(LocalDate newDate){
         try {
-            this.deadline = new Deadline(newDate);
+            Period timeDiff = Period.between(this.start.toDate(), newDate);
+
+            this.start = new StartDate(newDate);
+            this.deadline = new Deadline(this.deadline.toDate().plus(timeDiff));
         } catch (InvalidAttributeException e) {
             e.printStackTrace();
         }

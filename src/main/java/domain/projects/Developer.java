@@ -18,22 +18,18 @@ public class Developer {
     }
 
     public Email getEmail(){ return this.emailAddress; }
-
     public String getEmailAddress() {
         return emailAddress.toString();
     }
-
     public List<Skill> getSkills() {
         return skills.getSkills();
     }
     public boolean hasSkill(Skill skill) {
         return skills.hasSkill(skill);
     }
-
     public Experience getSkillExperience(Skill skill) {
         return this.skills.getSkillExperience(skill);
     }
-
     public Experience getGlobalExperience() {
         return this.skills.getGlobalExperience();
     }

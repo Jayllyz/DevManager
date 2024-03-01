@@ -91,4 +91,14 @@ public class ProjectManager implements ManageProject {
     public Team getTeamForProject(Project project) {
         return teamManagement.getTeamForProject(project);
     }
+
+    @Override
+    public Team addDeveloperToProject(List<Developer> developers, Project project) {
+        return teamManagement.addDeveloperToProject(developers, project);
+    }
+
+    @Override
+    public Team removeDeveloperFromProject(List<Developer> developers, Project project) {
+        return teamManagement.removeDeveloperFromProject(developers, project);
+    }
 }
