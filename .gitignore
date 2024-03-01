@@ -27,4 +27,5 @@ replay_pid*
 target/*
 
 megalinter-reports/
+src/main/ressources/
 .env
