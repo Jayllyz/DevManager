@@ -24,3 +24,7 @@ Run the application.
 ```sh
 mvn clean compile exec:java
 ```
+
+## Architecture
+
+![Architecture](./assets/arch.png)
