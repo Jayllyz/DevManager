@@ -37,6 +37,8 @@ public class Team {
         this.developers.addAll(developers);
         this.project = project;
 
+        validateForProject();
+
     }
 
     public void addDeveloper(Developer developer) throws InvalidAttributeException {
@@ -67,7 +69,7 @@ public class Team {
         return false;
     }
 
-    public void validate() throws InvalidAttributeException {
+    public void validateForProject() throws InvalidAttributeException {
         if(developers.size() < 3){
             throw new InvalidAttributeException("Team must have at least 3 developers");
         }

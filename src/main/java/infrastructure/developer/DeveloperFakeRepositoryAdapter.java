@@ -69,9 +69,9 @@ public class DeveloperFakeRepositoryAdapter implements DeveloperRepository {
         skillSet3.put(Skill.COBOL,Experience.fromYearsOfExperience(4));
         skillSet3.put(Skill.COFFEE,Experience.fromYearsOfExperience(1));
         skillSet3.put(Skill.SCRATCH,Experience.fromYearsOfExperience(2));
-        skillSet3.put(Skill.C,Experience.fromYearsOfExperience(2));
+        skillSet3.put(Skill.C,Experience.fromYearsOfExperience(8));
 
-        skillSet4.put(Skill.C,Experience.fromYearsOfExperience(2));
+        skillSet4.put(Skill.C,Experience.fromYearsOfExperience(8));
 
         Projects projects1 = new Projects();
         projects1.add(projects.get(2));

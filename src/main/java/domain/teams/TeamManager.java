@@ -1,5 +1,6 @@
 package domain.teams;
 
+import shared.developers.Email;
 import shared.exceptions.InvalidAttributeException;
 
 import java.util.List;
@@ -30,7 +31,8 @@ public class TeamManager implements ManageTeam, ManageTeamProject {
 
     @Override
     public Team addDeveloperToProject(List<domain.projects.Developer> developers, domain.projects.Project project) {
-        return this.teamRepository.addDeveloperToProject(developers, project);
+        List<Email> developersEmail = developers.stream().map(developer -> developer.getEmail()).toList();
+        return this.teamRepository.addDeveloperToProject(developersEmail, project);
     }
 
     @Override

@@ -17,19 +17,19 @@ public class JavalinExceptionHandler {
         });
 
         app.exception(InvalidAttributeException.class, (e, ctx) -> {
-            String jsonError = makeJsonError(404,e.getMessage());
+            String jsonError = makeJsonError(400,e.getMessage());
             ctx.json(jsonError).
                     status(400);
         });
 
         app.exception(IllegalArgumentException.class, (e, ctx) -> {
-            String jsonError = makeJsonError(404,e.getMessage());
+            String jsonError = makeJsonError(400,e.getMessage());
             ctx.json(jsonError).
                     status(400);
         });
 
         app.exception(EntityAlreadyExistsException.class, (e, ctx) -> {
-            String jsonError = makeJsonError(404,e.getMessage());
+            String jsonError = makeJsonError(409,e.getMessage());
             ctx.json(jsonError).
                     status(409);
         });

@@ -33,6 +33,13 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
         HashMap<Skill, Experience> skillSet2;
         HashMap<Skill, Experience> skillSet3;
 
+        HashMap<Skill, Experience> skillSetSkilled;
+
+        skillSetSkilled = new HashMap<>(
+                Map.of(
+                        Skill.C, Experience.fromYearsOfExperience(5)
+                )
+        );
 
         skillSet1 = new HashMap<>(
                 Map.of(
@@ -64,11 +71,12 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
                 new Developer(new Email("marc@gmail.com"),new SkillsByYearsOfExperience(skillSet2)),
                 new Developer(new Email("jeanne@gmail.com"),new SkillsByYearsOfExperience(skillSet3)),
                 new Developer(new Email("fda@gmail.com"),new SkillsByYearsOfExperience(skillSet3)),
-                new Developer(new Email("fsfsf@gmail.com"),new SkillsByYearsOfExperience(skillSet3))
-        );
+                new Developer(new Email("fsfsf@gmail.com"),new SkillsByYearsOfExperience(skillSet3)),
 
-        LocalDate tomorrow = LocalDate.now().plusDays(1);
-        LocalDate in7Months = LocalDate.now().plusMonths(7);
+                new Developer(new Email("test1@gmail.com"),new SkillsByYearsOfExperience(skillSetSkilled)),
+                new Developer(new Email("test2@gmail.com"),new SkillsByYearsOfExperience(skillSetSkilled)),
+                new Developer(new Email("test3@gmail.com"),new SkillsByYearsOfExperience(skillSetSkilled))
+        );
 
         SkillStack skillsNeeded = new SkillStack();
         skillsNeeded.put(Skill.SCRATCH,1);
@@ -122,12 +130,16 @@ public class TeamFakeRepositoryAdapter implements TeamRepository {
     }
 
     @Override
-    public Team addDeveloperToProject(List<domain.projects.Developer> developers, domain.projects.Project project) {
+    public Team addDeveloperToProject(List<Email> developersEmail, domain.projects.Project project) {
         Team team = getTeamForProject(project);
-        for (domain.projects.Developer developer : developers) {
-            Developer newDeveloper = new Developer(developer.getEmail(), developer.getSkillsByYearsOfExperience());
-            team.addDeveloper(newDeveloper);
+        for (Email developerEmail : developersEmail) {
+            for(Developer developer : developers){
+                if(developer.getEmail().toString().equals(developerEmail.toString())){
+                    team.addDeveloper(developer);
+                }
+            }
         }
+        team.validateForProject();
         return team;
     }
 
