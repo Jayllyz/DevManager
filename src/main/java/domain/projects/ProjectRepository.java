@@ -3,7 +3,6 @@ package domain.projects;
 import shared.Status;
 import shared.exceptions.EntityNotFoundException;
 import shared.projects.Name;
-import shared.projects.SkillStack;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -15,4 +14,6 @@ public interface ProjectRepository {
     Boolean deleteProject(Project project);
     Project postponeProject(Project project, LocalDate startDate);
     Project getNextStartingProject();
+    List<Project> getAllProjects();
+    Project getProjectByName(Name name);
 }

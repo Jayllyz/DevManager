@@ -54,7 +54,7 @@ public class TeamTest {
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
-            team.validate();
+            team.validateForProject();
         });
 
         String expectedError = "Team must have at least 3 developers";
@@ -85,7 +85,7 @@ public class TeamTest {
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
-            team.validate();
+            team.validateForProject();
         });
 
         String expectedError = "Team can't have more than 8 developers";
@@ -112,8 +112,8 @@ public class TeamTest {
 
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
-            Team team = new Team(projectNormal,developers);
-            team.validate();
+            Team team = new Team(projectNormal, developers);
+            team.validateForProject();
         });
 
         String expectedError = "Team can't have a junior developer without an expert developer";
@@ -137,7 +137,7 @@ public class TeamTest {
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
-            team.validate();
+            team.validateForProject();
         });
 
         String expectedError = "Team need an expert if the project is longer than 6 months";
@@ -165,7 +165,7 @@ public class TeamTest {
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
-            team.validate();
+            team.validateForProject();
         });
 
         String expectedError = "An expert cannot be in a team with less than 5 developers if the project is not critical";
@@ -194,7 +194,7 @@ public class TeamTest {
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
-            team.validate();
+            team.validateForProject();
         });
 
         String expectedError = "Team can't have more than 3 junior developers";
@@ -221,7 +221,7 @@ public class TeamTest {
 
         InvalidAttributeException e = assertThrows(InvalidAttributeException.class,() -> {
             Team team = new Team(projectNormal,developers);
-            team.validate();
+            team.validateForProject();
         });
 
         String expectedError = "There cannot be duplicates developers in the team";

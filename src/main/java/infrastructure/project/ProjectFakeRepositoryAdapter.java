@@ -1,8 +1,8 @@
 package infrastructure.project;
 
-import domain.projects.Developer;
 import domain.projects.Project;
 import domain.projects.ProjectRepository;
+import domain.projects.Team;
 import domain.projects.attributes.*;
 import shared.Priority;
 import shared.Status;
@@ -38,9 +38,9 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
             skillStack3.put(Skill.COFFEE, 1);
 
             projects = new ArrayList<>(List.of(
-                    new Project(new Name("Calculator"), Priority.NORMAL, new Description("Une calculatrice en C"), new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack1,Status.CANCELLED),
-                    new Project(new Name("Spotify"), Priority.CRITICAL, new Description("you know"), new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack2,Status.IN_PROGRESS),
-                    new Project(new Name("jsp"), Priority.NORMAL, new Description("un projet"), new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack3,Status.DONE)
+                    new Project(new Name("Calculator"), Priority.NORMAL, new Description("Une calculatrice en C"), new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack1, Status.CANCELLED),
+                    new Project(new Name("Spotify"), Priority.CRITICAL, new Description("you know"), new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack2, Status.IN_PROGRESS),
+                    new Project(new Name("jsp"), Priority.NORMAL, new Description("un projet"), new StartDate(LocalDate.now().plusDays(1)), new Deadline(LocalDate.now().plusDays(20)), skillStack3, Status.DONE)
             ));
         } catch (InvalidAttributeException e) {
             throw new RuntimeException(e);
@@ -119,5 +119,19 @@ public class ProjectFakeRepositoryAdapter implements ProjectRepository {
             }
         }
         return null;
+    }
+
+    @Override
+    public List<Project> getAllProjects() {
+        return projects;
+    }
+
+    @Override
+    public Project getProjectByName(Name name) {
+        try {
+            return getProject(name);
+        } catch (EntityNotFoundException e) {
+            throw new EntityNotFoundException("Project not found");
+        }
     }
 }

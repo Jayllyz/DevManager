@@ -1,11 +1,11 @@
 package domain.teams;
 
-import domain.teams.Developer;
 import shared.Experience;
 import shared.Priority;
 import shared.developers.Email;
 import shared.exceptions.InvalidAttributeException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -14,7 +14,12 @@ public class Team {
     private final Project project;
     private List<Developer> developers;
 
-    public Team(Project project,List<Developer> developers) throws InvalidAttributeException {
+    public Team(Project project){
+        this.project = project;
+        this.developers = new ArrayList<>();
+    }
+
+    public Team(Project project, List<Developer> developers) throws InvalidAttributeException {
 
         if(project == null) {
             throw new InvalidAttributeException("You need a project to create a team");
@@ -28,8 +33,11 @@ public class Team {
             throw new InvalidAttributeException("There cannot be duplicates developers in the team");
         }
 
-        this.developers = developers;
+        this.developers = new ArrayList<>();
+        this.developers.addAll(developers);
         this.project = project;
+
+        validateForProject();
 
     }
 
@@ -40,6 +48,14 @@ public class Team {
         }
 
         developers.add(developer);
+    }
+
+    public void removeDeveloper(Developer developer) throws InvalidAttributeException {
+        if(!developerInTeam(developer)) {
+            throw new InvalidAttributeException("Developer does not exist in team");
+        }
+
+        developers.remove(developer);
     }
 
     private boolean developerInTeam(Developer developer) {
@@ -53,7 +69,7 @@ public class Team {
         return false;
     }
 
-    public void validate() throws InvalidAttributeException {
+    public void validateForProject() throws InvalidAttributeException {
         if(developers.size() < 3){
             throw new InvalidAttributeException("Team must have at least 3 developers");
         }
@@ -128,7 +144,14 @@ public class Team {
         }
 
         return false;
+    }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public List<Developer> getDevelopers() {
+        return developers;
     }
 }
 
