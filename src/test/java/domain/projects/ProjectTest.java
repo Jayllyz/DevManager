@@ -189,11 +189,11 @@ public class ProjectTest {
         Project project;
 
         try{
-            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(), Status.WAITING);
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2030, 3, 1)), new Deadline(LocalDate.of(2030, 5, 1)), new SkillStack(), Status.WAITING);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        assertThrows(IllegalArgumentException.class, () -> projectRepository.postponeProject(project, LocalDate.of(2024, 2, 1)));
+        assertThrows(IllegalArgumentException.class, () -> projectRepository.postponeProject(project, LocalDate.of(2030, 2, 1)));
     }
 
     @Test
@@ -203,11 +203,11 @@ public class ProjectTest {
         stack.put(Skill.COBOL, 4);
         Project project;
         try{
-            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(), Status.WAITING);
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2030, 3, 1)), new Deadline(LocalDate.of(2030, 5, 1)), new SkillStack(), Status.WAITING);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        assertInstanceOf(Project.class, projectRepository.postponeProject(project, LocalDate.of(2024, 4, 1)));
+        assertInstanceOf(Project.class, projectRepository.postponeProject(project, LocalDate.of(2030, 4, 1)));
     }
 
     @Test
@@ -217,11 +217,11 @@ public class ProjectTest {
         stack.put(Skill.COBOL, 4);
         Project project;
         try{
-            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(), Status.WAITING);
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2030, 3, 1)), new Deadline(LocalDate.of(2030, 5, 1)), new SkillStack(), Status.WAITING);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        assertThrows(IllegalArgumentException.class, () -> projectRepository.postponeProject(project, LocalDate.of(2024, 2, 1)));
+        assertThrows(IllegalArgumentException.class, () -> projectRepository.postponeProject(project, LocalDate.of(2030, 2, 1)));
     }
 
     @Test
@@ -231,11 +231,11 @@ public class ProjectTest {
         stack.put(Skill.COBOL, 4);
         Project project;
         try{
-            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(), Status.WAITING);
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2030, 3, 1)), new Deadline(LocalDate.of(2030, 5, 1)), new SkillStack(), Status.WAITING);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        assertThrows(IllegalArgumentException.class, () -> projectRepository.postponeProject(project, LocalDate.of(2024, 6, 1)));
+        assertThrows(IllegalArgumentException.class, () -> projectRepository.postponeProject(project, LocalDate.of(2030, 6, 1)));
     }
 
     @Test
@@ -360,12 +360,12 @@ public class ProjectTest {
         stack.put(Skill.COBOL, 4);
         Project project;
         try{
-            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2024, 3, 1)), new Deadline(LocalDate.of(2024, 5, 1)), new SkillStack(), Status.WAITING);
+            project = new Project(new Name("Project 1"), Priority.NORMAL, new Description("Description"), new StartDate(LocalDate.of(2030, 3, 1)), new Deadline(LocalDate.of(2030, 5, 1)), new SkillStack(), Status.WAITING);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        project = projectRepository.postponeProject(project, LocalDate.of(2024, 4, 1));
-        LocalDate newstartDate = LocalDate.of(2024, 4, 1);
+        project = projectRepository.postponeProject(project, LocalDate.of(2030, 4, 1));
+        LocalDate newstartDate = LocalDate.of(2030, 4, 1);
         assertEquals(newstartDate, project.getStart());
     }
 }
