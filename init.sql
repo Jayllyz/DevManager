@@ -73,8 +73,8 @@ VALUES
 
 INSERT INTO Project (name, description, start_date, deadline, priority, status)
 VALUES
-    ('Projet Annuel', 'Web application development', '2024-03-18', '2024-04-15', 'normal', 'done'),
-    ('TESTINGS', 'Data analytics platform', '2024-03-15', '2024-05-30', 'best-effort', 'done');
+    ('Projet Annuel', 'Web application development', '2030-03-18', '2030-04-15', 'normal', 'done'),
+    ('TESTINGS', 'Data analytics platform', '2030-03-15', '2030-05-30', 'best-effort', 'done');
 
 
 INSERT INTO team (dev_id, project_id)
