@@ -20,7 +20,7 @@
         <maven.org.hibernate.version>6.4.4.Final</maven.org.hibernate.version>
         <maven.exec-maven.version>3.2.0</maven.exec-maven.version>
         <maven.postgresql.version>42.7.2</maven.postgresql.version>
-        <maven.fasterxml.core.version>2.16.1</maven.fasterxml.core.version>
+        <maven.fasterxml.core.version>2.16.2</maven.fasterxml.core.version>
         <maven.fasterxml.datatype.version>2.16.1</maven.fasterxml.datatype.version>
     </properties>
 
